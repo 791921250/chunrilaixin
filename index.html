@@ -1,0 +1,4056 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#e9efe9">
+<title>春日来信 · 一对一治愈游戏</title>
+<style>
+/* ============================================================
+   春日来信 · SPRING LETTER
+   一对一 / 治愈 / 春雨 / 信封 / 家庭
+   ============================================================ */
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --paper:#f7f3e8;
+  --paper2:#efe8d9;
+  --paper3:#fbf8f0;
+  --ink:#2e3a34;
+  --ink2:#5c6b63;
+  --ink3:#87948c;
+  --green:#3f6157;
+  --green2:#6f9187;
+  --green3:#a8c0b6;
+  --warm:#bd7a4d;
+  --warm2:#e2a97f;
+  --pink:#c9848e;
+  --line:rgba(63,97,87,.15);
+  --line2:rgba(63,97,87,.08);
+  --shadow:0 18px 50px rgba(47,68,60,.16);
+  --sans:"PingFang SC","HarmonyOS Sans SC","Noto Sans SC","Microsoft YaHei",system-ui,sans-serif;
+  --serif:"Songti SC","Noto Serif SC","STSong","SimSun",serif;
+  --hand:"LXGW WenKai","Kaiti SC","STKaiti","KaiTi","楷体",var(--serif);
+}
+html,body{height:100%}
+body{
+  font-family:var(--sans);color:var(--ink);font-size:14px;line-height:1.75;
+  background:
+    radial-gradient(1200px 820px at 12% -14%,rgba(233,242,233,.95),transparent 62%),
+    radial-gradient(1000px 720px at 96% 4%,rgba(248,238,224,.9),transparent 58%),
+    linear-gradient(155deg,#e9efe8 0%,#e2ebe5 46%,#eee7da 100%);
+  overflow:hidden;
+}
+button,input,textarea,select{font-family:inherit;color:inherit;font-size:inherit}
+button{background:none;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+::selection{background:rgba(111,145,135,.28)}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-thumb{background:rgba(63,97,87,.22);border-radius:6px}
+::-webkit-scrollbar-track{background:transparent}
+*{scrollbar-width:thin;scrollbar-color:rgba(63,97,87,.22) transparent}
+
+/* ---------------- 全局氛围 ---------------- */
+.grain{
+  position:fixed;inset:0;z-index:998;pointer-events:none;opacity:.5;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.055'/%3E%3C/svg%3E");
+}
+.mist{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(480px 320px at 20% 22%,rgba(255,255,255,.55),transparent 70%),
+    radial-gradient(560px 380px at 78% 68%,rgba(255,255,255,.4),transparent 72%);
+  filter:blur(8px);
+  animation:mistDrift 26s ease-in-out infinite alternate;
+}
+@keyframes mistDrift{from{transform:translate3d(-2%,0,0)}to{transform:translate3d(3%,-2%,0)}}
+.rain{position:fixed;inset:0;z-index:6;pointer-events:none;opacity:.62;transition:opacity .8s;overflow:hidden}
+.rain i{
+  position:absolute;top:0;display:block;border-radius:1px;
+  background:linear-gradient(180deg,rgba(84,110,103,0),rgba(84,110,103,.55));
+  animation:rainDrop linear infinite;
+}
+@keyframes rainDrop{
+  from{transform:translate3d(0,-14vh,0) rotate(9deg)}
+  to{transform:translate3d(-26vh,114vh,0) rotate(9deg)}
+}
+body[data-weather="cloud"] .rain{opacity:.2}
+body[data-weather="sun"] .rain{opacity:0}
+body[data-weather="sun"] .rain i{animation-play-state:paused}
+
+/* ---------------- 开场 ---------------- */
+.boot{
+  position:fixed;inset:0;z-index:60;overflow-y:auto;
+  display:flex;align-items:center;justify-content:center;
+  padding:clamp(22px,5vh,60px) clamp(18px,5vw,70px);
+  background:
+    radial-gradient(780px 560px at 82% 4%,rgba(255,250,238,.9),transparent 62%),
+    radial-gradient(680px 520px at 8% 96%,rgba(210,228,219,.85),transparent 64%),
+    linear-gradient(160deg,#edf2eb 0%,#e3ebe5 48%,#f0e9dc 100%);
+}
+.boot.off{display:none}
+.boot-inner{position:relative;z-index:2;width:min(780px,100%);margin:auto}
+.boot-kicker{display:flex;align-items:center;gap:12px;font-size:10px;letter-spacing:.34em;color:var(--ink3);margin-bottom:18px;flex-wrap:wrap}
+.boot-kicker i{font-style:normal;letter-spacing:.12em;color:var(--green2)}
+.boot-kicker .endprev{
+  margin-left:auto;display:flex;align-items:center;gap:8px;padding:5px 14px;border-radius:999px;
+  border:1px solid var(--line);background:rgba(255,255,255,.5);font-size:10px;letter-spacing:.08em;
+  color:var(--ink2);transition:.18s;
+}
+.boot-kicker .endprev:hover{border-color:rgba(63,97,87,.4);background:#fff}
+.boot-kicker .endprev b{font-weight:500;color:var(--warm)}
+.boot-kicker .endprev em{font-style:normal;font-weight:600;color:var(--green);letter-spacing:.04em}
+.boot-title{
+  font-family:var(--serif);font-weight:600;font-size:clamp(40px,6.4vw,74px);
+  letter-spacing:.16em;line-height:1.16;color:var(--green);
+  text-shadow:0 2px 0 rgba(255,255,255,.6);
+}
+.boot-title em{
+  display:block;font-style:normal;font-family:var(--serif);
+  font-size:.2em;letter-spacing:.42em;color:var(--green2);margin-top:12px;
+}
+.boot-sub{font-size:13px;color:var(--ink2);letter-spacing:.14em;margin-top:14px;font-family:var(--hand)}
+
+/* 信封 */
+.env-scene{position:relative;width:min(520px,88vw);margin:clamp(24px,4.4vh,46px) auto 0;perspective:1400px}
+.env-shadow{
+  position:absolute;left:8%;right:8%;bottom:-26px;height:46px;border-radius:50%;
+  background:radial-gradient(ellipse at center,rgba(53,76,67,.22),transparent 70%);
+  filter:blur(6px);
+}
+.envelope{
+  position:relative;width:100%;aspect-ratio:1.62;cursor:pointer;transform-style:preserve-3d;
+  transition:transform .5s cubic-bezier(.2,.8,.2,1);
+  outline:none;
+}
+.envelope:hover{transform:translateY(-4px) rotate(-.6deg)}
+.envelope.opened{transform:translateY(-10px) scale(1.02);pointer-events:none}
+.env-back{
+  position:absolute;inset:0;border-radius:6px;
+  background:linear-gradient(150deg,#f4ebd9,#e8dbc2);
+  box-shadow:0 24px 60px rgba(62,80,68,.24),0 2px 0 rgba(255,255,255,.7) inset;
+  border:1px solid rgba(146,120,82,.22);
+}
+.env-paper{
+  position:absolute;left:7%;right:7%;top:6%;bottom:10%;
+  background:linear-gradient(175deg,#fffdf7,#faf5e8);
+  border-radius:3px;padding:22px 24px;
+  box-shadow:0 2px 10px rgba(90,74,48,.12);
+  transition:transform .9s cubic-bezier(.2,.8,.2,1),opacity .6s;
+  z-index:2;
+}
+.env-paper b{display:block;font-family:var(--hand);font-size:22px;color:#6c5b42;letter-spacing:.2em}
+.env-paper span{display:block;margin-top:8px;font-family:var(--hand);font-size:14px;color:#9a886b;letter-spacing:.14em}
+.envelope.opened .env-paper{transform:translateY(-108%) rotate(-1.5deg);opacity:0}
+.env-front{
+  position:absolute;inset:0;z-index:3;border-radius:6px;
+  background:linear-gradient(158deg,#f0e5cf,#e4d5b9);
+  clip-path:polygon(0 26%,50% 62%,100% 26%,100% 100%,0 100%);
+  box-shadow:0 -1px 0 rgba(255,255,255,.5) inset;
+}
+.env-flap{
+  position:absolute;left:0;right:0;top:0;height:46%;z-index:4;
+  background:linear-gradient(170deg,#f6ecd8,#ead9bc);
+  clip-path:polygon(0 0,100% 0,50% 100%);
+  transform-origin:top center;
+  transition:transform .9s cubic-bezier(.4,0,.2,1),z-index .1s .45s;
+  filter:drop-shadow(0 6px 6px rgba(86,70,45,.08));
+}
+.envelope.opened .env-flap{transform:rotateX(178deg);z-index:1}
+.env-seal{
+  position:absolute;left:50%;top:41%;z-index:6;transform:translate(-50%,-50%);
+  width:64px;height:64px;border-radius:50%;display:grid;place-items:center;
+  background:radial-gradient(circle at 34% 28%,#c4705e,#8e3f36 70%);
+  color:#ffe9d8;font-family:var(--serif);font-size:26px;letter-spacing:0;
+  box-shadow:0 6px 16px rgba(120,54,44,.4),0 0 0 3px rgba(255,238,220,.35) inset;
+  transition:.5s;
+}
+.env-seal::after{
+  content:"";position:absolute;inset:5px;border-radius:50%;
+  border:1px solid rgba(255,232,210,.45);
+}
+.envelope:hover .env-seal{transform:translate(-50%,-50%) scale(1.06)}
+.envelope.opened .env-seal{opacity:0;transform:translate(-50%,-50%) scale(1.4) rotate(24deg)}
+.env-hint{
+  text-align:center;margin-top:clamp(26px,4vh,42px);font-size:11px;letter-spacing:.3em;
+  color:var(--ink3);animation:hintPulse 2.6s ease-in-out infinite;
+}
+@keyframes hintPulse{0%,100%{opacity:.5}50%{opacity:1}}
+.env-scene.gone{animation:envGone .8s forwards}
+@keyframes envGone{to{opacity:0;transform:translateY(-20px) scale(.96)}}
+
+/* 信纸 */
+.letter-paper{
+  position:relative;width:min(600px,92vw);margin:clamp(22px,4vh,40px) auto 0;
+  padding:clamp(24px,4vw,40px) clamp(22px,4vw,42px) 26px;
+  background:
+    repeating-linear-gradient(180deg,transparent 0 37px,rgba(102,133,120,.14) 37px 38px),
+    linear-gradient(175deg,#fffdf6,#faf5e7);
+  border-radius:4px;
+  box-shadow:0 24px 60px rgba(62,80,68,.18),0 0 0 1px rgba(146,120,82,.16);
+  animation:paperIn .9s cubic-bezier(.2,.8,.2,1) both;
+}
+.letter-paper::before{
+  content:"";position:absolute;left:26px;top:0;bottom:0;width:1px;background:rgba(196,120,110,.22);
+}
+@keyframes paperIn{from{opacity:0;transform:translateY(26px) scale(.97)}to{opacity:1;transform:none}}
+.lp-crest{
+  position:absolute;right:24px;top:18px;width:38px;height:38px;border-radius:50%;
+  display:grid;place-items:center;font-family:var(--serif);font-size:16px;color:#a9604f;
+  border:1px solid rgba(169,96,79,.4);transform:rotate(-8deg);
+}
+.lp-line{font-family:var(--hand);font-size:20px;color:#5b4a35;letter-spacing:.08em;margin-bottom:14px}
+.lp-body{font-family:var(--hand);font-size:16.5px;line-height:2.15;color:#5f5342;letter-spacing:.05em}
+.lp-body p{margin-bottom:6px}
+.lp-name{display:flex;align-items:flex-end;gap:12px;margin-top:24px;flex-wrap:wrap}
+.lp-name>span:first-child{font-family:var(--hand);font-size:15px;color:#8b7a60;white-space:nowrap}
+.lp-line-input{position:relative;flex:1;min-width:180px;max-width:280px;display:block}
+.lp-line-input input{
+  width:100%;border:0;outline:0;background:transparent;padding:2px 6px 4px;
+  font-family:var(--hand);font-size:26px;letter-spacing:.12em;color:var(--green);
+  caret-color:var(--warm);
+}
+.lp-line-input input::placeholder{color:#c4b9a2;font-size:18px;letter-spacing:.06em}
+.lp-line-input i{position:absolute;left:0;right:0;bottom:0;height:1px;background:rgba(140,118,86,.45)}
+.lp-actions{display:flex;gap:12px;align-items:center;margin-top:26px;flex-wrap:wrap}
+.btn-primary{
+  padding:11px 30px;border-radius:999px;background:linear-gradient(145deg,#4f7468,#35544b);
+  color:#f6f2e7;font-size:13.5px;letter-spacing:.2em;font-weight:500;
+  box-shadow:0 10px 24px rgba(53,84,75,.26);transition:.2s;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(53,84,75,.3)}
+.btn-primary:active{transform:translateY(0) scale(.98)}
+.btn-ghost{
+  padding:10px 22px;border-radius:999px;border:1px solid rgba(63,97,87,.28);
+  background:rgba(255,255,255,.45);color:var(--green);font-size:13px;letter-spacing:.16em;transition:.2s;
+}
+.btn-ghost:hover{background:#fff;border-color:rgba(63,97,87,.5)}
+.btn-ghost.light{color:#f2efe4;border-color:rgba(242,239,228,.5);background:rgba(255,255,255,.08)}
+.lp-tip{margin-top:14px;font-size:11px;color:var(--ink3);letter-spacing:.1em}
+
+/* ---------------- 主界面 ---------------- */
+.app{
+  position:fixed;inset:0;z-index:5;display:grid;
+  grid-template-columns:minmax(0,1fr) 396px;
+  grid-template-rows:64px minmax(0,1fr);
+  background:transparent;
+}
+.hud{
+  grid-column:1/-1;z-index:20;display:flex;align-items:center;gap:22px;
+  padding:0 clamp(16px,2.6vw,30px);
+  background:linear-gradient(180deg,rgba(250,247,239,.92),rgba(247,243,233,.78));
+  border-bottom:1px solid var(--line2);backdrop-filter:blur(14px);
+}
+.hud-brand b{display:block;font-family:var(--serif);font-size:17px;letter-spacing:.22em;color:var(--green);line-height:1.3}
+.hud-brand i{display:block;font-style:normal;font-size:8px;letter-spacing:.34em;color:var(--green3)}
+.hud-day{padding-left:20px;border-left:1px solid var(--line);line-height:1.4}
+.hud-day b{display:block;font-size:12.5px;letter-spacing:.14em;color:var(--ink)}
+.hud-day em{display:block;font-style:normal;font-size:10px;letter-spacing:.1em;color:var(--ink3)}
+.hud-stats{margin-left:auto;display:flex;align-items:center;gap:18px}
+.stat{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink2)}
+.stat .ico{font-size:13px;line-height:1}
+.stat.heart .ico{color:var(--pink)}
+.stat.heal .ico{color:var(--warm)}
+.stat b{font-weight:600;font-variant-numeric:tabular-nums;color:var(--ink);font-size:12.5px}
+.stat-label{font-size:9px;letter-spacing:.18em;color:var(--ink3)}
+.dots{display:flex;gap:4px}
+.dots i{width:7px;height:7px;border-radius:50%;background:rgba(63,97,87,.18);transition:.25s}
+.dots i.on{background:var(--green2);box-shadow:0 0 0 3px rgba(111,145,135,.14)}
+.hud-tools{display:flex;gap:6px;align-items:center}
+.icon-btn{
+  width:32px;height:32px;border-radius:50%;display:grid;place-items:center;
+  color:var(--ink2);font-size:14px;transition:.2s;border:1px solid transparent;
+}
+.icon-btn:hover{background:rgba(255,255,255,.7);border-color:var(--line)}
+.icon-btn.on{background:var(--green);color:#f5f1e6}
+
+/* 舞台 */
+.stage{position:relative;overflow:hidden;min-height:0;background:#dfe7e0}
+.scene-art{
+  position:absolute;inset:0;background-size:cover;background-position:center;
+  transition:background-image .6s,filter .6s;filter:saturate(.92);
+}
+.scene-art::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(238,243,237,.06) 0%,rgba(30,48,42,.02) 40%,rgba(23,38,33,.42) 100%);
+}
+.stage[data-art="old"] .scene-art{background:
+  radial-gradient(420px 300px at 22% 26%,rgba(255,244,214,.55),transparent 66%),
+  linear-gradient(180deg,#b9c7bd 0%,#93a89d 44%,#6d8178 100%)}
+.stage[data-art="old"] .scene-art::before{
+  content:"";position:absolute;inset:0;
+  background-image:
+    linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px),
+    linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px);
+  background-size:64px 84px;
+  mask-image:linear-gradient(180deg,rgba(0,0,0,.7),transparent 78%);
+}
+.stage[data-art="roof"] .scene-art{background:
+  radial-gradient(600px 360px at 68% 12%,rgba(255,248,230,.8),transparent 62%),
+  linear-gradient(180deg,#cfdad2 0%,#b2c5bb 46%,#7d9289 100%)}
+.stage[data-art="roof"] .scene-art::before{
+  content:"";position:absolute;left:0;right:0;bottom:16%;height:1px;background:rgba(255,255,255,.5);
+  box-shadow:0 10px 0 rgba(255,255,255,.28),0 -10px 0 rgba(255,255,255,.2);
+}
+.stage[data-art="book"] .scene-art{background:
+  radial-gradient(520px 380px at 78% 20%,rgba(255,228,178,.55),transparent 62%),
+  linear-gradient(160deg,#5c5344 0%,#786a55 42%,#453c30 100%)}
+.stage[data-art="book"] .scene-art::before{
+  content:"";position:absolute;inset:8% 6% 22%;opacity:.5;
+  background-image:repeating-linear-gradient(90deg,rgba(255,238,205,.22) 0 6px,transparent 6px 22px);
+}
+.stage[data-art="bus"] .scene-art{background:
+  radial-gradient(420px 300px at 16% 20%,rgba(255,255,255,.5),transparent 60%),
+  linear-gradient(180deg,#c6d2ce 0%,#9db0aa 52%,#657a74 100%)}
+.stage[data-art="river"] .scene-art{background:
+  radial-gradient(700px 340px at 54% 26%,rgba(255,249,226,.75),transparent 64%),
+  linear-gradient(180deg,#d9e3da 0%,#b6c9be 42%,#7f9a8d 72%,#69837a 100%)}
+.stage[data-art="store"] .scene-art{background:
+  radial-gradient(420px 300px at 70% 22%,rgba(255,252,230,.9),transparent 62%),
+  linear-gradient(180deg,#d8ded8 0%,#aebbb5 50%,#6f827b 100%)}
+.stage[data-art="flower"] .scene-art{background:
+  radial-gradient(420px 320px at 22% 24%,rgba(255,236,238,.8),transparent 62%),
+  radial-gradient(400px 300px at 82% 70%,rgba(214,235,214,.6),transparent 64%),
+  linear-gradient(160deg,#e8ddd2 0%,#cdd9c8 52%,#a9bdaa 100%)}
+.stage[data-art="hospital"] .scene-art{background:
+  radial-gradient(460px 320px at 50% 10%,rgba(255,255,255,.9),transparent 64%),
+  linear-gradient(180deg,#e4e9e6 0%,#cbd6d2 48%,#9fb1ab 100%)}
+.stage[data-art="home"] .scene-art{background:
+  radial-gradient(420px 320px at 74% 18%,rgba(255,242,214,.85),transparent 60%),
+  linear-gradient(160deg,#d9d3c2 0%,#b9c1b1 50%,#8b9b8d 100%)}
+.scene-weather{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(247,243,232,.06),transparent 30%);
+}
+.scene-char{
+  position:absolute;right:clamp(12px,4vw,70px);bottom:0;z-index:2;
+  width:clamp(160px,26vw,300px);height:clamp(220px,48vh,400px);
+  opacity:.82;pointer-events:none;filter:drop-shadow(0 20px 30px rgba(20,34,29,.28));
+  transition:opacity .6s,transform .6s;
+}
+.scene-char svg{width:100%;height:100%;display:block}
+.scene-char img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:bottom}
+/* JPG 立绘：无透明底时，用羽化边缘融进场景 */
+.scene-char.photo{
+  right:0;bottom:0;
+  width:min(56%,640px);height:100%;opacity:1;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 15%,#000 100%);
+  mask-image:linear-gradient(90deg,transparent 0,#000 15%,#000 100%);
+}
+.scene-char.photo img{
+  object-fit:cover;object-position:50% 12%;
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 7%,#000 100%);
+  mask-image:linear-gradient(180deg,transparent 0,#000 7%,#000 100%);
+  filter:saturate(.9) contrast(.98) brightness(1.02);
+}
+.scene-char.hide{opacity:0;transform:translateY(18px)}
+.scene-veil{
+  position:absolute;inset:0;z-index:3;pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(0,0,0,0) 22%,rgba(21,35,30,.34) 54%,rgba(16,28,24,.76) 100%),
+    linear-gradient(90deg,rgba(18,31,27,.34) 0%,rgba(18,31,27,.1) 48%,rgba(18,31,27,0) 72%);
+}
+.scene-inner{
+  position:absolute;left:0;right:0;bottom:0;z-index:4;
+  padding:clamp(20px,3.4vw,42px) clamp(20px,4vw,58px) clamp(24px,4vh,44px);
+  display:flex;flex-direction:column;gap:14px;max-height:82%;overflow-y:auto;
+}
+.scene-meta{display:flex;align-items:center;gap:12px;font-size:10px;letter-spacing:.26em;color:rgba(250,247,238,.92);text-shadow:0 1px 6px rgba(10,22,18,.7)}
+.scene-place{font-weight:600}
+.scene-time{opacity:.85}
+.scene-time::before{content:"·";margin-right:12px;opacity:.6}
+.scene-text{max-width:720px;color:#fdfaf1;font-size:14.5px;line-height:2.05;letter-spacing:.03em;text-shadow:0 1px 2px rgba(10,22,18,.85),0 2px 16px rgba(10,22,18,.55)}
+.scene-text p{margin-bottom:10px;animation:lineIn .5s both}
+.scene-text p:nth-child(2){animation-delay:.06s}
+.scene-text p:nth-child(3){animation-delay:.12s}
+.scene-text p:nth-child(4){animation-delay:.18s}
+.scene-text p:nth-child(5){animation-delay:.24s}
+.scene-text p:last-child{margin-bottom:0}
+.scene-text .say{display:block;font-family:var(--serif);font-size:16.5px;letter-spacing:.04em}
+.scene-text .say b{display:block;font-size:9px;letter-spacing:.24em;color:rgba(255,244,214,.8);font-family:var(--sans);font-weight:500;margin-bottom:2px}
+.scene-text .narr{color:rgba(248,245,236,.9)}
+@keyframes lineIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.choices{display:flex;flex-direction:column;gap:9px;max-width:660px;margin-top:4px}
+.choice{
+  text-align:left;padding:12px 18px;border-radius:12px;
+  background:rgba(24,38,33,.44);border:1px solid rgba(250,247,238,.34);
+  color:#fdfaf1;font-size:13px;line-height:1.7;letter-spacing:.03em;
+  text-shadow:0 1px 6px rgba(8,20,16,.55);
+  backdrop-filter:blur(10px);transition:.18s;position:relative;
+}
+.choice:hover{background:rgba(30,47,40,.6);border-color:rgba(250,247,238,.62);transform:translateX(3px)}
+.choice:active{transform:translateX(1px) scale(.995)}
+.choice .cost{float:right;font-size:10px;opacity:.75;margin-left:10px;letter-spacing:.1em}
+.choice.locked{opacity:.45;pointer-events:none}
+.choice.primary{background:rgba(150,92,55,.5);border-color:rgba(237,201,168,.62)}
+.choice.primary:hover{background:rgba(170,105,62,.62)}
+
+/* 右侧面板 */
+.panel-scrim{display:none}
+.panel-grab{display:none}
+.panel{
+  position:relative;z-index:12;display:flex;flex-direction:column;min-height:0;
+  background:linear-gradient(180deg,rgba(249,246,237,.94),rgba(244,240,229,.9));
+  border-left:1px solid var(--line2);backdrop-filter:blur(18px);
+}
+.panel-tabs{
+  display:flex;gap:2px;padding:10px 10px 0;border-bottom:1px solid var(--line2);flex:0 0 auto;
+}
+.ptab{
+  position:relative;flex:1;padding:8px 2px 10px;font-size:11px;letter-spacing:.12em;color:var(--ink3);
+  border-bottom:2px solid transparent;transition:.18s;white-space:nowrap;
+}
+.ptab:hover{color:var(--ink)}
+.ptab.active{color:var(--green);border-bottom-color:var(--green);font-weight:600}
+.ptab .dot{
+  position:absolute;top:5px;right:8px;width:6px;height:6px;border-radius:50%;
+  background:var(--warm);box-shadow:0 0 0 3px rgba(189,122,77,.16);
+}
+.panel-body{flex:1;overflow-y:auto;padding:14px 16px 22px;min-height:0}
+
+/* 手机 */
+.phone-shell{
+  position:relative;border-radius:26px;padding:10px;
+  background:linear-gradient(160deg,#3f4a44,#222c28);
+  box-shadow:0 18px 44px rgba(36,52,46,.26),0 1px 0 rgba(255,255,255,.16) inset;
+}
+.phone-screen{
+  border-radius:19px;overflow:hidden;background:#f7f4ec;min-height:420px;
+  display:flex;flex-direction:column;position:relative;
+}
+.ph-status{
+  display:flex;justify-content:space-between;align-items:center;padding:8px 16px 4px;
+  font-size:9.5px;color:var(--ink3);letter-spacing:.08em;
+}
+.ph-notch{width:52px;height:4px;border-radius:4px;background:rgba(46,58,52,.18);margin:2px auto 0}
+.ph-head{
+  display:flex;align-items:center;gap:10px;padding:8px 14px 10px;
+  border-bottom:1px solid var(--line2);font-size:12px;
+}
+.ph-head b{font-size:13px;letter-spacing:.06em}
+.ph-head .ph-back{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;color:var(--ink2);font-size:15px}
+.ph-head .ph-back:hover{background:rgba(63,97,87,.08)}
+.ph-body{flex:1;overflow-y:auto;padding:12px 12px 16px;min-height:300px;max-height:52vh;background:
+  radial-gradient(300px 200px at 80% 0%,rgba(230,239,229,.8),transparent 70%),#f7f4ec}
+.ph-foot{flex:0 0 auto;padding:9px 12px 12px;border-top:1px solid var(--line2);background:#fbf8f1}
+
+.contact{
+  display:flex;align-items:center;gap:11px;padding:11px 8px;border-radius:12px;width:100%;text-align:left;transition:.16s;
+}
+.contact:hover{background:rgba(63,97,87,.06)}
+.contact + .contact{border-top:1px solid var(--line2)}
+.avt{
+  position:relative;overflow:hidden;
+  width:40px;height:40px;border-radius:13px;flex:0 0 40px;display:grid;place-items:center;
+  font-family:var(--serif);font-size:16px;color:#f4f1e6;
+  background:linear-gradient(145deg,#7f9c91,#4d6c62);box-shadow:0 4px 12px rgba(63,97,87,.2);
+}
+.avt.me{background:linear-gradient(145deg,#e2b28c,#bd7a4d)}
+.avt.zhi{background:linear-gradient(145deg,#dba6ad,#b5737e)}
+.avt.chen{background:linear-gradient(145deg,#b9b09a,#877d66)}
+.avt img,.msg .mini-avt img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 18%}
+.avt i,.msg .mini-avt i{font-style:normal;line-height:1}
+.ct-main{flex:1;min-width:0}
+.ct-main b{display:block;font-size:12.5px;font-weight:600;letter-spacing:.04em}
+.ct-main s{display:block;font-size:10.5px;color:var(--ink3);text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:1px}
+.ct-side{flex:0 0 auto;text-align:right;font-size:9px;color:var(--ink3)}
+.ct-side .badge{display:inline-block;margin-top:4px;padding:1px 7px;border-radius:999px;background:var(--warm);color:#fff;font-size:9px;letter-spacing:.06em}
+
+.msg{display:flex;gap:8px;margin-bottom:11px;align-items:flex-end}
+.msg .bubble{
+  max-width:76%;padding:9px 13px;border-radius:14px 14px 14px 4px;background:#fff;
+  font-size:12.3px;line-height:1.75;color:var(--ink);box-shadow:0 2px 8px rgba(60,80,70,.06);
+  animation:msgIn .28s both;
+}
+.msg.me{flex-direction:row-reverse}
+.msg.me .bubble{background:linear-gradient(145deg,#e9d0b6,#dcb894);color:#4a3524;border-radius:14px 14px 4px 14px}
+.msg.sys{justify-content:center;font-size:9.5px;color:var(--ink3);letter-spacing:.1em;margin:8px 0 12px;background:none}
+.msg.sys .bubble{background:rgba(63,97,87,.07);box-shadow:none;border-radius:999px;padding:3px 12px;font-size:9.5px}
+.msg .mini-avt{position:relative;overflow:hidden;width:26px;height:26px;border-radius:9px;flex:0 0 26px;display:grid;place-items:center;font-size:11px;color:#fff;background:#6f8f86}
+.msg.me .mini-avt{background:#c58d63}
+@keyframes msgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.typing{display:flex;gap:4px;padding:10px 14px;background:#fff;border-radius:14px 14px 14px 4px;width:52px}
+.typing i{width:5px;height:5px;border-radius:50%;background:var(--green3);animation:tp 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.16s}
+.typing i:nth-child(3){animation-delay:.32s}
+@keyframes tp{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-4px);opacity:1}}
+.replies{display:flex;flex-direction:column;gap:7px}
+.reply{
+  text-align:left;padding:9px 13px;border-radius:10px;border:1px solid rgba(63,97,87,.22);
+  background:rgba(255,255,255,.6);font-size:11.6px;line-height:1.6;color:var(--ink2);transition:.16s;
+}
+.reply:hover{background:#fff;border-color:var(--green2);color:var(--green)}
+.reply .fx{float:right;margin-left:10px;font-size:9px;color:var(--warm);letter-spacing:.06em}
+.chat-empty{text-align:center;color:var(--ink3);font-size:11px;padding:30px 10px;line-height:2}
+.chat-empty b{display:block;font-family:var(--hand);font-size:17px;color:var(--ink2);margin-bottom:4px}
+
+/* 地图 */
+.map-lead{font-size:10.5px;color:var(--ink3);letter-spacing:.06em;margin-bottom:10px;display:flex;justify-content:space-between}
+.map-lead b{color:var(--warm);font-weight:600}
+.loc{
+  display:flex;gap:11px;align-items:center;width:100%;text-align:left;
+  padding:9px;border-radius:13px;border:1px solid var(--line2);background:rgba(255,255,255,.46);
+  margin-bottom:9px;transition:.18s;
+}
+.loc:hover{background:#fff;border-color:rgba(63,97,87,.28);transform:translateY(-1px);box-shadow:0 6px 18px rgba(60,80,70,.08)}
+.loc:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+.loc .thumb{
+  width:58px;height:58px;border-radius:10px;flex:0 0 58px;background-size:cover;background-position:center;
+  position:relative;overflow:hidden;
+}
+.loc .thumb::after{content:"";position:absolute;inset:0;background:rgba(30,46,40,.08)}
+.loc .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.loc[data-art="old"] .thumb{background:linear-gradient(150deg,#a7b8ac,#667b71)}
+.loc[data-art="roof"] .thumb{background:linear-gradient(150deg,#dbe4dc,#93a89d)}
+.loc[data-art="book"] .thumb{background:linear-gradient(150deg,#8a7a5e,#4b4131)}
+.loc[data-art="bus"] .thumb{background:linear-gradient(150deg,#cbd6d2,#7d9289)}
+.loc[data-art="river"] .thumb{background:linear-gradient(150deg,#d9e3d6,#7f9a8d)}
+.loc[data-art="store"] .thumb{background:linear-gradient(150deg,#e7e9da,#8c9d94)}
+.loc[data-art="flower"] .thumb{background:linear-gradient(150deg,#efd9dc,#a9bdaa)}
+.loc[data-art="hospital"] .thumb{background:linear-gradient(150deg,#eef1ee,#a5b7b1)}
+.loc .lo-main{flex:1;min-width:0}
+.loc .lo-main b{display:block;font-size:12.5px;font-weight:600;letter-spacing:.04em}
+.loc .lo-main s{display:block;font-size:10.2px;color:var(--ink3);text-decoration:none;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.loc .lo-side{flex:0 0 auto;font-size:9px;letter-spacing:.08em;color:var(--green2);text-align:right}
+.loc .lo-side em{display:block;font-style:normal;font-size:8.5px;color:var(--ink3);margin-top:2px}
+.loc.locked .lo-side{color:var(--ink3)}
+
+/* 线索 */
+.clue-head{display:flex;align-items:center;justify-content:space-between;font-size:10.5px;color:var(--ink3);margin-bottom:10px}
+.clue-head b{color:var(--green);font-size:12px}
+.clue-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.clue{
+  position:relative;padding:10px 10px 11px;border-radius:11px;background:rgba(255,255,255,.62);
+  border:1px solid var(--line2);min-height:88px;text-align:left;transition:.18s;
+}
+button.clue:hover{background:#fff;border-color:rgba(63,97,87,.28);transform:translateY(-1px)}
+.clue .ci{font-family:var(--serif);font-size:15px;color:var(--warm);letter-spacing:.05em}
+.clue b{display:block;font-size:11.4px;font-weight:600;margin-top:3px;letter-spacing:.02em;line-height:1.45}
+.clue s{display:block;font-size:9.5px;color:var(--ink3);text-decoration:none;margin-top:3px;line-height:1.5;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.clue.locked{background:rgba(63,97,87,.04);border-style:dashed;display:grid;place-items:center;color:var(--green3)}
+.clue.locked b{font-family:var(--serif);font-size:18px;color:var(--green3);font-weight:400}
+.clue.new::after{content:"NEW";position:absolute;top:7px;right:7px;font-size:7px;letter-spacing:.1em;color:var(--warm);background:rgba(189,122,77,.12);padding:1px 4px;border-radius:4px}
+.clue-note{margin-top:12px;padding:10px 12px;border-radius:10px;background:rgba(111,145,135,.08);font-size:10px;color:var(--ink2);line-height:1.8}
+
+/* 信件 */
+.letter-compose{
+  padding:13px;border-radius:12px;border:1px dashed rgba(63,97,87,.3);background:rgba(255,255,255,.5);
+  margin-bottom:12px;
+}
+.letter-compose h4{font-family:var(--serif);font-size:13px;letter-spacing:.1em;color:var(--green);margin-bottom:5px}
+.letter-compose p{font-size:10px;color:var(--ink3);line-height:1.7;margin-bottom:9px}
+.letter-stage{
+  padding:12px 14px;border-radius:12px;margin-bottom:11px;
+  background:linear-gradient(135deg,rgba(63,97,87,.08),rgba(189,122,77,.07));
+  border:1px solid rgba(63,97,87,.12);
+}
+.letter-stage div{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.letter-stage b{font-family:var(--serif);font-size:12.5px;letter-spacing:.12em;color:var(--green);font-weight:600}
+.letter-stage span{font-size:9.5px;letter-spacing:.08em;color:var(--warm);white-space:nowrap}
+.letter-stage s{display:block;margin-top:4px;font-size:9.5px;line-height:1.6;color:var(--ink3);text-decoration:none}
+.theme-list{display:flex;flex-direction:column;gap:7px}
+.theme{
+  text-align:left;padding:9px 11px;border-radius:9px;border:1px solid var(--line2);background:rgba(255,255,255,.66);
+  transition:.16s;
+}
+.theme:hover{background:#fff;border-color:var(--green2)}
+.theme b{display:block;font-size:11.5px;letter-spacing:.04em;font-weight:600}
+.theme s{display:block;font-size:9.5px;color:var(--ink3);text-decoration:none;margin-top:2px}
+.mail{
+  position:relative;padding:13px 15px;border-radius:10px;margin-bottom:10px;
+  background:
+    repeating-linear-gradient(180deg,transparent 0 27px,rgba(102,133,120,.1) 27px 28px),
+    linear-gradient(175deg,#fffdf6,#faf5e6);
+  border:1px solid rgba(146,120,82,.16);box-shadow:0 4px 14px rgba(70,84,70,.05);
+}
+.mail .mhead{display:flex;justify-content:space-between;font-size:9px;color:var(--ink3);letter-spacing:.08em;margin-bottom:6px}
+.mail .mhead b{color:var(--warm);font-weight:500}
+.mail p{font-family:var(--hand);font-size:14.5px;line-height:1.95;color:#5f5342;letter-spacing:.03em;white-space:pre-wrap}
+.mail .sign{text-align:right;font-family:var(--hand);font-size:13px;color:#8b7a60;margin-top:5px}
+.mail.reply{background:
+  repeating-linear-gradient(180deg,transparent 0 27px,rgba(102,133,120,.08) 27px 28px),
+  linear-gradient(175deg,#f6faf4,#edf4eb);
+}
+.mail.reply .mhead b{color:var(--green)}
+
+/* 日记 */
+.diary-day{margin-bottom:14px}
+.diary-day .dd{display:flex;align-items:center;gap:8px;font-size:9.5px;letter-spacing:.16em;color:var(--ink3);margin-bottom:6px}
+.diary-day .dd b{color:var(--green);font-size:10.5px;letter-spacing:.08em}
+.diary-day .dd::after{content:"";flex:1;height:1px;background:var(--line2)}
+.diary-item{
+  position:relative;padding:7px 10px 7px 16px;font-size:11.2px;line-height:1.75;color:var(--ink2);
+}
+.diary-item::before{content:"";position:absolute;left:3px;top:13px;width:4px;height:4px;border-radius:50%;background:var(--green3)}
+.diary-stat{
+  margin-top:14px;padding:11px 13px;border-radius:11px;background:rgba(111,145,135,.08);
+  font-size:10px;color:var(--ink2);line-height:1.9;
+}
+.diary-stat b{color:var(--green);font-weight:600}
+.diary-actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.mini-btn{padding:6px 14px;border-radius:999px;border:1px solid var(--line);font-size:10px;letter-spacing:.1em;color:var(--ink2);background:rgba(255,255,255,.5);transition:.16s}
+.mini-btn:hover{background:#fff;border-color:var(--green2);color:var(--green)}
+.mini-btn.danger:hover{color:#a4514a;border-color:rgba(164,81,74,.4)}
+
+/* ---------------- 弹窗 ---------------- */
+.modal{
+  position:fixed;inset:0;z-index:130;display:flex;align-items:center;justify-content:center;
+  padding:20px;background:rgba(32,45,40,.38);backdrop-filter:blur(6px);animation:fadeIn .2s;
+}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal-card{
+  position:relative;width:min(520px,100%);max-height:88vh;overflow-y:auto;
+  border-radius:14px;padding:26px 26px 22px;
+  background:
+    repeating-linear-gradient(180deg,transparent 0 37px,rgba(102,133,120,.07) 37px 38px),
+    linear-gradient(175deg,#fffdf7,#f8f2e4);
+  box-shadow:0 30px 80px rgba(30,45,40,.3);border:1px solid rgba(146,120,82,.2);
+  animation:cardIn .35s cubic-bezier(.2,.8,.2,1);
+}
+@keyframes cardIn{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:none}}
+.modal-x{position:absolute;right:12px;top:12px;width:28px;height:28px;border-radius:50%;color:var(--ink3);font-size:12px}
+.modal-x:hover{background:rgba(63,97,87,.08)}
+.modal-body h3{font-family:var(--serif);font-size:18px;letter-spacing:.1em;color:var(--green);margin-bottom:6px}
+.modal-body .msub{font-size:10.5px;color:var(--ink3);letter-spacing:.08em;margin-bottom:16px}
+.modal-body p{font-size:12.5px;line-height:2;color:var(--ink2);margin-bottom:10px}
+.modal-body .mchoices{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.modal-body .mchoices button{
+  text-align:left;padding:11px 14px;border-radius:10px;border:1px solid var(--line);
+  background:rgba(255,255,255,.6);font-size:12px;line-height:1.65;transition:.16s;
+}
+.modal-body .mchoices button:hover{background:#fff;border-color:var(--green2);transform:translateX(3px)}
+.modal-body .mchoices button:disabled{opacity:.4}
+.modal-body .mact{display:flex;gap:10px;justify-content:flex-end;margin-top:18px;flex-wrap:wrap}
+.save-text{width:100%;height:150px;resize:vertical;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.72);padding:10px 12px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;line-height:1.55;color:var(--ink2);margin-bottom:10px}
+.file-btn{display:inline-flex;align-items:center;cursor:pointer}
+.modal-body .quote{
+  font-family:var(--hand);font-size:16px;line-height:2;color:#5f5342;
+  padding:12px 14px;border-left:2px solid rgba(189,122,77,.4);background:rgba(189,122,77,.06);border-radius:0 8px 8px 0;
+}
+.endlist{display:flex;flex-direction:column}
+.endrow{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line2);font-size:11.5px}
+.endrow:last-child{border-bottom:0}
+.endrow .eno{flex:0 0 24px;font-size:9px;letter-spacing:.1em;color:var(--warm)}
+.endrow .et b{display:block;font-weight:600;color:var(--ink)}
+.endrow .et s{display:block;font-size:9.5px;color:var(--ink3);text-decoration:none;margin-top:1px}
+.endrow.locked .et b{color:var(--green3);letter-spacing:.2em;font-weight:400}
+.endrow .est{margin-left:auto;font-size:9px;color:var(--ink3);letter-spacing:.08em}
+.endrow.unlocked .est{color:var(--warm)}
+
+/* ---------------- 章节转场 ---------------- */
+.chapter{
+  position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;
+  background:
+    radial-gradient(620px 420px at 76% 20%,rgba(111,145,135,.24),transparent 62%),
+    linear-gradient(155deg,#1f322c,#2e473f 55%,#3a554b);
+  color:#f1ede1;animation:fadeIn .5s;
+}
+.chapter-in{text-align:center;max-width:560px;padding:30px}
+.ch-no{font-size:10px;letter-spacing:.44em;color:#9db6aa}
+.chapter h2{font-family:var(--serif);font-size:clamp(38px,7vw,64px);letter-spacing:.3em;font-weight:500;margin:12px 0 10px;text-indent:.3em}
+.chapter p{font-size:12px;letter-spacing:.16em;color:#b7c8bf;margin-bottom:26px;line-height:2}
+.chapter .btn-ghost{margin-top:6px}
+
+/* ---------------- 结局 ---------------- */
+.ending{
+  position:fixed;inset:0;z-index:95;overflow-y:auto;
+  background:
+    radial-gradient(900px 620px at 78% 8%,rgba(248,238,222,.85),transparent 60%),
+    linear-gradient(155deg,#e8efe8,#dfe8e0 50%,#efe8da);
+}
+.ending-inner{
+  min-height:100%;width:min(1060px,100%);margin:0 auto;display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);align-items:center;gap:clamp(20px,4vw,56px);
+  padding:clamp(26px,6vh,70px) clamp(20px,5vw,50px);
+}
+.end-art{
+  position:relative;aspect-ratio:4/5;border-radius:8px;overflow:hidden;
+  background:
+    radial-gradient(400px 300px at 30% 20%,rgba(255,250,235,.9),transparent 60%),
+    radial-gradient(400px 320px at 76% 78%,rgba(189,214,201,.8),transparent 62%),
+    linear-gradient(160deg,#cfdbd2,#9fb3a8 52%,#6e857b);
+  box-shadow:0 30px 70px rgba(47,68,60,.22);
+  border:1px solid rgba(255,255,255,.5);
+  background-size:cover;background-position:center;
+}
+.end-art::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 40%,rgba(24,38,33,.42));
+}
+.end-art .art-word{
+  position:absolute;left:24px;bottom:22px;z-index:1;
+  font-family:var(--serif);font-size:clamp(30px,5vw,52px);letter-spacing:.24em;color:#f8f4e8;
+  text-shadow:0 2px 18px rgba(20,34,29,.5);
+}
+.end-portrait{
+  position:absolute;right:18px;top:18px;z-index:1;width:clamp(54px,6.4vw,74px);aspect-ratio:1;
+  padding:3px;border-radius:50%;background:rgba(248,244,232,.92);
+  border:1px solid rgba(255,255,255,.6);box-shadow:0 10px 26px rgba(20,34,29,.28);
+}
+.end-portrait img{display:block;width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:50% 16%}
+.end-main{max-width:560px}
+.end-kicker{font-size:10px;letter-spacing:.4em;color:var(--warm)}
+.end-main h2{font-family:var(--serif);font-size:clamp(30px,5vw,48px);letter-spacing:.14em;font-weight:600;color:var(--green);margin:10px 0 6px}
+.end-sub{font-family:var(--hand);font-size:16px;letter-spacing:.08em;color:var(--ink2);margin-bottom:18px}
+.end-body{font-size:13.5px;line-height:2.15;color:var(--ink2);letter-spacing:.03em}
+.end-body p{margin-bottom:12px}
+.end-body .end-sign{margin-top:4px;text-align:right;font-family:var(--hand);font-size:15px;color:var(--ink2);letter-spacing:.1em}
+.end-stats{
+  display:flex;gap:18px;flex-wrap:wrap;margin:20px 0 22px;padding:12px 16px;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  font-size:10.5px;color:var(--ink3);letter-spacing:.06em;
+}
+.end-stats b{color:var(--ink);font-weight:600}
+.end-actions{display:flex;gap:10px;flex-wrap:wrap}
+
+/* ---------------- Toast ---------------- */
+.toast-wrap{position:fixed;top:76px;bottom:auto;left:24px;z-index:120;display:flex;flex-direction:column-reverse;gap:8px;pointer-events:none;align-items:flex-start}
+.toast{
+  padding:8px 16px;border-radius:999px;background:rgba(47,68,60,.92);color:#f6f2e7;
+  font-size:11px;letter-spacing:.08em;box-shadow:0 10px 26px rgba(30,45,40,.24);
+  animation:toastIn .35s both;backdrop-filter:blur(8px);
+}
+.toast.out{animation:toastOut .4s both}
+@keyframes toastIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+@keyframes toastOut{to{opacity:0;transform:translateY(-8px)}}
+
+/* ---------------- 移动导航 ---------------- */
+.mnav{display:none}
+
+/* ---------------- 图片素材接入 ---------------- */
+.scene-img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;
+  opacity:0;transition:opacity .7s;z-index:0;
+}
+.scene-img.on{opacity:1}
+.envelope.custom{
+  background-size:cover;background-position:center;background-repeat:no-repeat;
+  border-radius:8px;box-shadow:0 24px 60px rgba(62,80,68,.26);
+}
+.envelope.custom .env-back,
+.envelope.custom .env-front,
+.envelope.custom .env-flap,
+.envelope.custom .env-paper{display:none}
+/* ---------------- 响应式 ---------------- */
+@media(max-width:1080px){
+  .app{grid-template-columns:minmax(0,1fr) 348px}
+  .hud-stats{gap:12px}
+}
+@media(max-width:900px){
+  .app{grid-template-columns:1fr;grid-template-rows:56px minmax(0,1fr) 58px}
+  .hud{padding:0 14px;gap:12px}
+  .hud-brand i{display:none}
+  .hud-brand b{font-size:15px;letter-spacing:.16em}
+  .hud-day{padding-left:12px}
+  .hud-day b{font-size:11.5px}
+  .hud-day em{font-size:9px}
+  .hud-stats{gap:10px}
+  .stat-label{display:none}
+  .stat b{font-size:11.5px}
+  .panel{
+    position:fixed;left:0;right:0;bottom:58px;height:72vh;z-index:50;
+    border-left:0;border-top:1px solid var(--line);
+    border-radius:18px 18px 0 0;box-shadow:0 -20px 50px rgba(30,45,40,.22);
+    transform:translateY(112%);
+    transition:transform .32s cubic-bezier(.3,.8,.2,1),height .26s cubic-bezier(.3,.8,.2,1);
+  }
+  .panel.open{transform:none}
+  .panel.dragging{transition:none!important}
+  .panel-scrim{
+    display:block;position:fixed;left:0;right:0;top:56px;
+    bottom:calc(58px + 72vh);z-index:45;cursor:pointer;
+    background:rgba(28,42,36,.14);
+    opacity:0;visibility:hidden;pointer-events:none;
+    transition:opacity .25s,visibility .25s;
+  }
+  .panel-scrim.on{opacity:1;visibility:visible;pointer-events:auto}
+  .panel-grab{
+    display:block;position:relative;flex:0 0 24px;height:24px;
+    touch-action:none;cursor:grab;user-select:none;outline:none;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .panel-grab::before{
+    content:"";position:absolute;top:8px;left:50%;transform:translateX(-50%);
+    width:38px;height:4px;border-radius:4px;background:rgba(63,97,87,.24);
+    transition:background .2s,width .2s;
+  }
+  .panel-grab:active::before{background:rgba(63,97,87,.48);width:46px}
+  .panel-tabs{padding-top:4px}
+  .panel-body{padding-bottom:52px}
+  .mnav{
+    grid-row:3;z-index:30;display:flex;align-items:stretch;
+    background:rgba(250,247,239,.94);border-top:1px solid var(--line2);backdrop-filter:blur(14px);
+  }
+  .mnav button{
+    flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+    font-size:9.5px;letter-spacing:.08em;color:var(--ink3);transition:.16s;
+  }
+  .mnav button b{font-size:15px;font-weight:400;line-height:1}
+  .mnav button.active{color:var(--green)}
+  .scene-inner{max-height:88%;padding-bottom:20px}
+  .scene-text{font-size:13.5px;line-height:1.95}
+  .scene-char{width:clamp(130px,34vw,200px);height:clamp(180px,34vh,300px);right:0;opacity:.7}
+  .scene-char.photo{width:min(62%,300px);height:64%;right:0;opacity:.55}
+  .toast-wrap{top:66px;bottom:auto;left:10px;right:10px;align-items:center;flex-direction:column;gap:6px}
+  .ending-inner{grid-template-columns:1fr;padding-top:30px}
+  .end-art{aspect-ratio:16/10;order:-1}
+  .end-art .art-word{font-size:30px;left:18px;bottom:14px}
+  .hud-tools .icon-btn:first-child{display:none}
+  /* 移动端性能：关闭实时模糊、颗粒层与立绘滤镜 */
+  body::after{display:none}
+  .hud{backdrop-filter:none;background:rgba(247,243,232,.97)}
+  .panel{backdrop-filter:none;background:#f7f3e8}
+  .mnav{backdrop-filter:none;background:#faf7ef}
+  .modal{backdrop-filter:none;background:rgba(20,32,28,.72)}
+  .choice{backdrop-filter:none;background:rgba(24,38,33,.62)}
+  .choice.primary{background:rgba(150,92,55,.68)}
+  .toast{backdrop-filter:none}
+  .scene-char{filter:none}
+  .scene-char.photo img{filter:none}
+  .scene-art{filter:none}
+  .boot::before{animation:none;filter:none}
+  .rain{opacity:.5}
+  .panel{transition:transform .22s cubic-bezier(.3,.8,.2,1),height .22s cubic-bezier(.3,.8,.2,1)}
+  .scene-img{transition:opacity .32s}
+  .scene-text p{animation-duration:.28s}
+  button{touch-action:manipulation}
+}
+@media(max-width:560px){
+  .hud{gap:8px;padding:0 10px}
+  .hud-brand{display:none}
+  .hud-day{border-left:0;padding-left:0;flex:0 0 auto}
+  .hud-day b,.hud-day em{white-space:nowrap}
+  .hud-day em{font-size:9px;letter-spacing:.04em}
+  .hud-stats{gap:8px;margin-left:auto}
+  .hud-tools .icon-btn{width:28px;height:28px}
+  .toast{padding:7px 14px;font-size:10.5px;letter-spacing:.05em}
+  .boot-title{font-size:38px;letter-spacing:.12em}
+  .boot-sub{font-size:11.5px;letter-spacing:.08em}
+  .env-paper b{font-size:18px}
+  .letter-paper{padding:22px 20px 20px}
+  .lp-body{font-size:15px;line-height:2}
+  .lp-line{font-size:17px}
+  .lp-line-input input{font-size:22px}
+  .scene-inner{padding:16px 16px 18px}
+  .choices{gap:7px}
+  .choice{padding:10px 13px;font-size:12px}
+  .clue-grid{grid-template-columns:1fr 1fr}
+  .modal-card{padding:22px 18px 18px;border-radius:12px}
+  .ending-inner{padding:24px 18px 34px;gap:18px}
+  .end-main h2{font-size:32px}
+  .end-body{font-size:12.5px}
+  .end-stats{gap:12px;font-size:10px}
+}
+@media(max-height:620px) and (min-width:901px){
+  .env-scene{width:min(400px,80vw);margin-top:16px}
+  .boot-title{font-size:44px}
+  .boot-sub{margin-top:8px}
+  .letter-paper{margin-top:16px}
+}
+
+/* ---------------- 人物 ---------------- */
+.people-head{display:flex;align-items:baseline;justify-content:space-between;padding:2px 2px 12px;font-family:var(--hand);color:#33453d}
+.people-head b{font-size:15px;letter-spacing:.1em;font-weight:600}
+.people-head span{font-size:10px;color:#8b917f;letter-spacing:.1em}
+.people{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.person{background:rgba(255,255,255,.5);border:1px solid rgba(63,97,87,.14);border-radius:12px;overflow:hidden;box-shadow:0 2px 10px rgba(35,52,45,.05)}
+.pimg{display:block;aspect-ratio:3/4;overflow:hidden;background:#dfe3d9}
+.pimg img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 22%}
+.pinfo{display:block;padding:8px 10px 10px}
+.pinfo b{display:block;font-family:var(--hand);font-size:14px;color:#2f433b;letter-spacing:.06em}
+.pinfo s{display:block;font-size:9.5px;color:#8b917f;text-decoration:none;margin-top:2px;letter-spacing:.04em}
+.pinfo i{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-style:normal;font-size:10px;line-height:1.65;color:#6c7466;margin-top:5px}
+@media(max-width:420px){
+  .people{gap:8px}
+  .pinfo{padding:7px 8px 9px}
+  .pinfo b{font-size:13px}
+}
+
+</style>
+</head>
+<body data-weather="rain">
+
+<div class="grain"></div>
+<div class="mist"></div>
+<div class="rain" id="rain"></div>
+
+<!-- ===================== 开场：拆信 ===================== -->
+<section class="boot" id="boot">
+  <div class="boot-inner">
+    <div class="boot-kicker">
+      <span>SPRING LETTER · 2026</span>
+      <i>一对一 · 治愈向</i>
+      <button class="endprev" id="bootEndBtn"><b>结局</b><em id="bootEndCount">0 / 6</em></button>
+    </div>
+
+    <h1 class="boot-title">春日来信<em>letters in the spring rain</em></h1>
+    <p class="boot-sub">有些信，要等到很多年后的春天，才拆得开。</p>
+
+    <div class="env-scene" id="envScene">
+      <div class="env-shadow"></div>
+      <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="拆开信封">
+        <div class="env-back"></div>
+        <div class="env-paper"><b>致&nbsp;你</b><span>见字如面。</span></div>
+        <div class="env-front"></div>
+        <div class="env-flap"></div>
+        <div class="env-seal"><span>春</span></div>
+      </div>
+      <p class="env-hint" id="envHint">点击火漆印 · 拆开这封信</p>
+    </div>
+
+    <div class="letter-paper" id="letterPaper" hidden>
+      <div class="lp-crest">春</div>
+      <p class="lp-line">致 那个总在雨天低头的你：</p>
+      <div class="lp-body">
+        <p>南城的春天总是下雨。</p>
+        <p>有人在雨里弄丢了一把伞，<br>有人把一整个春天折进信封，寄了很多年，也没寄到。</p>
+        <p>如果你愿意，这个春天，<br>请替我把它拆开。</p>
+      </div>
+      <div class="lp-name">
+        <span>回信人</span>
+        <span class="lp-line-input"><input id="nameInput" maxlength="8" placeholder="写下你的名字" autocomplete="off" spellcheck="false"><i></i></span>
+      </div>
+      <div class="lp-actions">
+        <button class="btn-primary" id="startBtn">开始这个春天</button>
+        <button class="btn-ghost" id="continueBtn" hidden>继续上次</button>
+        <button class="btn-ghost" id="bootImportBtn">导入存档</button>
+      </div>
+      <p class="lp-tip">名字会写进信里，也写进他的春天。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 游戏主界面 ===================== -->
+<section class="app" id="app" hidden>
+  <header class="hud">
+    <div class="hud-brand"><b>春日来信</b><i>SPRING LETTER</i></div>
+    <div class="hud-day"><b id="hudDay">第 1 天</b><em id="hudDate">3月14日 · 惊蛰</em></div>
+    <div class="hud-stats">
+      <div class="stat ap" title="行动力">
+        <span class="stat-label">行动</span>
+        <div class="dots" id="apDots"></div>
+      </div>
+      <div class="stat heart" title="心动">
+        <span class="ico">♥</span><b id="heartVal">0</b>
+      </div>
+      <div class="stat heal" title="治愈度">
+        <span class="ico">✦</span><b id="healVal">0</b>
+      </div>
+    </div>
+    <div class="hud-tools">
+      <button class="icon-btn" id="soundBtn" title="雨声开关">♪</button>
+      <button class="icon-btn" id="menuBtn" title="存档与设置">⋯</button>
+    </div>
+  </header>
+
+  <main class="stage" id="stage">
+    <div class="scene-art" id="sceneArt"></div>
+    <div class="scene-weather" id="sceneWeather"></div>
+    <div class="scene-char" id="sceneChar">
+      <svg viewBox="0 0 240 320" aria-hidden="true">
+        <defs>
+          <linearGradient id="chg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#4b665e"/><stop offset="1" stop-color="#29423b"/>
+          </linearGradient>
+        </defs>
+        <g fill="url(#chg)" opacity=".94">
+          <path d="M120 166c-13 0-23 3-31 8-18 9-28 27-30 51l-4 91h130l-4-91c-2-24-12-42-30-51-8-5-18-8-31-8z"/>
+          <circle cx="120" cy="147" r="16"/>
+        </g>
+        <g fill="none" stroke="#e8efe9" stroke-width="1.6" opacity=".46">
+          <g transform="translate(30 14) scale(.9)">
+            <path d="M16 108C34 64 73 42 120 42s86 22 104 66c2 6-4 10-9 6-19-15-53-24-95-24s-76 9-95 24c-5 4-11 0-9-6z"/>
+            <path d="M120 42V30"/>
+            <path d="M62 64c18-11 37-16 58-16s40 5 58 16"/>
+          </g>
+          <path d="M138 111 182 200"/>
+          <path d="M94 205c-5 30-6 60-6 91M146 205c5 30 6 60 6 91" opacity=".5"/>
+        </g>
+      </svg>
+    </div>
+    <div class="scene-veil"></div>
+    <div class="scene-inner" id="sceneInner">
+      <div class="scene-meta">
+        <span class="scene-place" id="scenePlace">榆树巷</span>
+        <span class="scene-time" id="sceneTime">傍晚 · 雨</span>
+      </div>
+      <div class="scene-text" id="sceneText"></div>
+      <div class="choices" id="choices"></div>
+    </div>
+  </main>
+
+  <div class="panel-scrim" id="panelScrim"></div>
+
+  <aside class="panel" id="panel">
+    <div class="panel-grab" id="panelGrab" aria-label="拖动调整面板"></div>
+    <div class="panel-tabs" id="panelTabs">
+      <button class="ptab active" data-tab="phone">手机<i class="dot" id="phoneDot" hidden></i></button>
+      <button class="ptab" data-tab="map">地图</button>
+      <button class="ptab" data-tab="clues">线索<i class="dot" id="clueDot" hidden></i></button>
+      <button class="ptab" data-tab="letters">信件</button>
+      <button class="ptab" data-tab="people">人物</button>
+      <button class="ptab" data-tab="diary">日记</button>
+    </div>
+    <div class="panel-body" id="panelBody"></div>
+  </aside>
+
+  <nav class="mnav" id="mnav">
+    <button data-tab="phone"><b>◍</b>手机</button>
+    <button data-tab="map"><b>⌖</b>地图</button>
+    <button data-tab="clues"><b>✦</b>线索</button>
+    <button data-tab="letters"><b>✉</b>信件</button>
+    <button data-tab="people"><b>❁</b>人物</button>
+    <button data-tab="diary"><b>☰</b>日记</button>
+  </nav>
+</section>
+
+<!-- ===================== 通用弹窗 ===================== -->
+<div class="modal" id="modal" hidden>
+  <div class="modal-card">
+    <button class="modal-x" id="modalX" aria-label="关闭">✕</button>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- ===================== 章节转场 ===================== -->
+<div class="chapter" id="chapter" hidden>
+  <div class="chapter-in">
+    <span class="ch-no" id="chNo">CHAPTER 01</span>
+    <h2 id="chTitle">惊蛰</h2>
+    <p id="chSub">雨落下来的时候，春天才刚刚开始。</p>
+    <button class="btn-ghost light" id="chGo">继续</button>
+  </div>
+</div>
+
+<!-- ===================== 结局 ===================== -->
+<section class="ending" id="ending" hidden>
+  <div class="ending-inner">
+    <div class="end-art" id="endArt"></div>
+    <div class="end-main">
+      <span class="end-kicker" id="endKicker">ENDING 01 / 06</span>
+      <h2 id="endTitle">春日来信</h2>
+      <p class="end-sub" id="endSub"></p>
+      <div class="end-body" id="endBody"></div>
+      <div class="end-stats" id="endStats"></div>
+      <div class="end-actions">
+        <button class="btn-primary" id="endAgain">再写一封</button>
+        <button class="btn-ghost" id="endGallery">结局收藏</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+/* ============================================================
+   春日来信 · 剧情数据
+   图片素材：把同名文件放进 assets/ 即自动替换，缺图自动回退。
+   ============================================================ */
+const ART = {
+  shiyuJpg: 'img/a622c60d225e.webp',           // 男主半身立绘（羽化融进背景）
+  nuzhu: 'img/b0a637cbd975.webp',              // 女主立绘（结局页小像）
+  npcZhou: 'img/d5c001f4c231.webp',         // 周栀头像
+  npcChen: 'img/25ce56887cfb.webp',         // 陈姨头像
+  npcQin: 'img/a37d12f83672.webp',           // 秦姨
+  npcFather: 'img/71a029ff0fd1.webp',     // 陆建国
+  npcMother: 'img/0e5e86a79188.webp',     // 陆母
+  npcLaozhou: 'img/7e041b5c3fc7.webp',   // 老周
+  npcYu: 'img/f8df0da2f1f2.webp',             // 陆小雨
+
+  bg_old: 'img/c36e181c89b1.webp',            // 老居民楼
+  bg_roof: 'img/adc677d5db32.webp',          // 天台
+  bg_book: 'img/15d65547de5e.webp',          // 旧书店
+  bg_bus: 'img/28691cd0bb26.webp',            // 公交站
+  bg_river: 'img/a9a6386934b1.webp',        // 河堤
+  bg_store: 'img/50c73a066d06.webp',        // 便利店
+  bg_flower: 'img/249074044287.webp',      // 花店
+  bg_hospital: 'img/21e65c463d7c.webp',  // 医院
+
+  end_true: 'img/ef4c7a1cff2e.webp',
+  end_orange: 'img/3fd57eeb255d.webp',
+  end_umbrella: 'img/d549e8155583.webp',
+  end_afterrain: 'img/9217b3eb55cf.webp',
+  end_unsent: 'img/51cb96ba6c70.webp',
+  end_longrain: 'img/4826ec0b5f0a.webp'
+};
+
+/* ---------------- 日程 ---------------- */
+const DAYS = [
+  { date: '3月14日', term: '惊蛰', weather: 'rain' },
+  { date: '3月15日', term: '惊蛰', weather: 'rain' },
+  { date: '3月16日', term: '春分前', weather: 'cloud' },
+  { date: '3月17日', term: '春分前', weather: 'rain' },
+  { date: '3月18日', term: '春分前', weather: 'rain' },
+  { date: '3月19日', term: '春分', weather: 'rain' },
+  { date: '3月20日', term: '春分', weather: 'rain' },
+  { date: '3月21日', term: '清明前', weather: 'cloud' },
+  { date: '3月22日', term: '清明前', weather: 'rain' },
+  { date: '3月23日', term: '清明前', weather: 'rain' },
+  { date: '3月24日', term: '清明', weather: 'cloud' },
+  { date: '3月25日', term: '清明', weather: 'sun' },
+  { date: '3月26日', term: '谷雨前', weather: 'sun' },
+  { date: '3月27日', term: '谷雨前', weather: 'rain' },
+  { date: '3月28日', term: '谷雨', weather: 'sun' }
+];
+
+const CHAPTERS = {
+  1: { no: 'CHAPTER 01', title: '惊 蛰', sub: '雨落下来的时候，春天才刚刚开始。' },
+  6: { no: 'CHAPTER 02', title: '谷 雨', sub: '有些屋檐，要两个人一起躲，才不算冷。' },
+  11: { no: 'CHAPTER 03', title: '立 夏', sub: '雨会停的。你要相信。' }
+};
+
+/* ---------------- 地点 ---------------- */
+const LOCS = [
+  { id: 'old', name: '榆树巷 · 3号楼', sub: '他长大的地方', art: 'old', unlock: 1 },
+  { id: 'roof', name: '顶楼天台', sub: '离雨最近的地方', art: 'roof', unlock: 2 },
+  { id: 'book', name: '拾光书店', sub: '他打工的地方', art: 'book', unlock: 1 },
+  { id: 'bus', name: '7路公交站', sub: '你们重逢的地方', art: 'bus', unlock: 2 },
+  { id: 'river', name: '南河长堤', sub: '风很大的地方', art: 'river', unlock: 3 },
+  { id: 'store', name: '24小时便利店', sub: '凌晨两点还亮着', art: 'store', unlock: 2 },
+  { id: 'flower', name: '春分花店', sub: '你打工的地方', art: 'flower', unlock: 1 },
+  { id: 'hospital', name: '市二院', sub: '他不想让你来的地方', art: 'hospital', unlock: 6 }
+];
+
+/* ---------------- 线索 ---------------- */
+const CLUES = {
+  c_quarrel: { name: '雨夜里的争吵', icon: '雨', short: '钱、医院、别让他听见——三楼的争吵里，反复出现这三个词。', detail: '傍晚六点，三楼传来摔碎东西的声音。你听见「医院」「又交钱」「别让孩子听见」。那不是普通的争吵，更像两个人在拼命捂住一个秘密。' },
+  c_rent: { name: '陈姨的账本', icon: '账', short: '二姑 3000、老周 5000、陈姨 2000……陆家早已借遍了亲戚。', detail: '陈姨的便签上，密密麻麻记着几笔借款。她说，陆家这几年把能借的人都借遍了，却从来没跟时雨提过一个字。' },
+  c_essay: { name: '小雨的作文', icon: '文', short: '《我的哥哥》：他的鞋底磨穿了，他说不冷。', detail: '十岁的陆小雨写：我的哥哥有全世界最旧的球鞋。鞋底磨穿了，他说不冷。他还说，等我长大，给我买一双带灯的运动鞋。' },
+  c_pawn: { name: '当铺票据', icon: '当', short: '南城当铺：旧上海牌手表一只，当价 1800。', detail: '陆建国脚边掉出来的票据。那只上海牌手表，是他结婚时买的。当价一千八，刚好够一次透析。' },
+  c_badge: { name: '纺织厂工牌', icon: '牌', short: '陆建国，纺织厂机修工。右手工伤，赔偿金早已用完。', detail: '工牌边缘磨得发白。陈姨说，那年他的右手卷进机器，赔的钱看着多，摊到这些年，早就见了底。' },
+  c_form: { name: '撕碎的报名表', icon: '表', short: '复读班报名表，姓名栏是他的名字。他不想再花家里的钱。', detail: '一张被撕成两半的复读班报名表。他明明还想读书，却先把「要花很多钱」这件事，替家里否决了。' },
+  c_shift: { name: '书店的排班表', icon: '班', short: '他的名字排满了整周，从傍晚到十一点——他还在别处打工。', detail: '拾光书店的排班表上，陆时雨三个字占满了每一格。老周说，他白天还有两份工。' },
+  c_pill: { name: '便利店的药袋', icon: '药', short: '降压药、碳酸司维拉姆——那是透析病人吃的药。', detail: '收银台边的药袋里，装着降压药和碳酸司维拉姆。后者是透析病人常用的降磷药。他说是给妈妈买的，说得很轻。' },
+  c_dialysis: { name: '透析缴费单', icon: '单', short: '周蕙兰，每周三次透析。缴费单上的数字，长得没有尽头。', detail: '市二院三楼的缴费单。周蕙兰，尿毒症，每周三次透析。单子上的数字一长串，最后盖着「欠费」两个红字。' },
+  c_photo: { name: '旧合影', icon: '照', short: '床头柜上的一张旧照片：年轻的父母，和一个笑得很乖的小男孩。', detail: '照片背后写着一行字：1997 年，南河公园。照片里的陆时雨大概七岁，抱着一把黄色的玩具伞，笑得露出两颗门牙。' },
+  c_candy: { name: '橘子糖纸', icon: '糖', short: '一张折成小船的橘子糖纸，上面画着一颗歪歪扭扭的太阳。', detail: '十年前，榆树巷 7 号的花坛边。一个小男孩把黄伞留给正在哭的你，还有一颗橘子糖。糖纸上画着一颗歪歪扭扭的太阳。你一直以为，那是你自己画的。' }
+};
+
+/* ---------------- 地点事件 ---------------- */
+/* min / max：可触发的天数区间；clue：获得线索 */
+const EVENTS = [
+  {
+    id: 'bus1', loc: 'bus', min: 2, max: 5, art: 'bus',
+    place: '7路公交站', time: '夜 · 雨',
+    text: [
+      '7 路末班车一直不来。站牌下只有你们两个人。',
+      '他把伞往你这边偏了一点。你假装没看见，又悄悄往他那边推回去。',
+      '「别推。」他说，「我淋惯了。」'
+    ],
+    choices: [
+      { t: '「那一起淋。」', fx: { heart: 7, heal: 1 }, res: ['你把伞收起来，雨落在两个人肩上。', '他愣住，随即低低地笑了一声。', '「你这个人……真的很难对付。」'] },
+      { t: '「你这个人怎么这样。」', fx: { heart: 4, heal: 2 }, res: ['他垂着眼，没说话。', '过了很久，车还是没来。他把伞又往你这边挪了一点。'] },
+      { t: '把伞抢过来，举高一点', fx: { heart: 5, heal: 3 }, res: ['你踮起脚，把伞举过两个人的头顶。', '他僵了一下，最后还是伸手，接过了伞柄。', '「太矮了。」他说。语气很轻，像在笑。'] }
+    ]
+  },
+  {
+    id: 'book1', loc: 'book', min: 1, max: 5, art: 'book',
+    place: '拾光书店', time: '傍晚 · 雨',
+    text: [
+      '拾光书店在榆树巷的尽头，门口挂着一块褪色的木牌。',
+      '你推门进去，风铃响了一声。陆时雨站在梯子上理书，袖子挽到手肘，手腕上有一道浅浅的疤。',
+      '柜台后的老周抬了抬眼镜：「时雨，你朋友？」',
+      '「不是。」他说得太快了，又补了一句，「……是。」'
+    ],
+    clue: 'c_shift',
+    choices: [
+      { t: '「你一天打几份工？」', fx: { heart: 2, heal: 5 }, res: ['「三份。」他说得轻描淡写。', '「书店这份最轻松。可以看书。」', '你看见排班表上，他的名字排满了整周，从傍晚到十一点。'] },
+      { t: '帮他把书放回架子', fx: { heart: 5, heal: 2 }, res: ['你接过他手里的书，踮脚去够最上层的架子。', '他伸手替你扶住梯子。', '「左边第二格。」他说。声音就在你头顶。'] },
+      { t: '假装只是来买书', fx: { heart: 3, heal: 1 }, res: ['你随手抽了一本诗集。', '结账的时候，他看了一眼封面，说：「这本不好看。」', '然后从柜台下面，换了一本给你。'] }
+    ]
+  },
+  {
+    id: 'flower1', loc: 'flower', min: 1, max: 5, art: 'flower',
+    place: '春分花店', time: '下午 · 雨',
+    text: [
+      '春分花店里的洋桔梗开得很好。秦姨让你把门口那桶花搬进来，别被雨打坏。',
+      '你直起腰的时候，看见陆时雨站在街对面，手里拎着一袋书。',
+      '他没有过来，只是站了一会儿。雨落在他肩上，颜色一点点变深。'
+    ],
+    choices: [
+      { t: '朝他挥手', fx: { heart: 5, heal: 1 }, res: ['他像是被吓了一跳，随即抬起手，很小幅度地挥了一下。', '然后转身走了。走出去几步，又回头看了你一眼。'] },
+      { t: '把一把洋桔梗举起来给他看', fx: { heart: 6, heal: 2 }, res: ['你举起花，隔着雨幕晃了晃。', '他站在原地，很久没有动。', '后来你才知道，那天是他这半个月里，第一次笑。'] },
+      { t: '假装没看见，等他先开口', fx: { heart: 2, heal: 3 }, res: ['你低头继续搬花。', '风铃响了一声，又停了。', '等你再抬头，街对面已经没有人了。只有地上一小片被雨打湿的脚印。'] }
+    ]
+  },
+  {
+    id: 'old1', loc: 'old', min: 2, max: 4, art: 'old',
+    place: '榆树巷 · 3号楼', time: '傍晚 · 大雨',
+    text: [
+      '傍晚六点，雨把整栋楼泡得发软。',
+      '你刚走到 3 号楼楼下，就听见三楼传来一声闷响，像什么东西摔碎了。',
+      '「……医院那边又要交钱！」',
+      '「你小点声，别让孩子听见——」',
+      '「他早晚要知道！我们还能瞒多久？」',
+      '声音被雨吞掉了一半。你抬头，看见陆时雨站在单元门口，没有上去。',
+      '他背对着你，肩膀一点一点被雨打湿。'
+    ],
+    clue: 'c_quarrel',
+    choices: [
+      { t: '走过去，把伞举到他头顶', fx: { heart: 6, heal: 2 }, res: ['他没有回头。', '「你都听见了。」他说。', '「不是你想的那样。」', '「我想的哪样？」', '他终于转过来。眼睛很红。', '「……别问了。」'] },
+      { t: '站在原地看着他', fx: { heart: 2, heal: 5 }, res: ['你没有动。', '他站了很久，直到楼上的声音停了，才慢慢上楼。', '经过你的时候，他说：「回去吧。」', '声音很轻，像怕惊动什么。'] },
+      { t: '给他发一条消息：我在楼下', fx: { heart: 3, heal: 1 }, res: ['他的手机在口袋里亮了一下。', '他低头看了一眼，没有回。', '但他在原地站了很久。久到雨顺着他的下巴，一滴一滴落下来。'] }
+    ]
+  },
+  {
+    id: 'roof1', loc: 'roof', min: 2, max: 5, art: 'roof',
+    place: '顶楼天台', time: '傍晚 · 雨',
+    text: [
+      '天台的门虚掩着。雨斜斜地落进来。',
+      '陆时雨坐在水箱下面，校服外套搭在头上，手里是一本卷了边的习题册。',
+      '他看见你，往旁边挪了一点。',
+      '「你怎么上来了。」',
+      '你把豆浆递给他。他愣了两秒，接过去，捧在手心里。',
+      '「我没事。」他说。'
+    ],
+    choices: [
+      { t: '在他旁边坐下，什么都不问', fx: { heart: 4, heal: 6 }, res: ['你们就这样坐到雨停。', '他忽然说：「你这个人，很奇怪。」', '「别人都问我怎么了。」', '「你什么都不问。」', '你看着远处的屋顶：「因为问了，你也不会说。」', '他低下头，笑了一下。'] },
+      { t: '「你看起来不像没事。」', fx: { heart: 3, heal: 4 }, res: ['他把豆浆攥得很紧。', '「……像不像的，有那么重要吗。」', '「有。」你说，「至少对我有。」'] },
+      { t: '「那你把豆浆喝完。」', fx: { heart: 5, heal: 2 }, res: ['他看了你一眼，乖乖喝了一口。', '「烫。」', '「烫就慢点喝。」', '他就真的慢下来了。一口，一口，像在认真对待什么很重要的事。'] }
+    ]
+  },
+  {
+    id: 'store1', loc: 'store', min: 2, max: 7, art: 'store',
+    place: '24小时便利店', time: '凌晨 2:00 · 雨',
+    text: [
+      '凌晨两点，便利店的灯白得晃眼。',
+      '陆时雨坐在窗边的高脚凳上，面前的关东煮已经凉了。',
+      '他的工牌还没摘。收银台旁边放着一袋药。',
+      '「给我妈买的。」他说得很轻。'
+    ],
+    clue: 'c_pill',
+    choices: [
+      { t: '把热牛奶推给他', fx: { heart: 5, heal: 3 }, res: ['他低头看着那杯牛奶，很久没动。', '「……谢谢。」', '窗外的雨敲着玻璃。他捧着杯子，像是终于有了一点温度。'] },
+      { t: '「你几点下班？」', fx: { heart: 2, heal: 4 }, res: ['「四点。」', '「然后呢？」', '「回去睡两个小时，去书店。」', '他说得很平静，像在说别人的事。'] },
+      { t: '「你吃药了吗？」', fx: { heart: 2, heal: 5 }, res: ['他一怔。', '「不是我吃的。」', '「那你呢？」', '他沉默了一会儿：「……忘了。」', '你把关东煮推到他面前：「那先吃点东西。」'] }
+    ]
+  },
+  {
+    id: 'old2', loc: 'old', min: 3, max: 7, art: 'old', who: 'chen',
+    place: '榆树巷 · 3号楼', time: '下午 · 阴',
+    text: [
+      '301 的陈姨在楼下收衣服，看见你，叹了口气。',
+      '「你是时雨的朋友吧。」',
+      '「这孩子命苦。他爸当年在纺织厂，右手卷进机器，赔的那点钱，早花完了。」',
+      '「他妈……唉。」她摆摆手，「你别看我，我什么都不知道。」',
+      '她把一张折了好几道的便签塞给你。背面是几笔借款：二姑 3000、老周 5000、陈姨 2000。'
+    ],
+    clue: 'c_rent',
+    choices: [
+      { t: '「谢谢您。」', fx: { heart: 2, heal: 3 }, res: ['陈姨拍拍你的手背。', '「他们不是不爱孩子。」', '「就是不会说。」'] },
+      { t: '「他们为什么不告诉时雨？」', fx: { heart: 1, heal: 5 }, res: ['陈姨看了你很久。', '「告诉他，然后呢？」', '「他那个性子，知道了还能安心读书吗？」', '「大人总觉得，瞒着就是保护。」'] },
+      { t: '「您能再跟我说说他家的事吗？」', fx: { heart: 2, heal: 2 }, res: ['陈姨把衣架收进盆里，声音压得很低。', '「他爸以前不喝酒的。」', '「手废了以后，才开始的。」', '「他不是坏人，就是……撑不住了。」'] }
+    ]
+  },
+  {
+    id: 'river1', loc: 'river', min: 3, max: 6, art: 'river',
+    place: '南河长堤', time: '傍晚 · 雨',
+    text: [
+      '南河的水涨了，浑黄，流得很快。',
+      '你们沿着堤岸走，谁也不说话。走到第三盏路灯的时候，他忽然开口。',
+      '「我小时候，我妈也带我来这里。」',
+      '「那时候水很清。」'
+    ],
+    choices: [
+      { t: '「现在也还可以。」', fx: { heart: 3, heal: 3 }, res: ['他看了看河面，没说话。', '过了很久，他轻轻「嗯」了一声。'] },
+      { t: '「你想她的时候，就来这里？」', fx: { heart: 4, heal: 5 }, res: ['他脚步顿了一下。', '「……算是吧。」', '「她生病以后，就不来了。」', '你和他并肩站着，看水面上的灯影被雨点打碎。'] },
+      { t: '「以后想来，叫我。」', fx: { heart: 6, heal: 2 }, res: ['他侧过头看你。', '路灯的光落在他眼睛里，很亮。', '「好。」他说。'] }
+    ]
+  },
+  {
+    id: 'roof2', loc: 'roof', min: 4, max: 9, art: 'roof',
+    place: '顶楼天台', time: '傍晚 · 雨',
+    text: [
+      '风把一张纸吹到你脚边。你捡起来。',
+      '是一张复读班报名表，姓名栏写着「陆时雨」，被撕成了两半。',
+      '他站在栏杆边，没有回头。',
+      '「别看了。」',
+      '「我不去了。」'
+    ],
+    clue: 'c_form',
+    choices: [
+      { t: '「为什么？」', fx: { heart: 2, heal: 4 }, res: ['「没有为什么。」', '「考不上就是考不上。」', '他说得很平静，可攥着栏杆的手，指节全白了。'] },
+      { t: '「你是因为钱，对吗？」', fx: { heart: 2, heal: 6 }, res: ['他猛地转过身。', '「谁跟你说的？」', '你没有躲：「我自己看出来的。」', '他的气势一下子垮了。'] },
+      { t: '把纸拼起来，放回他手里', fx: { heart: 6, heal: 4 }, res: ['你蹲下来，把两半纸对齐，一点一点抚平。', '他低头看着那张被拼好的报名表，很久。', '「你知不知道，」他的声音在抖，「你有时候真的很讨厌。」', '「我知道。」你说。'] }
+    ]
+  },
+  {
+    id: 'old3', loc: 'old', min: 4, max: 9, art: 'old', who: 'yu',
+    place: '榆树巷 · 3号楼', time: '傍晚 · 雨',
+    text: [
+      '302 的门开了一条缝。一个扎歪辫子的小女孩探出头。',
+      '「你是哥哥的女朋友吗？」',
+      '你被问得噎住。她把一张作文纸塞给你。',
+      '《我的哥哥》：我的哥哥有全世界最旧的球鞋。鞋底磨穿了，他说不冷。他说等我长大，给我买一双带灯的运动鞋。',
+      '「哥哥不让我给别人看。」她小声说，「但你是好人。」'
+    ],
+    clue: 'c_essay',
+    choices: [
+      { t: '陪她写作业', fx: { heart: 5, heal: 3 }, res: ['你蹲在门口，教她写「春」字。', '她写得很认真，最后一笔拖得很长。', '「姐姐，」她忽然问，「春天会一直下雨吗？」', '「不会的。」你说。'] },
+      { t: '问她妈妈的事', fx: { heart: 1, heal: 5 }, res: ['「妈妈去医院了。」她说。', '「爸爸说，妈妈身体里有一个坏掉的水龙头。」', '「换一个就好了。」', '她仰着脸，说得很认真。'] },
+      { t: '把作文还给她', fx: { heart: 2, heal: 2 }, res: ['她把作文纸小心地折好，放回口袋。', '「姐姐，你别告诉哥哥。」', '「为什么？」', '「他会不好意思。」'] }
+    ]
+  },
+  {
+    id: 'bus2', loc: 'bus', min: 8, max: 12, art: 'bus',
+    place: '7路公交站', time: '深夜 · 雨',
+    text: [
+      '末班车来了，又走了。',
+      '你们谁都没有上。',
+      '「我今天不想回家。」他说。',
+      '站牌上的灯一闪一闪，把他的影子拉得很长。'
+    ],
+    choices: [
+      { t: '「那就不回。」', fx: { heart: 5, heal: 4 }, res: ['他看了你一眼，像是没想到你会这么说。', '你们坐在站台的长椅上，看一辆辆空车开过去。', '「你也不回去？」', '「我陪你。」'] },
+      { t: '「去便利店坐会儿？」', fx: { heart: 2, heal: 5 }, res: ['他点点头。', '便利店的暖气很足。他买了两杯热可可，把甜的那杯推给你。', '「你不喜欢甜的？」', '「还好。」他说，「看你喝就行。」'] },
+      { t: '「我陪你。」', fx: { heart: 6, heal: 2 }, res: ['他没有说好，也没有说不好。', '只是往旁边挪了一点，把避风的位置让给你。', '雨声很大。你们靠得很近。'] }
+    ]
+  },
+  {
+    id: 'old4', loc: 'old', min: 7, max: 12, art: 'old', who: 'father',
+    place: '榆树巷 · 3号楼', time: '夜 · 雨',
+    text: [
+      '楼道里一股酒味。陆建国坐在台阶上，脚边是一个倒了的塑料袋。',
+      '他抬头看你，眼神浑浊，却努力坐直了。',
+      '「你是……时雨的同学？」',
+      '他右手一直在抖。你看见他脚边的票据：南城当铺，旧上海牌手表一只。',
+      '口袋里还露出一角蓝色的工牌：纺织厂 · 陆建国。'
+    ],
+    clue: ['c_pawn', 'c_badge'],
+    choices: [
+      { t: '扶他起来', fx: { heart: 2, heal: 6 }, res: ['他很轻，轻得不像一个成年男人。', '「不用扶。」他嘴上这么说，手却攥紧了你的胳膊。', '「姑娘，」他忽然说，「别告诉时雨。」', '「我不是个好爹。」'] },
+      { t: '问他为什么喝酒', fx: { heart: 1, heal: 4 }, res: ['他愣了很久。', '「手疼。」他说，「喝了就不疼了。」', '「心也疼。」', '他低下头，像是说漏了什么。'] },
+      { t: '「时雨很担心你。」', fx: { heart: 5, heal: 3 }, res: ['陆建国的手抖了一下。', '「他担心我？」', '他笑了，眼角的褶子挤在一起，比哭还难看。', '「他该恨我。」'] }
+    ]
+  },
+  {
+    id: 'roof3', loc: 'roof', min: 7, max: 11, art: 'roof',
+    place: '顶楼天台', time: '夜 · 大雨',
+    text: [
+      '你在天台找到他的时候，他正在打电话。',
+      '「……我知道了。别再打来了。」',
+      '他挂了电话，手还举在半空。',
+      '「我妈的透析，一周三次。」他忽然说，「我爸把房子挂了。」',
+      '「我什么都做不了。」'
+    ],
+    choices: [
+      { t: '「你已经做得够多了。」', fx: { heart: 2, heal: 8 }, res: ['「不够。」他说。', '「我连她的药费都凑不齐。」', '「时雨。」你叫他的名字，「你才十九岁。」', '他愣住了。像是从来没有人提醒过他这件事。'] },
+      { t: '抱住了他', fx: { heart: 9, heal: 4 }, res: ['他僵了一下。', '然后，很慢很慢地，把额头抵在你的肩上。', '「就一会儿。」他说。', '雨声很大。你听见他很轻、很轻地吸了一下鼻子。'] },
+      { t: '「那就一起想办法。」', fx: { heart: 4, heal: 5 }, res: ['「怎么想？」他笑了一下，「你能变出钱来吗？」', '「不能。」你说，「但我可以陪你想。」', '他低下头，很久没说话。'] }
+    ]
+  },
+  {
+    id: 'hospital1', loc: 'hospital', min: 6, max: 10, art: 'hospital',
+    place: '市二院 · 三楼', time: '下午 · 雨',
+    text: [
+      '市二院三楼的走廊有一股消毒水味。',
+      '你看见陆时雨坐在长椅上，头靠着墙，睡着了。脚边放着一个保温桶。',
+      '透析室的门开着一条缝。护士叫号：「周蕙兰——」',
+      '墙上的缴费单上写着一长串数字，末尾盖着红色的「欠费」。'
+    ],
+    clue: 'c_dialysis',
+    choices: [
+      { t: '在他旁边坐下', fx: { heart: 3, heal: 5 }, res: ['你坐下的时候，他醒了。', '「你怎么来了。」他的声音哑得厉害。', '「路过。」', '他看了你一眼，没拆穿。'] },
+      { t: '帮他盖件外套', fx: { heart: 6, heal: 2 }, res: ['你把外套轻轻搭在他身上。', '他没有醒，只是皱着眉，往外套里缩了缩。', '像一个在雨里走了很久的人，终于找到一小块干燥的地方。'] },
+      { t: '去缴费窗口问', fx: { heart: 1, heal: 4 }, res: ['窗口的护士说：「周蕙兰的家属已经欠了两次了。」', '「他每次都说过几天就补上。」', '你回头，看见他还睡在长椅上。'] }
+    ]
+  },
+  {
+    id: 'book2', loc: 'book', min: 5, max: 9, art: 'book', who: 'zhoulao',
+    place: '拾光书店', time: '傍晚 · 雨',
+    text: [
+      '老周在给书盖章，忽然说：「他本来能考上的。」',
+      '「差十二分。」',
+      '「那孩子高考那几天，脸色白得像纸。考完最后一科就跑了，连笔都没收。」',
+      '老周叹了口气：「有些孩子，太懂事了。」'
+    ],
+    choices: [
+      { t: '「他为什么不复读？」', fx: { heart: 2, heal: 4 }, res: ['「钱呗。」老周说得很直接。', '「复读班一学期多少钱，你比我清楚。」', '「他嘴上说不想读，其实天天在书店翻建筑系的书。」'] },
+      { t: '「学费很贵吧。」', fx: { heart: 1, heal: 3 }, res: ['老周看了你一眼。', '「贵不贵的，得看跟什么比。」', '「跟一条命比，就不贵了。」'] },
+      { t: '「谢谢您告诉我。」', fx: { heart: 3, heal: 2 }, res: ['老周摆摆手。', '「我什么也没说。」', '「你要是真有心，就劝劝他。」'] }
+    ]
+  },
+  {
+    id: 'river2', loc: 'river', min: 8, max: 12, art: 'river',
+    place: '南河长堤', time: '傍晚 · 阴',
+    text: [
+      '他在河堤上站了很久，才开口。',
+      '「高考第二天，我爸给我打电话，说我妈在抢救。」',
+      '「我把最后一科考完才去的。」',
+      '「差十二分。」',
+      '「如果那天我没去考试，她也许——」'
+    ],
+    choices: [
+      { t: '「那不是你的错。」', fx: { heart: 2, heal: 8 }, res: ['「你不懂。」他说。', '「我懂。」你说，「把所有的错都揽到自己身上，会比较好受。」', '他猛地看向你。', '「因为我也这样干过。」'] },
+      { t: '「我高二那年，也想过死。」', fx: { heart: 7, heal: 7 }, res: ['他猛地转头。', '「……你现在呢？」', '「现在？」你笑了一下，「现在在雨里，跟你说话。」', '他握住了你的手。很用力，像怕你被雨冲走。'] },
+      { t: '握住他的手', fx: { heart: 7, heal: 4 }, res: ['他的手很凉。', '「时雨。」你说，「你已经做得够好了。」', '他没有抽回手。', '只是低着头，很久，很久。'] }
+    ]
+  },
+  {
+    id: 'store2', loc: 'store', min: 7, max: 11, art: 'store',
+    place: '24小时便利店', time: '深夜 · 雨',
+    text: [
+      '你在便利店门口看见陆建国。他手里捏着一张纸，正在跟店员说什么。',
+      '走近了才听见：「……能不能先赊一箱牛奶，我儿子在里面。」',
+      '那张纸是一张欠条。',
+      '陆时雨从货架后面出来，看见你们，脸一下白了。'
+    ],
+    choices: [
+      { t: '假装没看见', fx: { heart: 3, heal: 2 }, res: ['你转过身，假装在看货架。', '身后传来他很低的声音：「爸，你回去吧。」', '你听见塑料袋摩擦的声音，还有一声很轻的「对不起」。'] },
+      { t: '走过去，替他把牛奶付了', fx: { heart: 5, heal: 5 }, res: ['你把钱放在柜台上。', '陆建国愣住了。陆时雨也愣住了。', '「不用你——」', '「一箱牛奶。」你打断他，「又不贵。」'] },
+      { t: '把陆建国拉到一边', fx: { heart: 2, heal: 6 }, res: ['「他会生气的。」陆建国说。', '「您这样，他更难受。」', '他沉默了很久，把欠条揉成一团，塞回口袋。', '「姑娘，」他说，「你多陪陪他。」'] }
+    ]
+  },
+  {
+    id: 'hospital2', loc: 'hospital', min: 9, max: 14, art: 'hospital',
+    place: '市二院 · 病房', time: '下午 · 雨',
+    text: [
+      '周蕙兰比你想的瘦。她看见你，努力坐起来，笑了笑。',
+      '「时雨总说，有个姑娘对他很好。」',
+      '「他从小就这样，什么都自己扛。」',
+      '「你帮我劝劝他。让他去读书。」',
+      '床头柜上放着一张旧合影：年轻的父母，和一个抱着黄色玩具伞的小男孩。'
+    ],
+    clue: 'c_photo',
+    choices: [
+      { t: '「我劝过了。」', fx: { heart: 2, heal: 5 }, res: ['她笑了。', '「他听你的吗？」', '「不知道。」你说，「但他会假装不听。」', '她笑出了声，咳了两下。'] },
+      { t: '「阿姨，您也要好好的。」', fx: { heart: 4, heal: 6 }, res: ['她看着你，眼睛慢慢红了。', '「好。」她说，「我努力。」', '她伸手，拍了拍你的手背，很轻。'] },
+      { t: '「他其实很听您的话。」', fx: { heart: 3, heal: 4 }, res: ['「是吗。」她低下头。', '「那他怎么不听，去读书呢。」', '你没有回答。窗外雨声很密。'] }
+    ]
+  },
+  {
+    id: 'roof4', loc: 'roof', min: 11, max: 15, art: 'roof',
+    place: '顶楼天台', time: '午后 · 晴',
+    text: [
+      '连下了半个月的雨，今天终于停了。',
+      '天台上晒着被子，风里有肥皂味。陆时雨站在栏杆边，头发被风吹得乱七八糟。',
+      '「我小时候，这栋楼的天台上有一把黄伞。」他说，「不知道是谁的，一直挂在那里。」',
+      '「后来有一天，我把那把伞给了一个在花坛边哭的小孩。」',
+      '你的心跳漏了一拍。'
+    ],
+    choices: [
+      { t: '「……那个小孩，是我。」', fx: { heart: 10, heal: 5 }, res: ['他转过身，看了你很久。', '「我知道。」他说。', '「你画太阳的习惯，十年都没改。」'] },
+      { t: '「你还记得那把伞是什么颜色吗？」', fx: { heart: 7, heal: 3 }, res: ['「黄色。」他说。', '「很旧。伞骨断了一根。」', '「那个小孩哭得很凶，我把糖给她，她就不哭了。」', '你低下头，鼻子发酸。'] },
+      { t: '什么也没说', fx: { heart: 3, heal: 4 }, res: ['你张了张嘴，最后还是什么都没说。', '风把被子吹得鼓起来。', '他看了你一眼，也没有再问。'] }
+    ]
+  },
+  {
+    id: 'book3', loc: 'book', min: 10, max: 15, art: 'book',
+    place: '拾光书店', time: '傍晚 · 晴',
+    text: [
+      '你在他常待的角落发现一本《中国古建筑图鉴》，书页间夹着很多铅笔速写。',
+      '屋顶、斗拱、雨檐。每一张旁边都写着细小的字：「如果下雨，这里会积水。」',
+      '陆时雨从你身后伸手，把书合上。',
+      '「随便画的。」'
+    ],
+    choices: [
+      { t: '「你以后想学建筑？」', fx: { heart: 5, heal: 3 }, res: ['他没有否认。', '「想。」他说，「想盖那种，下雨天可以让人躲一躲的屋檐。」'] },
+      { t: '「画得很好。真的。」', fx: { heart: 7, heal: 2 }, res: ['他耳根红了。', '「……别看了。」', '你把书抱在怀里：「借我看看。」', '「随你。」他转过身去整理书架，背对着你，肩膀却在轻轻发抖。'] },
+      { t: '「这些雨檐，是为了让人躲雨吗？」', fx: { heart: 6, heal: 2 }, res: ['「嗯。」他说。', '「古时候的人很聪明。知道雨会来，就先把屋檐伸出去一点。」', '「伸出去一点，路过的人就有地方站了。」'] }
+    ]
+  },
+  {
+    id: 'old5', loc: 'old', min: 11, max: 15, art: 'old',
+    place: '榆树巷 · 3号楼', time: '上午 · 晴',
+    text: [
+      '302 的门口堆着纸箱。',
+      '陆建国在捆书，动作笨拙，右手使不上力。',
+      '「时雨说要复读。」他笑了一下，眼角的褶子很深。',
+      '「我跟他妈……以前总觉得，瞒着他就是对他好。」',
+      '「其实他什么都知道。孩子比我们想的长得早。」'
+    ],
+    choices: [
+      { t: '帮他捆书', fx: { heart: 3, heal: 7 }, res: ['你蹲下来，帮他把绳子拉紧。', '他忽然说：「姑娘，谢谢你。」', '「谢我什么？」', '「谢谢你没嫌我们家。」', '你鼻子一酸，没敢抬头。'] },
+      { t: '「他其实很怕你们失望。」', fx: { heart: 4, heal: 5 }, res: ['陆建国的手停住了。', '「他怕？」', '「他以为，家里吵架是因为他。」', '老人低下头，很久没有说话。'] },
+      { t: '安静听着', fx: { heart: 2, heal: 4 }, res: ['你什么也没说。', '他把最后一摞书捆好，站起来的时候晃了一下。', '「人这一辈子，」他说，「最难的是跟自家人说软话。」'] }
+    ]
+  },
+  {
+    id: 'hospital3', loc: 'hospital', min: 11, max: 15, art: 'hospital',
+    place: '市二院 · 走廊', time: '下午 · 晴',
+    text: [
+      '医生说，配型有希望，但手术费还差一截。',
+      '陆时雨站在走廊尽头，背对着你。',
+      '「我不去复读了。」他说。',
+      '这句话他说得很平静。平静得让你害怕。'
+    ],
+    choices: [
+      { t: '「钱可以想办法。」', fx: { heart: 3, heal: 6 }, res: ['「怎么想。」', '「助学贷款、奖学金、我也可以——」', '「你凭什么。」他忽然转过身，「你凭什么替我扛。」', '「因为你也会替我扛。」你说。'] },
+      { t: '「你去了，阿姨才会安心。」', fx: { heart: 4, heal: 7 }, res: ['他靠着墙，慢慢滑下去。', '「我妈说，她拖累了我。」', '「那你告诉她，」你蹲下来，「不是拖累。」', '「是她让你长成现在这样。」'] },
+      { t: '「那我们一起想办法。」', fx: { heart: 6, heal: 5 }, res: ['他看了你很久。', '「你为什么……」', '他的声音哑了。', '「为什么对我这么好。」'] }
+    ]
+  },
+  {
+    id: 'flower2', loc: 'flower', min: 8, max: 15, art: 'flower',
+    place: '春分花店', time: '下午 · 晴',
+    text: [
+      '秦姨一边剪枝一边说：「洋桔梗的花语，是不变的爱。」',
+      '「送人吗？」她问。',
+      '你还没回答，门口的风铃响了。陆时雨站在门口，肩上湿了一片。',
+      '「路过。」他说。可外面明明已经放晴了。'
+    ],
+    choices: [
+      { t: '「送你的。」', fx: { heart: 8, heal: 2 }, res: ['他把花接过去，手足无措地站着。', '「我……没地方放。」', '「那就拿回家。」', '他低头闻了一下，很轻，像怕把花弄坏。'] },
+      { t: '「先帮我搬花。」', fx: { heart: 4, heal: 3 }, res: ['他默默卷起袖子。', '搬完最后一桶，他额头上全是汗。', '「给你。」你把一枝洋桔梗递过去。', '他接过去，笑了。'] },
+      { t: '把花藏到身后', fx: { heart: 5, heal: 1 }, res: ['「藏什么？」', '「没什么。」', '他看了你一眼，没有拆穿。', '但你转身的时候，看见他嘴角一直没放下来。'] }
+    ]
+  }
+];
+
+/* ---------------- 每日聊天 ---------------- */
+const CHATS = {
+  1: { msgs: [
+    { from: 'sys', text: '3月14日 22:41' },
+    { from: 'him', text: '伞。明天还你。' },
+    { from: 'him', text: '你住榆树巷？' }
+  ], choices: [
+    { t: '「嗯。你也是？」', fx: { heart: 4, heal: 1 }, reply: [
+      { from: 'him', text: '3号楼，302。' },
+      { from: 'him', text: '明天下午，书店门口。' },
+      { from: 'sys', text: '对方正在输入…' },
+      { from: 'him', text: '算了。晚安。' }
+    ] },
+    { t: '「你怎么知道？」', fx: { heart: 3, heal: 2 }, reply: [
+      { from: 'him', text: '猜的。' },
+      { from: 'him', text: '你身上有樟脑丸的味道。老房子都这样。' },
+      { from: 'him', text: '……晚安。' }
+    ] },
+    { t: '「先还伞，再问问题。」', fx: { heart: 2, heal: 1 }, reply: [
+      { from: 'him', text: '……' },
+      { from: 'him', text: '行。' },
+      { from: 'him', text: '明天下午。' }
+    ] }
+  ] },
+
+  2: { msgs: [
+    { from: 'sys', text: '3月15日 20:17' },
+    { from: 'him', text: '今天楼下很吵吧。' },
+    { from: 'him', text: '别往心里去。' }
+  ], choices: [
+    { t: '「我听见了。你还好吗？」', fx: { heart: 3, heal: 5 }, reply: [
+      { from: 'him', text: '习惯了。' },
+      { from: 'him', text: '你别站在雨里听。会感冒。' }
+    ] },
+    { t: '「你站在雨里多久了？」', fx: { heart: 5, heal: 2 }, reply: [
+      { from: 'him', text: '……' },
+      { from: 'him', text: '不久。' },
+      { from: 'him', text: '别学我。站在雨里，解决不了任何事。' }
+    ] },
+    { t: '「那是你家吗？」', fx: { heart: 1, heal: 3 }, reply: [
+      { from: 'him', text: '嗯。' },
+      { from: 'him', text: '不是你想的那种家。' },
+      { from: 'him', text: '……算了。' }
+    ] }
+  ] },
+
+  3: { msgs: [
+    { from: 'sys', text: '3月16日 19:02' },
+    { from: 'him', text: '豆浆，谢谢。' },
+    { from: 'him', text: '还有，别再来天台了。风大。' }
+  ], choices: [
+    { t: '「那你为什么天天去？」', fx: { heart: 4, heal: 2 }, reply: [
+      { from: 'him', text: '上面安静。' },
+      { from: 'him', text: '而且没有人问我怎么了。' }
+    ] },
+    { t: '「风大才要去。一个人吹风会冷。」', fx: { heart: 6, heal: 2 }, reply: [
+      { from: 'him', text: '……' },
+      { from: 'him', text: '那你更不该来。' },
+      { from: 'him', text: '我冷惯了。' }
+    ] },
+    { t: '「好。那我带两杯。」', fx: { heart: 3, heal: 4 }, reply: [
+      { from: 'him', text: '……' },
+      { from: 'him', text: '一杯就够。' },
+      { from: 'him', text: '两杯也行。' }
+    ] }
+  ] },
+
+  4: { msgs: [
+    { from: 'sys', text: '3月17日 23:28' },
+    { from: 'him', text: '刚下班。' },
+    { from: 'him', text: '书店的猫把你送的那袋面包吃了。' }
+  ], choices: [
+    { t: '「那是我给你的。」', fx: { heart: 4, heal: 2 }, reply: [
+      { from: 'him', text: '……我知道。' },
+      { from: 'him', text: '它比我先看见。' },
+      { from: 'him', text: '下次我藏起来。' }
+    ] },
+    { t: '「它叫什么名字？」', fx: { heart: 5, heal: 1 }, reply: [
+      { from: 'him', text: '年糕。' },
+      { from: 'him', text: '老周起的。说它白得像一块年糕。' },
+      { from: 'him', text: '你明天还来吗。' }
+    ] },
+    { t: '「你一天到底打几份工？」', fx: { heart: 2, heal: 5 }, reply: [
+      { from: 'him', text: '三份。' },
+      { from: 'him', text: '够用。' },
+      { from: 'him', text: '别问这个了。' }
+    ] }
+  ] },
+
+  5: { msgs: [
+    { from: 'sys', text: '3月18日 18:05' },
+    { from: 'him', text: '今天不去书店了。有点事。' }
+  ], choices: [
+    { t: '「你在哪？」', fx: { heart: 5, heal: 2 }, reply: [
+      { from: 'him', text: '外面。' },
+      { from: 'him', text: '……别担心。' },
+      { from: 'sys', text: '晚上 21:47，他没有再回消息。' }
+    ] },
+    { t: '「好。记得吃饭。」', fx: { heart: 3, heal: 4 }, reply: [
+      { from: 'him', text: '嗯。' },
+      { from: 'him', text: '你也是。' },
+      { from: 'sys', text: '晚上 21:47，他没有再回消息。' }
+    ] },
+    { t: '「我给你留了热牛奶。」', fx: { heart: 6, heal: 2 }, reply: [
+      { from: 'him', text: '……' },
+      { from: 'him', text: '我可能晚点。' },
+      { from: 'sys', text: '晚上 21:47，他没有再回消息。' }
+    ] }
+  ] },
+
+  6: { msgs: [
+    { from: 'sys', text: '3月19日 16:12' },
+    { from: 'him', text: '你今天去医院了？' },
+    { from: 'him', text: '谁告诉你的。' }
+  ], choices: [
+    { t: '「我遇见你妹妹了。」', fx: { heart: 2, heal: 5 }, reply: [
+      { from: 'him', text: '……' },
+      { from: 'him', text: '她话太多了。' },
+      { from: 'him', text: '对不起。我不该凶你。' }
+    ] },
+    { t: '「我不是去查你，我是担心你。」', fx: { heart: 5, heal: 4 }, reply: [
+      { from: 'him', text: '我知道。' },
+      { from: 'him', text: '……但我家的事，很脏。' },
+      { from: 'him', text: '你别沾。' }
+    ] },
+    { t: '「你先告诉我，你昨晚几点睡的？」', fx: { heart: 4, heal: 3 }, reply: [
+      { from: 'him', text: '……四点。' },
+      { from: 'him', text: '你怎么什么都要管。' },
+      { from: 'him', text: '……' },
+      { from: 'him', text: '谢谢。' }
+    ] }
+  ] },
+
+  7: { msgs: [
+    { from: 'sys', text: '3月20日 21:33' },
+    { from: 'him', text: '这几天别来找我了。' },
+    { from: 'him', text: '我说真的。' }
+  ], choices: [
+    { t: '「好。我在楼下等你，等到你愿意说。」', fx: { heart: 7, heal: 3 }, reply: [
+      { from: 'him', text: '……' },
+      { from: 'him', text: '别等太久。会感冒。' },
+      { from: 'him', text: '……' },
+      { from: 'him', text: '回去吧。' }
+    ] },
+    { t: '「你凭什么替我做决定。」', fx: { heart: 3, heal: 5 }, reply: [
+      { from: 'him', text: '因为我不想让你看见。' },
+      { from: 'him', text: '现在这样，已经够难看了。' }
+    ] },
+    { t: '「……知道了。」', fx: { heart: 1, heal: 2 }, reply: [
+      { from: 'him', text: '嗯。' },
+      { from: 'him', text: '早点睡。' },
+      { from: 'sys', text: '你盯着屏幕看了很久。输入框里的字，删了又打。' }
+    ] }
+  ] },
+
+  8: { msgs: [
+    { from: 'sys', text: '3月21日 22:58' },
+    { from: 'him', text: '我爸今天又喝了。' },
+    { from: 'him', text: '要是你听见什么，就当没听见。' }
+  ], choices: [
+    { t: '「我不会当没听见。」', fx: { heart: 3, heal: 5 }, reply: [
+      { from: 'him', text: '……' },
+      { from: 'him', text: '你真的很烦。' },
+      { from: 'him', text: '……但是谢谢。' }
+    ] },
+    { t: '「那我陪你坐着，不说话。」', fx: { heart: 5, heal: 6 }, reply: [
+      { from: 'him', text: '楼下很冷。' },
+      { from: 'him', text: '……等我十分钟。' }
+    ] },
+    { t: '「你爸他……是不是也很难受。」', fx: { heart: 2, heal: 3 }, reply: [
+      { from: 'him', text: '他活该。' },
+      { from: 'him', text: '……' },
+      { from: 'him', text: '我不知道。' }
+    ] }
+  ] },
+
+  9: { msgs: [
+    { from: 'sys', text: '3月22日 17:40' },
+    { from: 'him', text: '今天河堤的风很大。' },
+    { from: 'him', text: '我想跟你说件事。' }
+  ], choices: [
+    { t: '「我在听。」', fx: { heart: 4, heal: 4 }, reply: [
+      { from: 'him', text: '……' },
+      { from: 'him', text: '算了。当面说吧。' },
+      { from: 'him', text: '你什么时候有空。' }
+    ] },
+    { t: '「不想说也可以。」', fx: { heart: 5, heal: 3 }, reply: [
+      { from: 'him', text: '……' },
+      { from: 'him', text: '不。' },
+      { from: 'him', text: '我想说。' },
+      { from: 'him', text: '只是不知道从哪开始。' }
+    ] },
+    { t: '「我在河堤等你。」', fx: { heart: 6, heal: 2 }, reply: [
+      { from: 'him', text: '现在？' },
+      { from: 'him', text: '……外面在下雨。' },
+      { from: 'him', text: '算了。我带伞。' }
+    ] }
+  ] },
+
+  10: { msgs: [
+    { from: 'sys', text: '3月23日 19:20' },
+    { from: 'him', text: '陈姨是不是跟你说了什么。' },
+    { from: 'him', text: '你这两天看我的眼神，很奇怪。' }
+  ], choices: [
+    { t: '「是。我都知道了。」', fx: { heart: 3, heal: 6 }, reply: [
+      { from: 'him', text: '……' },
+      { from: 'him', text: '那你应该离我远一点。' },
+      { from: 'him', text: '我家是个无底洞。' }
+    ] },
+    { t: '「我想听你自己说。」', fx: { heart: 6, heal: 5 }, reply: [
+      { from: 'him', text: '……' },
+      { from: 'him', text: '我在楼下。' },
+      { from: 'him', text: '你下来吧。' }
+    ] },
+    { t: '「你先告诉我，你现在在哪。」', fx: { heart: 5, heal: 4 }, reply: [
+      { from: 'him', text: '楼下。' },
+      { from: 'him', text: '……雨很大。' },
+      { from: 'him', text: '你带把伞。' }
+    ] }
+  ] },
+
+  11: { msgs: [
+    { from: 'sys', text: '3月24日 15:08' },
+    { from: 'him', text: '我妈说，想见见你。' },
+    { from: 'him', text: '……你要是不方便，就算了。' }
+  ], choices: [
+    { t: '「好。我带花。」', fx: { heart: 5, heal: 3 }, reply: [
+      { from: 'him', text: '别带太贵的。' },
+      { from: 'him', text: '带洋桔梗吧。她喜欢。' },
+      { from: 'him', text: '……我有点紧张。' }
+    ] },
+    { t: '「她是不是知道了什么？」', fx: { heart: 4, heal: 2 }, reply: [
+      { from: 'him', text: '她说我最近，笑起来像个人了。' },
+      { from: 'him', text: '……她原话。' }
+    ] },
+    { t: '「你紧张吗？」', fx: { heart: 6, heal: 2 }, reply: [
+      { from: 'him', text: '不紧张。' },
+      { from: 'him', text: '……好吧。' },
+      { from: 'him', text: '有一点。' }
+    ] }
+  ] },
+
+  12: { msgs: [
+    { from: 'sys', text: '3月25日 20:44' },
+    { from: 'him', text: '复读班的表，我填了一半。' },
+    { from: 'him', text: '学费……我再想想。' }
+  ], choices: [
+    { t: '「助学贷款，我陪你去问。」', fx: { heart: 4, heal: 6 }, reply: [
+      { from: 'him', text: '你怎么什么都知道。' },
+      { from: 'him', text: '……好。' },
+      { from: 'him', text: '明天下午，你陪我。' }
+    ] },
+    { t: '「你可以先借我的。」', fx: { heart: 6, heal: 3 }, reply: [
+      { from: 'him', text: '不借。' },
+      { from: 'him', text: '……但我记住了。' },
+      { from: 'him', text: '以后还你。' }
+    ] },
+    { t: '「别想了，先填完。」', fx: { heart: 3, heal: 4 }, reply: [
+      { from: 'him', text: '……' },
+      { from: 'him', text: '你比我还急。' },
+      { from: 'him', text: '好。我填。' }
+    ] }
+  ] },
+
+  13: { msgs: [
+    { from: 'sys', text: '3月26日 18:30' },
+    { from: 'him', text: '今天放晴了。' },
+    { from: 'him', text: '花店门口那盆洋桔梗，是不是你种的。' }
+  ], choices: [
+    { t: '「是。送你的。」', fx: { heart: 7, heal: 2 }, reply: [
+      { from: 'him', text: '……' },
+      { from: 'him', text: '我收下了。' },
+      { from: 'him', text: '放在窗台上了。' }
+    ] },
+    { t: '「你怎么认出是我的？」', fx: { heart: 5, heal: 2 }, reply: [
+      { from: 'him', text: '花盆上画了个太阳。' },
+      { from: 'him', text: '很丑。' },
+      { from: 'him', text: '……但我一眼就认出来了。' }
+    ] },
+    { t: '「喜欢吗？」', fx: { heart: 6, heal: 1 }, reply: [
+      { from: 'him', text: '喜欢。' },
+      { from: 'him', text: '……我说花。' }
+    ] }
+  ] },
+
+  14: { msgs: [
+    { from: 'sys', text: '3月27日 21:15' },
+    { from: 'him', text: '下雨了。' },
+    { from: 'him', text: '我在公交站。' },
+    { from: 'him', text: '带伞了吗。' }
+  ], choices: [
+    { t: '「没有。你来接我。」', fx: { heart: 8, heal: 2 }, reply: [
+      { from: 'him', text: '别动。' },
+      { from: 'him', text: '我马上到。' }
+    ] },
+    { t: '「带了。给你带了一把。」', fx: { heart: 5, heal: 3 }, reply: [
+      { from: 'him', text: '……' },
+      { from: 'him', text: '你怎么知道我没带。' },
+      { from: 'him', text: '等我。' }
+    ] },
+    { t: '「你在那里等我。」', fx: { heart: 6, heal: 1 }, reply: [
+      { from: 'him', text: '好。' },
+      { from: 'him', text: '我不走。' }
+    ] }
+  ] },
+
+  15: { msgs: [
+    { from: 'sys', text: '3月28日 20:02' },
+    { from: 'him', text: '今天是这个春天最后一场雨。' },
+    { from: 'him', text: '{name}，我有话想跟你说。' }
+  ], choices: [
+    { t: '「我在天台等你。」', fx: { heart: 5, heal: 2 }, reply: [
+      { from: 'him', text: '好。' },
+      { from: 'him', text: '我马上到。' }
+    ] },
+    { t: '「你就在电话里说。」', fx: { heart: 3, heal: 2 }, reply: [
+      { from: 'him', text: '不行。' },
+      { from: 'him', text: '这句话，得当面说。' }
+    ] },
+    { t: '「……我有点怕。」', fx: { heart: 4, heal: 3 }, reply: [
+      { from: 'him', text: '怕什么。' },
+      { from: 'him', text: '我也是。' },
+      { from: 'him', text: '一起怕。' }
+    ] }
+  ] }
+};
+
+/* ---------------- 其他人的消息 ---------------- */
+const SIDES = {
+  zhi: {
+    1: ['到南城了吧？', '别又一个人闷着。'],
+    2: ['你昨天说的那个男生，有照片吗？', '没有照片也行，先讲讲。'],
+    3: ['花店忙不忙？', '有事随时找我。'],
+    5: ['你别又当圣母啊。', '喜欢就直说。憋着会内伤。'],
+    6: ['你今天怎么没回我。', '算了，忙你的。'],
+    8: ['我查了下，尿毒症透析很花钱的。', '你别脑子一热去借钱。先问清楚。'],
+    9: ['你最近说话怪怪的。', '是不是喜欢上谁了。'],
+    11: ['所以你们到底什么时候在一起？', '我份子钱都准备好了。'],
+    12: ['所以呢，告白了吗？', '别让我等太久。'],
+    14: ['黄伞？？？', '等等。', '你童年那个小男孩，不会就是他吧？'],
+    15: ['春天结束了。', '你打算怎么办？']
+  },
+  chen: {
+    2: ['楼道灯坏了，晚上回来小心。'],
+    3: ['姑娘，你是时雨的朋友吧。', '这孩子不容易。你多担待。'],
+    5: ['今天看见你买了两份早餐。', '年轻人要按时吃饭。'],
+    7: ['302 又吵了。', '你别上去，他爸喝多了。'],
+    9: ['302 的灯又亮到很晚。', '那孩子总不睡觉。'],
+    10: ['有些话，本该他们自己说。', '可他们都不会说。'],
+    11: ['周蕙兰想见你。', '她今天精神好，去吧。'],
+    13: ['你是个好姑娘。', '有些话，别等太久。'],
+    15: ['春天结束了。', '有空来家里吃饭。']
+  }
+};
+
+const SIDE_REPLIES = {
+  zhi: {
+    1: [
+      { t: '到了，正在收拾外婆的老房子。', reply: ['一个人收拾？', '行吧，别累着。'] },
+      { t: '知道啦，我又不是小孩。', reply: ['你在我这儿就是。', '有事记得说。'] }
+    ],
+    2: [
+      { t: '才认识一天，哪来的照片。', reply: ['行，那你先讲讲他长什么样。'] },
+      { t: '就是一个帮忙捡信的人。', reply: ['哦——帮忙捡信的人。', '你语气不对。'] }
+    ],
+    3: [
+      { t: '挺忙的，但挺踏实。', reply: ['那就好。', '别把自己累垮。'] },
+      { t: '忙得都快忘了吃饭。', reply: ['我就知道。', '地址发我，给你点外卖。'] }
+    ],
+    5: [
+      { t: '我没有当圣母。', reply: ['你每次这么说，就是。', '算了，你开心就好。'] },
+      { t: '……好像真的有点喜欢。', reply: ['终于。', '憋了这么久，辛苦你了。'] }
+    ],
+    6: [
+      { t: '今天店里人多，刚看到。', reply: ['知道了。', '下次晚回也说一声。'] },
+      { t: '对不起，今天有点乱。', reply: ['乱什么？', '说给我听听。'] }
+    ],
+    8: [
+      { t: '我没借钱。就是想帮点什么。', reply: ['帮可以，别把自己搭进去。'] },
+      { t: '我知道。我不会冲动的。', reply: ['你最好。', '需要钱跟我说，别找外人。'] }
+    ],
+    9: [
+      { t: '……有这么明显吗。', reply: ['有。', '你以前不会盯着手机笑。'] },
+      { t: '没有，你别乱猜。', reply: ['行。', '等你想说的时候再说。'] }
+    ],
+    11: [
+      { t: '还早呢，别瞎说。', reply: ['早什么早。', '春天都快过去了。'] },
+      { t: '……等他先开口吧。', reply: ['你确定他会开口？', '别等了，你先。'] }
+    ],
+    12: [
+      { t: '写了信，还没寄。', reply: ['写都写了，寄。', '别又反悔。'] },
+      { t: '再等等。', reply: ['等到什么时候。', '春天可不等人。'] }
+    ],
+    14: [
+      { t: '……好像真的是他。', reply: ['天。', '这什么缘分。'] },
+      { t: '我也不敢确定。', reply: ['去问。', '别自己猜。'] }
+    ],
+    15: [
+      { t: '我想和他一起走下去。', reply: ['那就走。', '我支持你。'] },
+      { t: '还没想好。但我不想后悔。', reply: ['那就别留遗憾。', '去吧，我在这儿。'] }
+    ]
+  },
+  chen: {
+    2: [
+      { t: '谢谢陈姨，我带了手电。', reply: ['好。', '慢点走，别急。'] },
+      { t: '要不要我明天找人修一下？', reply: ['不用不用，物业会来。', '你有这份心就好。'] }
+    ],
+    3: [
+      { t: '我会的，陈姨。', reply: ['那就好。', '他要是嘴硬，你别往心里去。'] },
+      { t: '他家里……是不是很难？', reply: ['唉。', '有些事，得他自己跟你说。'] }
+    ],
+    5: [
+      { t: '一份是我的，一份给他的。', reply: ['我就知道。', '你自己也记得吃。'] },
+      { t: '您怎么什么都看见。', reply: ['我住楼下嘛。', '放心，我不说。'] }
+    ],
+    7: [
+      { t: '时雨在里面吗？', reply: ['应该不在。', '他一早就出去了。'] },
+      { t: '我有点担心。', reply: ['担心就给他发个消息。', '别自己上去。'] }
+    ],
+    9: [
+      { t: '我劝过他，他不听。', reply: ['你劝有用。', '他听你的。'] },
+      { t: '陈姨，您也早点睡。', reply: ['老了，睡不着。', '你们年轻人才该睡。'] }
+    ],
+    10: [
+      { t: '那我能做什么？', reply: ['陪着就行。', '有时候，陪着比什么都管用。'] },
+      { t: '他们其实都爱他吧。', reply: ['爱。', '就是不会说。'] }
+    ],
+    11: [
+      { t: '好，我买点水果去。', reply: ['别买太贵的。', '她看的是心意。'] },
+      { t: '我有点紧张。', reply: ['紧张什么。', '你去了，她就高兴。'] }
+    ],
+    13: [
+      { t: '陈姨，您说的是什么话？', reply: ['你知道的。', '别装糊涂。'] },
+      { t: '……我知道了。', reply: ['知道就好。', '去吧，别留遗憾。'] }
+    ],
+    15: [
+      { t: '好，我一定来。', reply: ['那就说定了。', '带上时雨也行。'] },
+      { t: '谢谢您这段时间照顾我。', reply: ['客气什么。', '以后也是邻居。'] }
+    ]
+  }
+};
+
+/* ---------------- 信件 ---------------- */
+const LETTER_STAGES = [
+  { name: '试探', sub: '隔着一把伞的距离' },
+  { name: '靠近', sub: '开始说一些不必说的事' },
+  { name: '在意', sub: '把害怕也交给对方' },
+  { name: '并肩', sub: '商量同一个以后' }
+];
+
+const LETTER_THEMES = [
+  /* ---------- 第一层 · 试探 ---------- */
+  {
+    id: 'care1', stage: 1, title: '今天也有好好吃饭吗', sub: '关心 · 治愈 +5',
+    body: '时雨：\n今天降温了，风从巷子口灌进来。\n你总说自己不怕冷，可我看到你的手冻得发红。\n明天记得吃饭。哪怕只是一碗热汤面。\n——{name}',
+    fx: { heart: 1, heal: 5 },
+    replies: [
+      '……吃了。\n楼下的面馆，加了个蛋。\n你也别总吃冷的。',
+      '嗯。\n今天吃了两顿。\n比前几天多一顿。',
+      '你管得真宽。\n……不过，面很好吃。\n下次一起去。'
+    ]
+  },
+  {
+    id: 'sleep1', stage: 1, title: '别再熬夜了', sub: '叮嘱 · 治愈 +4',
+    body: '时雨：\n书店的灯总是亮到很晚。\n我路过的时候，会忍不住抬头看一眼三楼。\n你房间的灯，也总是最后一个熄。\n别总熬到那么晚。夜里凉。\n——{name}',
+    fx: { heart: 1, heal: 4 },
+    replies: [
+      '习惯了。\n睡得早，也睡不着。',
+      '你怎么知道是我房间。\n……算了。\n今晚早点关。',
+      '被你说得像在监视我。\n不过，有人管的感觉，不坏。'
+    ]
+  },
+  {
+    id: 'umbrella1', stage: 1, title: '伞不急着还', sub: '试探 · 心动 +3 / 治愈 +2',
+    body: '时雨：\n那把黄伞一直靠在我家门口。\n每次出门看见它，都会想起你站在雨里的样子。\n伞不急着还。\n等你想还的时候，再来找我。\n——{name}',
+    fx: { heart: 3, heal: 2 },
+    replies: [
+      '好。\n那我晚点再还。',
+      '伞你先用。\n南城还要下很久。',
+      '其实那天，我本来想送你到家。\n……算了。'
+    ]
+  },
+  {
+    id: 'weather1', stage: 1, title: '今天有雨，记得带伞', sub: '关心 · 治愈 +4',
+    body: '时雨：\n天气预报说，今晚有雨。\n你总把伞让给别人，自己淋着。\n这次别逞强。带伞，或者——在书店等我。\n——{name}',
+    fx: { heart: 1, heal: 4 },
+    replies: [
+      '带了。\n这次真的带了。',
+      '在书店等你。\n老周问你要不要喝热水。',
+      '你是在约我吗。\n……我当没看见。'
+    ]
+  },
+  {
+    id: 'flower1', stage: 1, title: '花店今天进了洋桔梗', sub: '分享 · 心动 +3',
+    body: '时雨：\n花店今天进了一批洋桔梗。\n白的，紫的，还有一点点粉。\n秦姨说，洋桔梗的花语是「不变的爱」。\n我留了一枝。\n不是卖的那种，是给你的。\n——{name}',
+    fx: { heart: 3, heal: 2 },
+    replies: [
+      '我收下了。\n插在窗台的玻璃瓶里。',
+      '洋桔梗啊。\n我妈以前也喜欢。\n谢谢。',
+      '一枝就够了。\n多了，我怕养不好。'
+    ]
+  },
+  {
+    id: 'cat1', stage: 1, title: '书店的年糕好像胖了', sub: '闲聊 · 心动 +3 / 治愈 +2',
+    body: '时雨：\n今天去书店，年糕趴在收银台上，胖了一圈。\n它看见我，尾巴动了一下，又睡了。\n老周说，它只对熟的人这样。\n我忽然有点高兴。\n——{name}',
+    fx: { heart: 3, heal: 2 },
+    replies: [
+      '它最近吃得多。\n老周惯的。',
+      '它上次还抓了我的袖子。\n你来了以后，它收敛多了。',
+      '下次你来，我给你们留靠窗的位置。'
+    ]
+  },
+
+  /* ---------- 第二层 · 靠近 ---------- */
+  {
+    id: 'habit1', stage: 2, title: '你总在下午三点喝一杯冷水', sub: '观察 · 治愈 +5',
+    body: '时雨：\n我发现了你的一个习惯。\n每天下午三点，你都会去书店后门接一杯冷水。\n不是茶，也不是咖啡。\n是那种很凉的、什么味道都没有的水。\n下次我泡点热的给你吧。\n就放在收银台边上，不打扰你。\n——{name}',
+    fx: { heart: 2, heal: 5 },
+    replies: [
+      '你连这个都注意到了。',
+      '热的也行。\n别放糖。',
+      '三点的时候，我通常很困。\n有杯热水，应该会好一点。\n……谢谢。'
+    ]
+  },
+  {
+    id: 'song1', stage: 2, title: '你耳机里在听什么', sub: '好奇 · 心动 +4',
+    body: '时雨：\n总看见你戴着耳机。\n有时候在看书，有时候只是坐着。\n我很好奇，你耳机里在听什么。\n是歌，还是什么都没放？\n下次分我一只吧。\n——{name}',
+    fx: { heart: 4, heal: 2 },
+    replies: [
+      '什么都听。\n有时候什么都不放。',
+      '大多是旧歌。\n你不会喜欢的。',
+      '下次。\n分你一只。\n不过我的歌单很闷。'
+    ]
+  },
+  {
+    id: 'photo1', stage: 2, title: '你小时候是什么样子', sub: '温柔 · 心动 +4 / 治愈 +3',
+    body: '时雨：\n今天看见小雨的作文本，写的是你。\n她说，你小时候很爱笑。\n我试着想了一下那个画面。\n一个抱着黄色玩具伞的小男孩，笑起来露出两颗门牙。\n……好像有点可爱。\n——{name}',
+    fx: { heart: 4, heal: 3 },
+    replies: [
+      '她胡说。\n那时候换牙，笑得很丑。',
+      '小时候的事，记不太清了。\n不过那把伞，我记得。',
+      '你笑起来也好看。\n……我是说，真的。'
+    ]
+  },
+  {
+    id: 'dream1', stage: 2, title: '你以后想盖什么样的房子', sub: '未来 · 心动 +4 / 治愈 +2',
+    body: '时雨：\n你说过，想学建筑。\n我忽然想问你：\n以后你想盖什么样的房子？\n要有很大的窗，还是一个小小的院子？\n如果有一天你画出了第一张图，能不能先给我看？\n——{name}',
+    fx: { heart: 4, heal: 2 },
+    replies: [
+      '我想盖一栋不吵的房子。\n隔音好一点。',
+      '有窗。\n南边，能照到太阳。',
+      '第一张图可能很丑。\n你确定要看？\n……那我画认真一点。'
+    ]
+  },
+  {
+    id: 'rain1', stage: 2, title: '下雨天你会想起什么', sub: '心事 · 治愈 +4 / 心动 +3',
+    body: '时雨：\n南城又下雨了。\n下雨天，你会想起什么？\n是小时候的花坛，还是现在的三楼？\n如果都不是，也可以不回答。\n我只是想知道，雨落在你身上时，你是冷的，还是别的什么。\n——{name}',
+    fx: { heart: 3, heal: 4 },
+    replies: [
+      '……雨声很大。\n有时候，反而让人安心。',
+      '会想起一把黄伞。',
+      '以前觉得雨很烦。\n现在，好像没那么烦了。'
+    ]
+  },
+  {
+    id: 'food2', stage: 2, title: '下次一起吃关东煮吧', sub: '邀约 · 心动 +5',
+    body: '时雨：\n便利店的关东煮，晚上十点以后会打折。\n我昨天买了一串萝卜，站在门口吃完了。\n忽然觉得，一个人吃有点浪费。\n下次你来夜班，我等你。\n萝卜分你一半。\n——{name}',
+    fx: { heart: 5, heal: 2 },
+    replies: [
+      '十点以后。\n记住了。',
+      '我不吃萝卜。\n……可以吃别的。',
+      '你别在门口站着吃。\n风大。\n等我一起。'
+    ]
+  },
+
+  /* ---------- 第三层 · 在意 ---------- */
+  {
+    id: 'mother1', stage: 3, title: '阿姨的病，会好起来吗', sub: '家人 · 治愈 +6 / 心动 +3',
+    body: '时雨：\n今天在医院门口看见你了。\n你手里拎着保温桶，走得很快。\n我没有叫你。\n我想问，阿姨的病，会好起来吗？\n如果这个问题太重，你可以不回。\n我只是想让你知道，你拎着保温桶的样子，不该一个人。\n——{name}',
+    fx: { heart: 3, heal: 6 },
+    replies: [
+      '会好的。\n医生说，稳定的话，可以很久。',
+      '她今天多吃了半碗粥。\n算是好消息。',
+      '你看见我了？\n……那你怎么不叫我。\n我其实，想让你叫住我。'
+    ]
+  },
+  {
+    id: 'burden1', stage: 3, title: '你不是这个家的负担', sub: '支撑 · 治愈 +7 / 心动 +2',
+    body: '时雨：\n我知道你把很多事都算在自己头上。\n学费，药费，还有那些你从来不说的话。\n可我想告诉你——\n你不是这个家的负担。\n你是他们的孩子。\n孩子有权利难过，也有权利被照顾。\n——{name}',
+    fx: { heart: 2, heal: 7 },
+    replies: [
+      '……\n从来没有人这样跟我说过。',
+      '你说得太轻松了。\n不过，我想听。',
+      '如果我不扛，谁来扛。\n……可你这么说，我好像能喘一口气了。'
+    ]
+  },
+  {
+    id: 'cry1', stage: 3, title: '你可以在我面前难过', sub: '脆弱 · 心动 +5 / 治愈 +5',
+    body: '时雨：\n那天在楼下，我看见你抬起头看天。\n你大概是不想让眼泪掉下来。\n我知道你习惯了自己消化。\n可是时雨，你可以在我面前难过。\n我不会因此觉得你不够好。\n——{name}',
+    fx: { heart: 5, heal: 5 },
+    replies: [
+      '我没有哭。\n……好吧。\n差一点。',
+      '知道了。\n下次不抬头了。',
+      '你别对我这么好。\n我会当真的。'
+    ]
+  },
+  {
+    id: 'father1', stage: 3, title: '你和你爸爸，其实很像', sub: '家人 · 治愈 +5 / 心动 +3',
+    body: '时雨：\n今天在楼下碰见你爸爸。\n他问起你，问你最近有没有好好吃饭。\n问完又摆摆手，说算了，别告诉你。\n你们父子俩，其实很像。\n都把关心藏在「算了」后面。\n——{name}',
+    fx: { heart: 3, heal: 5 },
+    replies: [
+      '他问的？\n……他从来没跟我说过。',
+      '我们不像。\n我以后不会让家里人过这种日子。',
+      '他要是真关心，就少喝一点。\n……算了。'
+    ]
+  },
+  {
+    id: 'exam1', stage: 3, title: '复读不是退后一步', sub: '鼓励 · 心动 +5 / 治愈 +3',
+    body: '时雨：\n报名表的事，我知道了。\n复读不是退后一步。\n是你想去的那个地方，绕了一条远一点的路。\n路远一点没关系。\n只要最后到的地方，是你自己选的。\n——{name}',
+    fx: { heart: 5, heal: 3 },
+    replies: [
+      '你知道了。\n……别告诉别人。',
+      '我自己选的。\n这次，真的是我自己选的。',
+      '如果我考上了。\n第一个告诉你。'
+    ]
+  },
+  {
+    id: 'fear1', stage: 3, title: '如果考不上，你怕什么', sub: '恐惧 · 治愈 +5 / 心动 +4',
+    body: '时雨：\n我想问你一个问题。\n如果这次还是没考上，你最怕什么？\n怕别人失望，还是怕自己真的不行？\n不管答案是什么，都别一个人想。\n你可以写给我。\n——{name}',
+    fx: { heart: 4, heal: 5 },
+    replies: [
+      '怕我妈等不起。',
+      '怕又白花一年钱。',
+      '怕……你会觉得，我不值得。'
+    ]
+  },
+
+  /* ---------- 第四层 · 并肩 ---------- */
+  {
+    id: 'like1', stage: 4, title: '我好像喜欢上你了', sub: '告白 · 心动 +10 / 治愈 +4',
+    body: '时雨：\n这封信我写了很久。\n删掉了很多次，又重新写。\n最后决定不绕弯了。\n我好像喜欢上你了。\n不是因为你可怜，也不是因为那把伞。\n是因为你。\n你不用马上回答。\n我只是不想让这个春天，留下一个没说出口的句子。\n——{name}',
+    fx: { heart: 10, heal: 4 },
+    replies: [
+      '……\n你等我一下。\n我下去找你。',
+      '我看了很多遍。\n怕自己看错。',
+      '我也是。\n这句话，我本来想当面说。'
+    ]
+  },
+  {
+    id: 'hand1', stage: 4, title: '下次过马路，可以牵你的手吗', sub: '靠近 · 心动 +9 / 治愈 +3',
+    body: '时雨：\n今天过马路的时候，你的手就在我旁边。\n我差一点就牵了。\n下次吧。\n下次过马路，可以牵你的手吗？\n如果你不想，就把手插进口袋。\n我就知道了。\n——{name}',
+    fx: { heart: 9, heal: 3 },
+    replies: [
+      '可以。\n不用等下次。',
+      '我过马路不看车。\n你牵着我，正好。',
+      '……我会记得不插口袋。'
+    ]
+  },
+  {
+    id: 'future1', stage: 4, title: '等你去了北方，我会去看你', sub: '以后 · 心动 +8 / 治愈 +4',
+    body: '时雨：\n你考去北方以后，我们会隔得很远。\n北方很干，冬天很冷。\n但我查过了，有直达的火车。\n等你去了，我会去看你。\n不是说说而已。\n我会攒钱，买一张票。\n——{name}',
+    fx: { heart: 8, heal: 4 },
+    replies: [
+      '你别一个人坐那么久的车。',
+      '我去接你。\n车站很大，你容易迷路。',
+      '那我等你。\n我会把宿舍收拾好一点。'
+    ]
+  },
+  {
+    id: 'home1', stage: 4, title: '以后我们一起养一只猫吧', sub: '以后 · 心动 +8 / 治愈 +5',
+    body: '时雨：\n今天看见年糕晒太阳，忽然想到一件很远的事。\n以后我们一起养一只猫吧。\n不用很名贵，胖一点也没关系。\n你画图的时候，它就趴在桌角。\n我下班回来，给你们带关东煮。\n——{name}',
+    fx: { heart: 8, heal: 5 },
+    replies: [
+      '一只够吗。\n年糕那样的，很能吃。',
+      '那得有个能晒太阳的窗台。',
+      '你说「以后」的时候，\n我心里动了一下。'
+    ]
+  },
+  {
+    id: 'spring1', stage: 4, title: '这个春天结束以后', sub: '约定 · 心动 +9 / 治愈 +5',
+    body: '时雨：\n这个春天快结束了。\n雨会停，槐花会落，书店的灯也会照常亮。\n我想知道，春天结束以后，我们算什么？\n你不用现在就回答。\n但如果你愿意，我想和你一起走进下一个季节。\n——{name}',
+    fx: { heart: 9, heal: 5 },
+    replies: [
+      '算……在一起。\n可以吗。',
+      '下一个季节，也一起。',
+      '我不想再用「以后」当借口了。\n就现在。'
+    ]
+  },
+  {
+    id: 'letter1', stage: 4, title: '其实这封信，我写了很久', sub: '心意 · 心动 +8 / 治愈 +6',
+    body: '时雨：\n其实这封信，我写了很久。\n从春天刚开始的时候，就断断续续地写。\n一开始只是想问你有没有吃饭。\n后来想问你有没有睡好。\n再后来，想问你——\n可不可以，让我一直给你写信。\n——{name}',
+    fx: { heart: 8, heal: 6 },
+    replies: [
+      '可以。\n写到我们都不想写为止。',
+      '那我就一直回。\n哪怕只有一句话。',
+      '你写多久，我就看多久。\n这是回信。'
+    ]
+  }
+];
+
+/* ---------------- 推理 ---------------- */
+const DEDUCTION = {
+  title: '把这个春天拼起来',
+  sub: '3月23日 · 夜 · 雨',
+  intro: [
+    '你在灯下摊开这半个月捡到的所有碎片。雨敲着窗。',
+    '陈姨的话在耳边响：「他们不是不爱，是不会说。」',
+    '陆时雨站在楼下，没有打伞。'
+  ],
+  question: '陆家争吵的真正原因，是什么？',
+  options: [
+    { t: '因为我没考上大学，他们才吵的。', ok: false },
+    { t: '因为父亲欠了赌债。', ok: false },
+    { t: '因为母亲的病、父亲的工伤，还有他们都在瞒着我。', ok: true },
+    { t: '因为他们不想让我复读。', ok: false }
+  ],
+  afterOk: '你把最后一块拼图放下去。\n\n不是因为他考砸了。\n不是因为他不够好。\n\n是因为这个家里的两个大人，都以为「瞒着」就是爱。\n而他，把所有的错都算在了自己头上。',
+  afterBad: '你把碎片推到一起，却怎么也拼不完整。\n\n也许你漏掉了什么。\n也许有些话，你还没有听见。'
+};
+
+/* ---------------- 固定剧情 ---------------- */
+const FIXED = {
+  d5: {
+    art: 'store', place: '24小时便利店', time: '夜 · 大雨',
+    text: [
+      '晚上十点，你提着热牛奶去便利店。',
+      '玻璃门推开的时候，你看见他趴在收银台上。',
+      '关东煮的锅还在冒热气。他的手垂在台边，指尖发白。',
+      '你叫他，他没有应。',
+      '你摸到他的额头，烫得吓人。'
+    ],
+    choices: [
+      { t: '把他扶起来，送去医院', fx: { heart: 5, heal: 5 }, res: ['他半睁着眼，声音很轻：「不用……我歇一会儿就好。」', '「闭嘴。」你说。', '你把他的一只胳膊架在肩上。他很轻，轻得让你想哭。'] },
+      { t: '先叫醒他，喂他喝水', fx: { heart: 3, heal: 4 }, res: ['他迷迷糊糊地睁开眼。', '「你怎么来了。」', '「来送牛奶。」你说，「顺便捡一个晕倒的人。」', '他想笑，却没力气。'] }
+    ]
+  },
+  d10: {
+    art: 'old', place: '榆树巷 · 3号楼', time: '夜 · 大雨',
+    text: [
+      '你下楼的时候，他站在单元门口。',
+      '雨很大。他没有打伞，头发湿透了，贴在额头上。',
+      '「你都知道了。」他说。不是问句。',
+      '「我妈每周透析三次。我爸把房子挂出去了。」',
+      '「他们吵，是因为我妈不肯治。她说，钱要留给我读书。」',
+      '他笑了一下，很难看。',
+      '「{name}，你说，我是不是这个家的负担。」'
+    ],
+    choices: [
+      { t: '「你不是。」', fx: { heart: 6, heal: 8 }, res: ['「你听我说。」你抓住他的手腕。', '「你不是负担。你是他们的孩子。」', '「孩子有权利知道，也有权利一起扛。」', '他低下头。雨顺着他的下巴滴下来，分不清是不是眼泪。'] },
+      { t: '抱住他', fx: { heart: 9, heal: 6 }, res: ['你什么都没说，只是抱住他。', '他僵了很久。', '然后，很慢很慢地，抬手回抱住你。', '「我撑不住了。」他说。', '「那就别撑了。」'] },
+      { t: '「那我们一起扛。」', fx: { heart: 5, heal: 7 }, res: ['「怎么扛。」', '「一点一点扛。」你说，「你一个人扛了太久，才会觉得扛不动。」', '他看了你很久，最后轻轻点了点头。'] }
+    ]
+  },
+  d14: {
+    art: 'bus', place: '7路公交站', time: '夜 · 最后一场春雨',
+    text: [
+      '雨又下起来了。',
+      '末班车迟迟不来。他把伞往你这边偏，自己半个肩膀露在雨里。',
+      '「我小时候，」他忽然说，「在榆树巷 7 号住过。」',
+      '「花坛边总有个小孩，下雨天也不回家。」',
+      '「后来有一天，她哭得很厉害。我把伞留给她，还有一颗橘子糖。」',
+      '他从口袋里摸出一张折得很小的糖纸，递给你。',
+      '糖纸上画着一颗歪歪扭扭的太阳。'
+    ],
+    clue: 'c_candy',
+    choices: [
+      { t: '「这个太阳……是我画的。」', fx: { heart: 10, heal: 5 }, res: ['他笑了。眼睛很亮。', '「我知道。」', '「你画太阳的习惯，十年都没改。」', '雨落在伞面上，声音很轻。你忽然觉得，这个春天好像也没有那么冷。'] },
+      { t: '「你一直留着？」', fx: { heart: 8, heal: 4 }, res: ['「嗯。」他说。', '「搬了三次家，都带着。」', '「我也不知道为什么。」', '他顿了顿，又说：「现在知道了。」'] },
+      { t: '把糖纸接过来，什么也没说', fx: { heart: 5, heal: 6 }, res: ['糖纸很软，带着他的体温。', '你把它贴在胸口。', '他看了你一眼，没有问。', '有些话，不用说，也已经到了。'] }
+    ]
+  },
+  d15: {
+    art: 'roof', place: '顶楼天台', time: '傍晚 · 雨停',
+    text: [
+      '这个春天的最后一场雨，停了。',
+      '天台上晾着的被子还没收。风把它们吹得鼓起来，像一面面温柔的帆。',
+      '陆时雨站在栏杆边，手里拿着一个信封。',
+      '「这个，」他说，「本来想等考上再给你。」',
+      '「但我怕来不及。」',
+      '他把信递过来。信封角落画着一颗歪歪扭扭的太阳。'
+    ],
+    choices: [
+      { t: '接过信，拆开', fx: { heart: 4, heal: 2 }, res: ['信纸上只有一行字：', '「{name}，谢谢你把我从那个春天里，带出来。」', '你抬起头。他正看着你，眼睛里有光。'] },
+      { t: '先不拆，抬头看他', fx: { heart: 5, heal: 2 }, res: ['「不拆？」他问。', '「等下一个春天再拆。」你说。', '他愣了一下，然后笑了。', '「好。下一个春天。」'] }
+    ]
+  }
+};
+
+/* ---------------- 结局 ---------------- */
+const ENDINGS = [
+  {
+    id: 'true', no: '01', art: 'end_true', title: '春日来信', sub: '雨停之后，信终于寄到了。',
+    hint: '在真相里，把两个人都带出来。',
+    body: [
+      '第二年春天，南城又下了一场雨。',
+      '陆时雨考上了北方的一所大学，学建筑。他寄来的第一封信里，夹着一张速写：一截伸得很长的屋檐，下面是两个躲雨的小人。',
+      '他在信里写：「这里的春天很干，不下雨。我有点不习惯。」',
+      '「但每次画到屋檐，都会想起你。」',
+      '信封的角落，画着一颗歪歪扭扭的太阳。和你十年前画的那颗，一模一样。',
+      '你回信说：「那就把屋檐画得再长一点。等我过去。」'
+    ]
+  },
+  {
+    id: 'orange', no: '02', art: 'end_orange', title: '橘子味的春天', sub: '原来十年前，你就把伞递给了我。',
+    hidden: true,
+    hint: '把十一块碎片全部捡起来，再走向他。',
+    body: [
+      '你终于知道，那个在花坛边把伞留给你的小男孩，就是他。',
+      '也终于知道，他为什么第一次看见你画的小太阳，就愣在了雨里。',
+      '那一年他七岁，你六岁。他把伞和糖都给了你，自己淋着雨跑回家，挨了一顿骂。',
+      '「那你为什么还要给我？」后来你问他。',
+      '「因为你哭得很难看。」他说。',
+      '「而且，」他顿了顿，「你笑起来比较好看。」',
+      '这个春天结束的时候，你们在榆树巷 7 号的花坛边，重新种了一棵橘子树。',
+      '等它结果，要三年。你们都不着急。'
+    ]
+  },
+  {
+    id: 'umbrella', no: '03', art: 'end_umbrella', title: '同一把伞', sub: '你们在一起了，可他的雨还没有停。',
+    hint: '靠得很近，却没有真正走进他的雨季。',
+    body: [
+      '你们还是在一起了。',
+      '他会在下雨天来接你，把伞偏向你那边。会在便利店门口等你下班，手里拎着两杯热牛奶。',
+      '可有些夜里，他还是会一个人站到天台上去。',
+      '你问他怎么了，他说没事。',
+      '你知道那不是真的。但你没有再问。',
+      '爱一个人，有时候并不能替他挡住所有的雨。',
+      '你们撑着一把伞，慢慢地走。伞下的地方不大，但够两个人站。'
+    ]
+  },
+  {
+    id: 'afterrain', no: '04', art: 'end_afterrain', title: '雨停之后', sub: '你没有成为他的春天，但你陪他等到了天晴。',
+    hint: '把他从雨里拉出来，却只停在朋友的屋檐下。',
+    body: [
+      '他去了北方读书。走的那天，南城难得放晴。',
+      '你送他到车站。他把那把旧黄伞留给了你。',
+      '「北方不下雨。」他说。',
+      '「那你留着。」',
+      '「你更需要。」',
+      '后来你们偶尔联系。他发来北方的雪，你发去南城的雨。',
+      '有一年春天，他寄来一张明信片，背面写着：「我很好。你呢？」',
+      '你写：「我也很好。」',
+      '你把明信片夹进那本旧书里，和许多个没有说出口的春天放在一起。'
+    ]
+  },
+  {
+    id: 'unsent', no: '05', art: 'end_unsent', title: '未寄出的信', sub: '有些话，最后还是没能说出口。',
+    hint: '离真相很近，却始终没有站到他身边。',
+    body: [
+      '你写了一封信，写了很久。',
+      '信里有你知道的所有事，有你没敢说的话，还有一颗画得很认真的太阳。',
+      '可你最终没有寄出去。',
+      '春天结束的时候，陆时雨离开了南城。听陈姨说，他去了南方打工。',
+      '302 很快搬进了新的人家。天台的门换了锁。',
+      '那封信一直放在你的抽屉里。',
+      '有时候你会想，如果那天你敲了门，会不会不一样。',
+      '可是春天不会回答。它只是又下了一场雨。'
+    ]
+  },
+  {
+    id: 'longrain', no: '06', art: 'end_longrain', title: '漫长雨季', sub: '你路过了他的春天，却没有真正走进去。',
+    hint: '什么都不知道，也什么都没问。',
+    body: [
+      '这个春天，你只是路过。',
+      '你见过他在雨里站着，见过他半夜在便利店打工，见过他手腕上那道浅浅的疤。',
+      '你有很多次机会可以问一句「你怎么了」。',
+      '但你没有。',
+      '后来你想，也许你只是害怕。害怕听见一个太重的答案，害怕自己帮不上忙。',
+      '雨停了。榆树巷的槐树发了新芽。',
+      '你偶尔还会经过 3 号楼，抬头看一眼三楼。',
+      '那扇窗一直关着。你不知道他去了哪里，过得好不好。',
+      '你只知道，那个春天，你什么都没做。'
+    ]
+  }
+];
+
+</script>
+<script>
+/* ============================================================
+   春日来信 · 玩法逻辑
+   行动力探索 / 手机聊天 / 线索推理 / 手写信件 / 多结局
+   ============================================================ */
+const SAVE_KEY = 'springletter_save_v1';
+const END_KEY = 'springletter_endings_v1';
+const MAX_AP = 3;
+
+let S = null;
+let stageOnDone = null;
+let curTab = 'phone';
+let curChat = 'list';
+let modalOn = false;
+let audioCtx = null;
+let rainGain = null;
+let rainOn = false;
+
+const $ = (id) => document.getElementById(id);
+const el = {
+  boot: $('boot'), envelope: $('envelope'), envScene: $('envScene'), envHint: $('envHint'),
+  letterPaper: $('letterPaper'), nameInput: $('nameInput'), startBtn: $('startBtn'),
+  bootImportBtn: $('bootImportBtn'),
+  continueBtn: $('continueBtn'), bootEndBtn: $('bootEndBtn'), bootEndCount: $('bootEndCount'),
+  app: $('app'), hudDay: $('hudDay'), hudDate: $('hudDate'), apDots: $('apDots'),
+  heartVal: $('heartVal'), healVal: $('healVal'), soundBtn: $('soundBtn'), menuBtn: $('menuBtn'),
+  stage: $('stage'), sceneArt: $('sceneArt'), sceneChar: $('sceneChar'),
+  scenePlace: $('scenePlace'), sceneTime: $('sceneTime'), sceneText: $('sceneText'), choices: $('choices'),
+  panel: $('panel'), panelBody: $('panelBody'), panelTabs: $('panelTabs'), mnav: $('mnav'), panelScrim: $('panelScrim'), panelGrab: $('panelGrab'),
+  phoneDot: $('phoneDot'), clueDot: $('clueDot'),
+  modal: $('modal'), modalBody: $('modalBody'), modalX: $('modalX'),
+  chapter: $('chapter'), chNo: $('chNo'), chTitle: $('chTitle'), chSub: $('chSub'), chGo: $('chGo'),
+  ending: $('ending'), endArt: $('endArt'), endKicker: $('endKicker'), endTitle: $('endTitle'),
+  endSub: $('endSub'), endBody: $('endBody'), endStats: $('endStats'),
+  endAgain: $('endAgain'), endGallery: $('endGallery'),
+  toastWrap: $('toastWrap')
+};
+
+/* ---------------- 基础工具 ---------------- */
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+function fmt(str) {
+  return String(str).replace(/\{name\}/g, esc(S && S.name ? S.name : '小满'));
+}
+function para(text) {
+  return '<p>' + fmt(text).replace(/\n/g, '<br>') + '</p>';
+}
+function clamp(n) { return Math.max(0, Math.min(100, n)); }
+const STAT_SCALE = 0.2;
+function fxGain(n) {
+  if (!n) return 0;
+  const sign = n < 0 ? -1 : 1;
+  return sign * Math.max(1, Math.round(Math.abs(n) * STAT_SCALE));
+}
+function fxText(str) {
+  return String(str).replace(/\+(\d+)/g, (m, n) => '+' + fxGain(parseInt(n, 10)));
+}
+function weatherName(w) { return w === 'rain' ? '雨' : w === 'cloud' ? '阴' : '晴'; }
+function dayInfo() { return DAYS[Math.min(S.day - 1, DAYS.length - 1)]; }
+
+function save() {
+  try { localStorage.setItem(SAVE_KEY, JSON.stringify(S)); } catch (e) { /* ignore */ }
+}
+function loadSave() {
+  try {
+    const raw = localStorage.getItem(SAVE_KEY);
+    return raw ? migrateBalance(JSON.parse(raw)) : null;
+  } catch (e) { return null; }
+}
+function migrateBalance(s) {
+  if (!s || s.balanceV === 3) return s;
+  const cap = Math.min(100, 6 + (s.day || 1) * 4);
+  s.heart = Math.min(typeof s.heart === 'number' ? s.heart : 6, cap);
+  s.heal = Math.min(typeof s.heal === 'number' ? s.heal : 6, cap);
+  s.balanceV = 3;
+  s.flags = s.flags || {};
+  s.flags.balanceMigrated = true;
+  try { localStorage.setItem(SAVE_KEY, JSON.stringify(s)); } catch (e) { /* ignore */ }
+  return s;
+}
+function getUnlockedEndings() {
+  try { return JSON.parse(localStorage.getItem(END_KEY) || '[]'); } catch (e) { return []; }
+}
+function unlockEnding(id) {
+  const list = getUnlockedEndings();
+  if (!list.includes(id)) { list.push(id); localStorage.setItem(END_KEY, JSON.stringify(list)); }
+}
+
+function toast(text) {
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.innerHTML = text;
+  el.toastWrap.appendChild(t);
+  setTimeout(() => { t.classList.add('out'); setTimeout(() => t.remove(), 420); }, 2200);
+}
+
+/* ---------------- 画面基础 ---------------- */
+let bgImg = null;
+function setStageArt(art) {
+  el.stage.dataset.art = art || 'home';
+  if (!bgImg) {
+    bgImg = document.createElement('img');
+    bgImg.className = 'scene-img';
+    bgImg.alt = '';
+    bgImg.decoding = 'async';
+    el.sceneArt.appendChild(bgImg);
+  }
+  bgImg.classList.remove('on');
+  const src = ART['bg_' + art];
+  if (src) {
+    bgImg.onload = () => bgImg.classList.add('on');
+    bgImg.onerror = () => bgImg.classList.remove('on');
+    bgImg.src = src;
+  } else {
+    bgImg.removeAttribute('src');
+  }
+}
+
+function setCharVisible(v) {
+  el.sceneChar.classList.toggle('hide', !v);
+}
+
+let charImg = null;
+const SCENE_CHARS = {
+  shiyu: ART.shiyuJpg, nuzhu: ART.nuzhu, qin: ART.npcQin, chen: ART.npcChen,
+  father: ART.npcFather, mother: ART.npcMother, zhoulao: ART.npcLaozhou,
+  zhou: ART.npcZhou, yu: ART.npcYu
+};
+function initChar() {
+  charImg = document.createElement('img');
+  charImg.alt = '';
+  charImg.decoding = 'async';
+  charImg.onload = () => {
+    charImg.style.display = 'block';
+    el.sceneChar.classList.toggle('photo', /\.(jpe?g|webp|png)$/i.test(charImg.getAttribute('src') || ''));
+  };
+  charImg.onerror = () => { charImg.style.display = 'none'; };
+  charImg.style.display = 'none';
+  el.sceneChar.appendChild(charImg);
+  setStageChar('shiyu');
+}
+function setStageChar(who) {
+  if (!charImg) return;
+  if (!who) { setCharVisible(false); return; }
+  const src = SCENE_CHARS[who] || SCENE_CHARS.shiyu;
+  setCharVisible(true);
+  if (charImg.getAttribute('src') !== src) charImg.src = src;
+}
+
+/* ---------------- 开场 ---------------- */
+function initBoot() {
+  const saved = loadSave();
+  if (saved) el.continueBtn.hidden = false;
+  el.continueBtn.onclick = () => { S = saved; enterGame(); };
+
+  el.bootEndCount.textContent = getUnlockedEndings().length + ' / ' + ENDINGS.length;
+  el.bootEndBtn.onclick = showEndingGallery;
+
+  el.envelope.onclick = openEnvelope;
+  el.envelope.onkeydown = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openEnvelope(); } };
+  el.startBtn.onclick = beginNewGame;
+  el.bootImportBtn.onclick = openImportModal;
+  el.nameInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') beginNewGame(); });
+
+  el.modalX.onclick = closeModal;
+  el.modal.onclick = (e) => { if (e.target === el.modal) closeModal(); };
+  el.chGo.onclick = playChapterGo;
+  el.endAgain.onclick = restartGame;
+  el.endGallery.onclick = showEndingGallery;
+  el.soundBtn.onclick = toggleRain;
+  el.menuBtn.onclick = showMenu;
+
+  el.panelTabs.querySelectorAll('.ptab').forEach((b) => {
+    b.onclick = () => setTab(b.dataset.tab, true);
+  });
+  el.mnav.querySelectorAll('button').forEach((b) => {
+    b.onclick = () => {
+      if (el.panel.classList.contains('open') && curTab === b.dataset.tab) {
+        closePanelSheet();
+      } else {
+        setTab(b.dataset.tab, true);
+      }
+    };
+  });
+
+  el.panelScrim.onclick = closePanelSheet;
+  el.panel.addEventListener('transitionend', (e) => {
+    if (e.target === el.panel && (e.propertyName === 'height' || e.propertyName === 'transform')) updateSheetScrim();
+  });
+  el.panelGrab.addEventListener('pointerdown', onSheetDown);
+  window.addEventListener('pointermove', onSheetMove, { passive: false });
+  window.addEventListener('pointerup', onSheetUp);
+  window.addEventListener('pointercancel', onSheetUp);
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 900) {
+      el.panel.classList.remove('open');
+      el.panel.classList.remove('full');
+      el.panel.style.height = '';
+      el.panelScrim.classList.remove('on');
+      return;
+    }
+    if (!el.panel.classList.contains('open')) return;
+    if (el.panel.classList.contains('full')) el.panel.style.height = sheetMaxH() + 'px';
+    else if (!el.panel.classList.contains('dragging')) el.panel.style.height = '';
+    updateSheetScrim();
+  });
+
+  initChar();
+  initRain();
+}
+
+function openEnvelope() {
+  if (el.envelope.classList.contains('opened')) return;
+  el.envelope.classList.add('opened');
+  el.envHint.textContent = '见字如面';
+  setTimeout(() => { el.envScene.classList.add('gone'); }, 700);
+  setTimeout(() => {
+    el.envScene.hidden = true;
+    el.letterPaper.hidden = false;
+    el.nameInput.focus();
+  }, 1150);
+}
+
+function defaultState(name) {
+  return {
+    name: name,
+    day: 1,
+    ap: MAX_AP,
+    heart: 6,
+    heal: 6,
+    clues: [],
+    chatDone: false,
+    chatChoice: {},
+    sideRead: {},
+    sideReplies: {},
+    seen: {},
+    smallSeen: [],
+    flags: {},
+    letterDay: 0,
+    letters: [],
+    pendingReply: null,
+    usedThemes: [],
+    themeLastUsed: {},
+    replySeen: {},
+    letterStageSeen: 0,
+    balanceV: 3,
+    log: [],
+    newClues: 0,
+    deducedOk: false,
+    ending: null
+  };
+}
+
+function beginNewGame() {
+  const name = (el.nameInput.value || '').trim() || '小满';
+  S = defaultState(name.slice(0, 8));
+  el.app.hidden = false;
+  el.boot.classList.add('off');
+  renderAll();
+  save();
+  showChapter(1, playPrologue);
+}
+
+function playPrologue() {
+  const sc = {
+    art: 'bus', place: '榆树巷 · 7路公交站', time: '3月14日 · 傍晚 · 雨',
+    text: [
+      '南城的春天，是从一场没完没了的雨开始的。',
+      '你拖着行李箱回到榆树巷。外婆留下的老房子在巷子尽头，楼下的花店还亮着灯。',
+      '秦姨从花桶后面抬头：「{name}？都长这么大了。」',
+      '你笑了笑。二十二岁，辞掉了母亲安排好的实习，回到这座小城，说是帮秦姨看店，其实只是……想喘口气。',
+      '晚上七点，你抱着一叠要寄出的读者来信去公交站。风一吹，信散了一地。',
+      '一个男生蹲下来，帮你一封一封地捡。白衬衫，旧球鞋，右手腕上有一道浅浅的疤。',
+      '他捡起最后一封。信封角落，是你随手画的一颗小太阳。',
+      '他的手指停住了。'
+    ],
+    choices: [
+      {
+        t: '「谢谢你。这个太阳是我随手画的。」', fx: { heart: 4, heal: 1 },
+        res: [
+          '他沉默了几秒。',
+          '「……没什么。」他把信递给你，「只是觉得，很像一个人。」',
+          '雨越下越大。他把伞塞进你手里，自己走进雨里。',
+          '你喊：「喂——你叫什么名字？」',
+          '他回头。',
+          '「陆时雨。」',
+          '「时间的时，下雨的雨。」'
+        ]
+      },
+      {
+        t: '「你认识这个太阳？」', fx: { heart: 2, heal: 4 },
+        res: [
+          '他抬头看你。眼神很轻，却像在确认什么。',
+          '「不认识。」他说。',
+          '「只是……以前也有人这样画过。」',
+          '雨越下越大。他把伞塞进你手里，自己走进雨里。',
+          '你喊：「喂——你叫什么名字？」',
+          '他回头。',
+          '「陆时雨。」'
+        ]
+      }
+    ]
+  };
+  showScene(sc, () => {
+    S.log.push({ day: 1, text: '在7路公交站，遇见了陆时雨。' });
+    save();
+    renderAll();
+  });
+}
+
+function enterGame() {
+  el.app.hidden = false;
+  el.boot.classList.add('off');
+  renderAll();
+  if (S.flags && S.flags.balanceMigrated) {
+    delete S.flags.balanceMigrated;
+    save();
+    setTimeout(() => toast('数值已按新的成长曲线重新平衡'), 700);
+  }
+  if (S.day > 15) { showEndingScreen(calcEnding()); return; }
+  renderStageIdle();
+}
+
+/* ---------------- 主渲染 ---------------- */
+function renderAll() {
+  if (!S) return;
+  renderHUD();
+  renderPanel();
+  if (!stageOnDone) renderStageIdle();
+}
+
+function ensureSideState() {
+  if (!S) return;
+  if (!S.sideRead || typeof S.sideRead !== 'object') S.sideRead = {};
+  if (!S.sideReplies || typeof S.sideReplies !== 'object') S.sideReplies = {};
+}
+
+function sideMessagesFor(cid) {
+  const data = SIDES[cid] || {};
+  const out = [];
+  Object.keys(data).map(Number).sort((a, b) => a - b).forEach((d) => {
+    if (d > S.day) return;
+    data[d].forEach((text) => out.push({ day: d, text: text }));
+  });
+  return out;
+}
+
+function sideThreadFor(cid) {
+  ensureSideState();
+  const data = SIDES[cid] || {};
+  const replies = S.sideReplies[cid] || {};
+  const out = [];
+  Object.keys(data).map(Number).sort((a, b) => a - b).forEach((d) => {
+    if (d > S.day) return;
+    const day = DAYS[d - 1];
+    out.push({ day: d, from: 'sys', text: day ? day.date : '第 ' + d + ' 天' });
+    data[d].forEach((text) => out.push({ day: d, from: 'him', text: text }));
+    const idx = replies[d];
+    const conf = SIDE_REPLIES[cid] && SIDE_REPLIES[cid][d];
+    if (idx != null && conf && conf[idx]) {
+      out.push({ day: d, from: 'me', text: conf[idx].t });
+      conf[idx].reply.forEach((text) => out.push({ day: d, from: 'him', text: text }));
+    }
+  });
+  return out;
+}
+
+function sideLastDay(cid) {
+  const data = SIDES[cid] || {};
+  let last = 0;
+  Object.keys(data).map(Number).forEach((d) => {
+    if (d <= S.day && d > last) last = d;
+  });
+  return last;
+}
+
+function sideUnread(cid) {
+  ensureSideState();
+  return sideLastDay(cid) > (S.sideRead[cid] || 0);
+}
+
+function renderHUD() {
+  ensureSideState();
+  const d = dayInfo();
+  el.hudDay.textContent = '第 ' + S.day + ' 天';
+  el.hudDate.textContent = d.date + ' · ' + d.term + ' · ' + weatherName(d.weather);
+  el.heartVal.textContent = S.heart;
+  el.healVal.textContent = S.heal;
+  el.apDots.innerHTML = '';
+  for (let i = 0; i < MAX_AP; i++) {
+    const i2 = document.createElement('i');
+    if (i < S.ap) i2.className = 'on';
+    el.apDots.appendChild(i2);
+  }
+  document.body.dataset.weather = d.weather;
+  el.phoneDot.hidden = !((CHATS[S.day] && !S.chatDone) || sideUnread('zhi') || sideUnread('chen'));
+  el.clueDot.hidden = S.newClues <= 0;
+}
+
+function applyFx(fx) {
+  if (!fx) return;
+  if (fx.heart) {
+    const gain = fxGain(fx.heart);
+    S.heart = clamp(S.heart + gain);
+    toast((gain > 0 ? '心动 +' : '心动 ') + gain);
+  }
+  if (fx.heal) {
+    const gain = fxGain(fx.heal);
+    S.heal = clamp(S.heal + gain);
+    toast((gain > 0 ? '治愈 +' : '治愈 ') + gain);
+  }
+  renderHUD();
+}
+
+function addClue(ids) {
+  const list = Array.isArray(ids) ? ids : [ids];
+  list.forEach((id) => {
+    if (!CLUES[id] || S.clues.includes(id)) return;
+    S.clues.push(id);
+    S.newClues += 1;
+    S.log.push({ day: S.day, text: '获得线索：' + CLUES[id].name });
+    toast('获得线索 · ' + CLUES[id].name);
+  });
+  renderHUD();
+}
+
+/* ---------------- 章节 ---------------- */
+let chapterCb = null;
+function showChapter(n, cb) {
+  const c = CHAPTERS[n];
+  if (!c) { if (cb) cb(); return; }
+  el.chNo.textContent = c.no;
+  el.chTitle.textContent = c.title;
+  el.chSub.textContent = c.sub;
+  el.chapter.hidden = false;
+  chapterCb = cb || null;
+}
+function playChapterGo() {
+  el.chapter.hidden = true;
+  const cb = chapterCb;
+  chapterCb = null;
+  if (cb) cb(); else renderStageIdle();
+}
+
+/* ---------------- 场景 ---------------- */
+function showScene(sc, onDone) {
+  stageOnDone = onDone || null;
+  el.stage.hidden = false;
+  setStageArt(sc.art || 'home');
+  el.scenePlace.textContent = sc.place || '';
+  el.sceneTime.textContent = sc.time || '';
+  el.sceneText.innerHTML = (sc.text || []).map(para).join('');
+  el.choices.innerHTML = '';
+  setCharVisible(sc.char !== false);
+  if (sc.char !== false) setStageChar(sc.who || 'shiyu');
+
+  if (sc.clue) addClue(sc.clue);
+
+  const list = sc.choices || [];
+  if (!list.length) {
+    const b = document.createElement('button');
+    b.className = 'choice primary';
+    b.innerHTML = '<span>继续</span>';
+    b.onclick = finishScene;
+    el.choices.appendChild(b);
+    return;
+  }
+  list.forEach((c, idx) => {
+    const b = document.createElement('button');
+    b.className = 'choice';
+    let extra = '';
+    if (c.fx && c.fx.heart) extra += '<span class="cost">♥ ' + fxGain(c.fx.heart) + '</span>';
+    if (c.fx && c.fx.heal) extra += '<span class="cost">✦ ' + fxGain(c.fx.heal) + '</span>';
+    b.innerHTML = '<span>' + esc(fmt(c.t)) + '</span>' + extra;
+    b.onclick = () => pickChoice(c, idx);
+    el.choices.appendChild(b);
+  });
+}
+
+function pickChoice(c) {
+  applyFx(c.fx);
+  if (c.clue) addClue(c.clue);
+  if (S.log) S.log.push({ day: S.day, text: '你选择了：' + c.t.replace(/[「」]/g, '') });
+  save();
+  renderHUD();
+  el.sceneText.innerHTML = (c.res || []).map(para).join('');
+  el.choices.innerHTML = '';
+  const b = document.createElement('button');
+  b.className = 'choice primary';
+  b.innerHTML = '<span>继续</span>';
+  b.onclick = finishScene;
+  el.choices.appendChild(b);
+  el.sceneText.scrollTop = 0;
+}
+
+function finishScene() {
+  const cb = stageOnDone;
+  stageOnDone = null;
+  if (cb) cb();
+  else renderStageIdle();
+}
+
+/* ---------------- 每日 ---------------- */
+const MORNING = [
+  '你是被雨声叫醒的。花店阁楼的窗户漏了一条缝，风把窗帘吹得鼓起来。',
+  '雨没停。楼下的槐树被打落了一地花，花瓣贴在水泥地上，像谁没寄出去的邮票。',
+  '天阴着，没有下雨。空气很潮，晾在窗边的衣服摸上去还是凉的。',
+  '雨又下起来了。你撑着伞去花店，经过 3 号楼的时候，习惯性地抬头看了一眼。',
+  '凌晨的雨声太大，你几乎没睡。手机屏幕亮了一下，又暗下去。',
+  '春分。白天和黑夜一样长。你忽然觉得，有些事也到了一个该分清楚的时候。',
+  '雨敲着雨棚，一下一下。你想起他站在楼下的样子。',
+  '天阴着。秦姨说，这样的天气，花容易蔫，人也容易。',
+  '雨从早上就没停。你给手机充上电，等一条也许不会来的消息。',
+  '你把这段时间捡到的碎片摊在桌上，一张一张看。',
+  '清明。雨小了一点。巷子口有人在烧纸，烟被雨压得很低。',
+  '放晴了。阳光落在花店的玻璃上，晃得人睁不开眼。',
+  '又是一个晴天。天台上的被子晒得蓬松，风里有肥皂味。',
+  '天气预报说，今晚有雨。这个春天的最后一场。',
+  '你醒得很早。窗外没有雨声。'
+];
+
+const SMALL_MOMENTS = [
+  {
+    id: 'm_book', min: 1, art: 'book', place: '拾光书店', time: '傍晚 · 雨',
+    text: ['书店快打烊了，你把最后一摞书抱回架子。', '他蹲在地上贴标签，袖口沾了一点灰。', '「你先回去吧。」他说。', '你没动，把下一本递给他。'],
+    fx: { heart: 1, heal: 1 }, log: '打烊前，你在书店陪他整理书架。'
+  },
+  {
+    id: 'm_flower', min: 1, art: 'flower', place: '春分花店', time: '傍晚 · 雨',
+    text: ['秦姨让你们把门口的花搬进来。', '他一次搬两桶，说这样快。', '你看见他的鞋全湿了，把干毛巾放在他手边。', '他愣了一下，说了声谢谢。'],
+    fx: { heart: 1, heal: 1 }, log: '在花店搬花，他第一次跟你说谢谢。'
+  },
+  {
+    id: 'm_rain', min: 1, art: 'old', place: '榆树巷 · 3号楼', time: '夜 · 大雨',
+    text: ['雨忽然大起来，你们躲进单元门。', '他把伞收好，靠在墙边。', '谁都没有说话。', '雨声很响，你却能听见他的呼吸。'],
+    fx: { heart: 1, heal: 1 }, log: '在单元门口和他躲了一场大雨。'
+  },
+  {
+    id: 'm_cat', min: 1, art: 'book', place: '拾光书店', time: '下午 · 阴',
+    text: ['年糕趴在收银台上，怎么叫都不动。', '他伸手挠了挠它的下巴，猫才勉强抬眼。', '「它只认你。」你说。', '「它认吃的。」他说，把面包撕成两半。'],
+    fx: { heart: 1, heal: 1 }, log: '在书店和年糕一起待了一会儿。'
+  },
+  {
+    id: 'm_orange', min: 1, art: 'old', place: '榆树巷 · 3号楼', time: '傍晚 · 阴',
+    text: ['陈姨塞给你们两个橘子。', '他把自己的那个剥好，递给你一半。', '「你吃。」他说，「我不太喜欢酸的。」', '你看见他咽了一下口水。'],
+    fx: { heart: 1, heal: 1 }, log: '陈姨给了橘子，他把剥好的那一半给了你。'
+  },
+  {
+    id: 'm_flower2', min: 1, art: 'flower', place: '春分花店', time: '傍晚 · 雨',
+    text: ['你在花店包花，他在门口等。', '雨顺着他的伞尖滴下来，在地上敲出小圈。', '你把包好的花递给他。', '「给我的？」他问。你点头。'],
+    fx: { heart: 1, heal: 1 }, log: '包了一束花给他。'
+  },
+  {
+    id: 'm_late', min: 1, art: 'book', place: '拾光书店', time: '夜 · 雨停',
+    text: ['书店的灯已经关了。', '他站在门口，手里还拿着一本没放回去的书。', '「你想看？」他问。', '你摇头：「我想陪你走回去。」'],
+    fx: { heart: 1, heal: 1 }, log: '关店以后，陪他走回榆树巷。'
+  },
+  {
+    id: 'm_store', min: 2, art: 'store', place: '24小时便利店', time: '夜 · 雨',
+    text: ['便利店的关东煮还剩最后几串。', '他把萝卜夹到你碗里，自己拿了海带结。', '「你怎么知道我喜欢萝卜。」', '「猜的。」他说，没抬头。'],
+    fx: { heart: 2, heal: 1 }, log: '在便利店和他分了一碗关东煮。'
+  },
+  {
+    id: 'm_soup', min: 2, art: 'store', place: '24小时便利店', time: '深夜 · 雨',
+    text: ['夜班快结束的时候，他给你倒了一杯热水。', '杯子很烫，他隔着袖口递过来。', '「别总喝冷的。」他说。', '这句话，你曾写在信里。'],
+    fx: { heart: 2, heal: 1 }, log: '他给你倒了一杯热水。'
+  },
+  {
+    id: 'm_roof', min: 2, art: 'roof', place: '顶楼天台', time: '傍晚 · 风',
+    text: ['天台上的被子还没收，风把它们吹得很鼓。', '他伸手去够晾衣绳，你帮他扶住凳子。', '被角落下来，正好盖在他头上。', '你们同时笑出了声。'],
+    fx: { heart: 1, heal: 2 }, log: '在天台帮他收被子，两个人都笑了。'
+  },
+  {
+    id: 'm_umbrella', min: 2, art: 'bus', place: '7路公交站', time: '夜 · 雨',
+    text: ['他送你回家，伞一直往你这边偏。', '到楼下的时候，他的左肩全湿了。', '「伞给我。」你说。', '「明天还我。」他说完就走。'],
+    fx: { heart: 2, heal: 1 }, log: '他撑伞送你回家，自己湿了半边肩。'
+  },
+  {
+    id: 'm_dawn', min: 2, art: 'roof', place: '顶楼天台', time: '清晨 · 雨停',
+    text: ['雨停了一会儿，天边露出一线很淡的光。', '他站在天台上，没有打伞。', '你走过去，把伞撑开，举在他头顶。', '他低头看你，什么也没说。'],
+    fx: { heart: 1, heal: 2 }, log: '在天台为他撑了一次伞。'
+  }
+];
+
+function startDay() {
+  S.ap = MAX_AP;
+  S.chatDone = false;
+  S.letterDay = 0;
+  if (S.pendingReply) {
+    S.letters.push({
+      type: 'reply', day: S.day, title: '陆时雨的回信', body: S.pendingReply
+    });
+    S.pendingReply = null;
+    setTimeout(() => toast('陆时雨回信了 · 见「信件」'), 900);
+  }
+  const d = dayInfo();
+  S.log.push({ day: S.day, text: d.date + ' · ' + d.term + ' · ' + weatherName(d.weather) });
+  const sideNew = ['zhi', 'chen'].filter((c) => (SIDES[c] || {})[S.day]).length;
+  if (sideNew) setTimeout(() => toast('手机里有 ' + sideNew + ' 条新消息'), 1400);
+  save();
+  renderAll();
+  if (CHAPTERS[S.day]) showChapter(S.day);
+  else renderStageIdle();
+}
+
+function renderStageIdle() {
+  setStageArt('flower');
+  setCharVisible(true);
+  setStageChar('shiyu');
+  el.scenePlace.textContent = '春分花店 · 阁楼';
+  const d = dayInfo();
+  el.sceneTime.textContent = d.date + ' · ' + weatherName(d.weather);
+  const note = MORNING[Math.min(S.day - 1, MORNING.length - 1)];
+  const hasEvents = LOCS.some((l) => locUnlocked(l) && eventsAt(l.id).length > 0);
+  let extra = '';
+  if (S.ap <= 0) extra = '今天的力气用完了。早点休息吧。';
+  else if (!S.chatDone && CHATS[S.day]) extra = '手机里有一条未读消息。';
+  else if (!hasEvents) extra = '今天没有新故事了。还有 ' + S.ap + ' 点行动力，可以留给他。';
+  else extra = '还有 ' + S.ap + ' 点行动力。去哪里走走？';
+
+  el.sceneText.innerHTML = para(note) + para(extra);
+  el.choices.innerHTML = '';
+
+  const acts = [
+    { t: '看看手机', desc: '聊天 · 不消耗行动力', fn: () => setTab('phone', true) },
+    { t: '出门走走', desc: hasEvents ? '探索地点 · 消耗 1 行动力' : '今天没有新故事', fn: () => setTab('map', true) },
+    { t: '写一封信', desc: '每天一次 · 不消耗行动力', fn: () => setTab('letters', true) },
+    { t: '结束这一天', desc: '进入下一个雨天', fn: endDay, primary: true }
+  ];
+  if (S.ap > 0 && !hasEvents) {
+    acts.splice(2, 0, { t: '把时间留给他', desc: '小事件 · 消耗 1 行动力', fn: spendTime });
+  }
+  acts.forEach((a) => {
+    const b = document.createElement('button');
+    b.className = 'choice' + (a.primary ? ' primary' : '');
+    b.innerHTML = '<span>' + a.t + '</span><span class="cost">' + a.desc + '</span>';
+    b.onclick = a.fn;
+    el.choices.appendChild(b);
+  });
+}
+
+function spendTime() {
+  if (modalOn) return;
+  if (!S || S.ap <= 0) { toast('今天的力气用完了'); return; }
+  if (!Array.isArray(S.smallSeen)) S.smallSeen = [];
+  let pool = SMALL_MOMENTS.filter((m) => S.day >= (m.min || 1) && !S.smallSeen.includes(m.id));
+  if (!pool.length) {
+    S.smallSeen = [];
+    pool = SMALL_MOMENTS.filter((m) => S.day >= (m.min || 1));
+  }
+  const m = pool[Math.floor(Math.random() * pool.length)];
+  S.smallSeen.push(m.id);
+  S.ap -= 1;
+  applyFx(m.fx);
+  S.log.push({ day: S.day, text: m.log });
+  save();
+  closePanelSheet();
+  showScene({ art: m.art, place: m.place, time: m.time, text: m.text }, () => {
+    save();
+    renderAll();
+  });
+}
+
+/* ---------------- 面板 ---------------- */
+function sheetMaxH() {
+  return Math.max(240, window.innerHeight - 58);
+}
+function sheetDefaultH() {
+  return Math.min(sheetMaxH(), Math.round(window.innerHeight * 0.72));
+}
+function updateSheetScrim(targetH) {
+  if (window.innerWidth > 900) { el.panelScrim.classList.remove('on'); return; }
+  const open = el.panel.classList.contains('open');
+  const h = open ? (typeof targetH === 'number' ? targetH : el.panel.getBoundingClientRect().height) : 0;
+  if (open && h < sheetMaxH() - 8) {
+    el.panelScrim.style.bottom = (58 + h) + 'px';
+    el.panelScrim.classList.add('on');
+  } else {
+    el.panelScrim.classList.remove('on');
+  }
+}
+function openPanelSheet(mode) {
+  if (window.innerWidth > 900) return;
+  const wasOpen = el.panel.classList.contains('open');
+  el.panel.classList.add('open');
+  el.panel.classList.remove('dragging');
+  if (mode === 'full') {
+    el.panel.classList.add('full');
+    el.panel.style.height = sheetMaxH() + 'px';
+    updateSheetScrim(sheetMaxH());
+    return;
+  }
+  if (mode === 'default' || !wasOpen) {
+    el.panel.classList.remove('full');
+    el.panel.style.height = '';
+    updateSheetScrim(sheetDefaultH());
+    return;
+  }
+  updateSheetScrim();
+}
+function closePanelSheet() {
+  el.panel.classList.remove('open');
+  el.panel.classList.remove('full');
+  el.panel.classList.remove('dragging');
+  el.panelScrim.classList.remove('on');
+  setTimeout(() => {
+    if (!el.panel.classList.contains('open')) {
+      el.panel.style.height = '';
+      el.panelScrim.style.bottom = '';
+    }
+  }, 320);
+}
+
+let sheetDrag = null;
+function onSheetDown(e) {
+  if (window.innerWidth > 900) return;
+  if (!el.panel.classList.contains('open')) return;
+  const h = el.panel.getBoundingClientRect().height;
+  el.panel.style.height = h + 'px';
+  el.panel.classList.remove('full');
+  el.panel.classList.add('dragging');
+  sheetDrag = { id: e.pointerId, startY: e.clientY, startH: h, lastY: e.clientY, lastT: performance.now(), vy: 0, moved: false };
+  if (el.panelGrab.setPointerCapture) {
+    try { el.panelGrab.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ }
+  }
+  e.preventDefault();
+}
+function onSheetMove(e) {
+  if (!sheetDrag || e.pointerId !== sheetDrag.id) return;
+  const now = performance.now();
+  const dt = Math.max(1, now - sheetDrag.lastT);
+  const dy = e.clientY - sheetDrag.lastY;
+  sheetDrag.vy = dy / dt;
+  sheetDrag.lastY = e.clientY;
+  sheetDrag.lastT = now;
+  if (Math.abs(e.clientY - sheetDrag.startY) > 4) sheetDrag.moved = true;
+  const h = Math.max(24, Math.min(sheetMaxH(), sheetDrag.startH + (sheetDrag.startY - e.clientY)));
+  el.panel.style.height = Math.round(h) + 'px';
+  updateSheetScrim();
+  e.preventDefault();
+}
+function onSheetUp(e) {
+  if (!sheetDrag || e.pointerId !== sheetDrag.id) return;
+  const d = sheetDrag;
+  sheetDrag = null;
+  el.panel.classList.remove('dragging');
+  const h = el.panel.getBoundingClientRect().height;
+  const def = sheetDefaultH();
+  const max = sheetMaxH();
+  if (!d.moved) {
+    if (h >= max - 20) openPanelSheet('default');
+    else openPanelSheet('full');
+    return;
+  }
+  const downFast = d.vy > 0.55;
+  const upFast = d.vy < -0.55;
+  if ((downFast && h < def * 1.2) || h < def * 0.5) { closePanelSheet(); return; }
+  if (upFast || h > def + (max - def) * 0.4) { openPanelSheet('full'); return; }
+  openPanelSheet('default');
+}
+
+function setTab(tab, fromUser) {
+  curTab = tab;
+  if (tab === 'clues') { S.newClues = 0; renderHUD(); save(); }
+  el.panelTabs.querySelectorAll('.ptab').forEach((b) => b.classList.toggle('active', b.dataset.tab === tab));
+  el.mnav.querySelectorAll('button').forEach((b) => b.classList.toggle('active', b.dataset.tab === tab));
+  if (fromUser) openPanelSheet();
+  renderPanel();
+}
+
+function renderPanel() {
+  if (!S) return;
+  if (curTab === 'phone') renderPhone();
+  else if (curTab === 'map') renderMap();
+  else if (curTab === 'clues') renderClues();
+  else if (curTab === 'letters') renderLetters();
+  else if (curTab === 'people') renderPeople();
+  else renderDiary();
+}
+
+/* ---------------- 手机 ---------------- */
+function renderPhone() {
+  if (curChat === 'list') { renderContacts(); return; }
+  renderThread(curChat);
+}
+
+function renderContacts() {
+  ensureSideState();
+  const unread = CHATS[S.day] && !S.chatDone;
+  const zhiNew = sideUnread('zhi');
+  const chenNew = sideUnread('chen');
+  const zhiDay = sideLastDay('zhi');
+  const chenDay = sideLastDay('chen');
+  const newCount = (unread ? 1 : 0) + (zhiNew ? 1 : 0) + (chenNew ? 1 : 0);
+  let html = '<div class="phone-shell"><div class="phone-screen">';
+  html += '<div class="ph-status"><span>21:08</span><span>5G &nbsp; 82%</span></div>';
+  html += '<div class="ph-notch"></div>';
+  html += '<div class="ph-head"><b style="font-family:var(--serif);font-size:16px;letter-spacing:.14em">消息</b>' +
+    '<span style="margin-left:auto;font-size:9px;color:var(--ink3)">' + (newCount ? newCount + ' 条未读' : '今天很安静') + '</span></div>';
+  html += '<div class="ph-body">';
+  html += '<button class="contact" data-cid="shiyu">' +
+    '<span class="avt">' + avtInner('shiyu') + '</span>' +
+    '<span class="ct-main"><b>陆时雨</b><s>' + esc(fmt(lastPreviewFor('shiyu'))) + '</s></span>' +
+    '<span class="ct-side">今天' + (unread ? '<span class="badge">新</span>' : '') + '</span>' +
+    '</button>';
+  html += '<button class="contact" data-cid="zhi">' +
+    '<span class="avt zhi">' + avtInner('zhi') + '</span>' +
+    '<span class="ct-main"><b>周栀</b><s>' + esc(fmt(lastPreviewFor('zhi'))) + '</s></span>' +
+    '<span class="ct-side">' + (zhiDay ? (zhiDay === S.day ? '今天' : '第 ' + zhiDay + ' 天') : '') + (zhiNew ? '<span class="badge">新</span>' : '') + '</span>' +
+    '</button>';
+  html += '<button class="contact" data-cid="chen">' +
+    '<span class="avt chen">' + avtInner('chen') + '</span>' +
+    '<span class="ct-main"><b>陈姨</b><s>' + esc(fmt(lastPreviewFor('chen'))) + '</s></span>' +
+    '<span class="ct-side">' + (chenDay ? (chenDay === S.day ? '今天' : '第 ' + chenDay + ' 天') : '') + (chenNew ? '<span class="badge">新</span>' : '') + '</span>' +
+    '</button>';
+  html += '</div>';
+  html += '<div class="ph-foot" style="text-align:center;font-size:9.5px;color:var(--ink3);letter-spacing:.12em">' +
+    (newCount ? '有人给你留了消息' : '今天已经聊过了') + '</div>';
+  html += '</div></div>';
+  el.panelBody.innerHTML = html;
+  el.panelBody.querySelectorAll('[data-cid]').forEach((b) => {
+    b.onclick = () => { curChat = b.dataset.cid; renderPanel(); };
+  });
+}
+
+function lastPreviewFor(id) {
+  if (id === 'shiyu') {
+    const ch = CHATS[S.day];
+    if (!ch) return '今天没有新消息';
+    if (S.chatDone) {
+      const idx = S.chatChoice[S.day];
+      const c = ch.choices[idx];
+      const reply = c && c.reply ? c.reply[c.reply.length - 1] : null;
+      return reply ? reply.text : '今天已经聊过了';
+    }
+    return ch.msgs[ch.msgs.length - 1].text;
+  }
+  const msgs = sideThreadFor(id);
+  return msgs.length ? msgs[msgs.length - 1].text : '还没有消息';
+}
+
+/* 联系人头像：有图用图，缺图/加载失败回退成单字 */
+const AVT_SRC = { shiyu: () => ART.shiyuJpg, zhi: () => ART.npcZhou, chen: () => ART.npcChen };
+const AVT_TXT = { shiyu: '雨', zhi: '栀', chen: '陈' };
+function avtInner(cid) {
+  const get = AVT_SRC[cid];
+  const src = get ? get() : '';
+  const letter = AVT_TXT[cid] || '雨';
+  return (src ? '<img src="' + src + '" alt="" onerror="this.remove()">' : '') + '<i>' + letter + '</i>';
+}
+
+function renderThread(cid) {
+  const isShiyu = cid === 'shiyu';
+  const title = isShiyu ? '陆时雨' : cid === 'zhi' ? '周栀' : '陈姨';
+  const avtCls = isShiyu ? '' : cid;
+
+  let html = '<div class="phone-shell"><div class="phone-screen">';
+  html += '<div class="ph-status"><span>21:08</span><span>5G &nbsp; 82%</span></div>';
+  html += '<div class="ph-notch"></div>';
+  html += '<div class="ph-head">' +
+    '<button class="ph-back" data-back="1">‹</button>' +
+    '<span class="avt ' + avtCls + '" style="width:28px;height:28px;flex:0 0 28px;border-radius:9px;font-size:12px">' + avtInner(cid) + '</span>' +
+    '<b>' + title + '</b>' +
+    '<span style="margin-left:auto;font-size:9px;color:var(--ink3)">' + (isShiyu ? '在线' : '') + '</span>' +
+    '</div>';
+  html += '<div class="ph-body" id="threadBody">';
+
+  if (isShiyu) {
+    const ch = CHATS[S.day];
+    if (!ch) {
+      html += '<div class="chat-empty"><b>今天没有新的消息</b>也许他也在忙。</div>';
+    } else {
+      ch.msgs.forEach((m) => { html += bubbleHtml(m, cid); });
+      const chosen = S.chatChoice[S.day];
+      if (chosen != null) {
+        const c = ch.choices[chosen];
+        html += '<div class="msg me"><span class="mini-avt">我</span><div class="bubble">' + esc(fmt(c.t.replace(/[「」]/g, ''))) + '</div></div>';
+        (c.reply || []).forEach((m) => { html += bubbleHtml(m, cid); });
+      }
+    }
+  } else {
+    ensureSideState();
+    const msgs = sideThreadFor(cid);
+    if (!msgs.length) {
+      html += '<div class="chat-empty"><b>还没有消息</b>她大概也在忙。</div>';
+    } else {
+      msgs.forEach((m) => { html += bubbleHtml(m, cid); });
+      const last = sideLastDay(cid);
+      if (last > (S.sideRead[cid] || 0)) {
+        S.sideRead[cid] = last;
+        save();
+        renderHUD();
+      }
+    }
+  }
+  html += '</div>';
+
+  const sideDay = isShiyu ? 0 : sideLastDay(cid);
+  const sideConf = !isShiyu && SIDE_REPLIES[cid] ? SIDE_REPLIES[cid][sideDay] : null;
+  const sideReplied = !isShiyu && S.sideReplies[cid] && S.sideReplies[cid][sideDay] != null;
+
+  if (isShiyu && !S.chatDone && CHATS[S.day]) {
+    html += '<div class="ph-foot"><div class="replies" id="replyBox">';
+    CHATS[S.day].choices.forEach((c, i) => {
+      let fx = '';
+      if (c.fx && c.fx.heart) fx += '♥' + fxGain(c.fx.heart) + ' ';
+      if (c.fx && c.fx.heal) fx += '✦' + fxGain(c.fx.heal);
+      html += '<button class="reply" data-reply="' + i + '">' + esc(fmt(c.t)) + (fx ? '<span class="fx">' + fx + '</span>' : '') + '</button>';
+    });
+    html += '</div></div>';
+  } else if (!isShiyu && sideConf && !sideReplied) {
+    html += '<div class="ph-foot"><div class="replies" id="replyBox">';
+    sideConf.forEach((c, i) => {
+      html += '<button class="reply" data-side-reply="' + i + '">' + esc(fmt(c.t)) + '</button>';
+    });
+    html += '</div></div>';
+  } else {
+    html += '<div class="ph-foot" style="text-align:center;font-size:10px;color:var(--ink3);letter-spacing:.1em">' +
+      (isShiyu ? '今天已经聊过了' : (sideReplied ? '已经回过了' : '只能查看消息')) + '</div>';
+  }
+  html += '</div></div>';
+
+  el.panelBody.innerHTML = html;
+
+  const back = el.panelBody.querySelector('[data-back]');
+  if (back) back.onclick = () => { curChat = 'list'; renderPanel(); };
+
+  el.panelBody.querySelectorAll('[data-reply]').forEach((b) => {
+    b.onclick = () => chooseChat(parseInt(b.dataset.reply, 10));
+  });
+  el.panelBody.querySelectorAll('[data-side-reply]').forEach((b) => {
+    b.onclick = () => chooseSideReply(cid, sideDay, parseInt(b.dataset.sideReply, 10));
+  });
+
+  const body = $('threadBody');
+  if (body) body.scrollTop = body.scrollHeight;
+}
+
+function chooseSideReply(cid, day, idx) {
+  ensureSideState();
+  if (!day || !SIDE_REPLIES[cid] || !SIDE_REPLIES[cid][day]) return;
+  if (S.sideReplies[cid] && S.sideReplies[cid][day] != null) return;
+  if (!S.sideReplies[cid]) S.sideReplies[cid] = {};
+  S.sideReplies[cid][day] = idx;
+  S.sideRead[cid] = Math.max(S.sideRead[cid] || 0, day);
+  save();
+  renderHUD();
+  renderThread(cid);
+}
+
+function bubbleHtml(m, cid) {
+  if (m.from === 'sys') {
+    return '<div class="msg sys"><div class="bubble">' + esc(m.text) + '</div></div>';
+  }
+  if (m.from === 'me') {
+    return '<div class="msg me"><span class="mini-avt">我</span><div class="bubble">' + esc(fmt(m.text)) + '</div></div>';
+  }
+  return '<div class="msg"><span class="mini-avt">' + avtInner(cid || 'shiyu') + '</span><div class="bubble">' + esc(fmt(m.text)) + '</div></div>';
+}
+
+function chooseChat(idx) {
+  const ch = CHATS[S.day];
+  if (!ch || S.chatDone) return;
+  const c = ch.choices[idx];
+  S.chatChoice[S.day] = idx;
+  S.chatDone = true;
+  applyFx(c.fx);
+  S.log.push({ day: S.day, text: '和陆时雨聊了几句' });
+  save();
+  renderHUD();
+  renderThread('shiyu');
+  if (!stageOnDone) renderStageIdle();
+  setTimeout(() => { toast('今天的对话结束了'); }, 300);
+}
+
+/* ---------------- 地图 ---------------- */
+function eventsAt(locId) {
+  return EVENTS.filter((e) => e.loc === locId && S.day >= e.min && S.day <= e.max && !S.seen[e.id]);
+}
+function locUnlocked(loc) { return S.day >= loc.unlock; }
+
+function renderMap() {
+  let html = '<div class="map-lead"><span>榆树巷 · 今天可以去的地方</span><b>行动力 ' + S.ap + ' / ' + MAX_AP + '</b></div>';
+  const rank = (loc) => {
+    if (!locUnlocked(loc)) return 2;
+    return S.ap > 0 && eventsAt(loc.id).length > 0 ? 0 : 1;
+  };
+  const ordered = LOCS.slice().sort((a, b) => rank(a) - rank(b));
+  ordered.forEach((loc) => {
+    const unlocked = locUnlocked(loc);
+    const evs = unlocked ? eventsAt(loc.id) : [];
+    const can = unlocked && S.ap > 0 && evs.length > 0;
+    let side = '';
+    let sub = loc.sub;
+    if (!unlocked) { side = '第 ' + loc.unlock + ' 天解锁'; sub = '还不到时候'; }
+    else if (evs.length === 0) { side = '今日无新事'; }
+    else { side = '新故事 ×' + evs.length; }
+    if (!unlocked || evs.length === 0) side = '<em>' + side + '</em>';
+    else side = '<em>消耗 1 行动力</em>' + side;
+
+    const thumbArt = ART['bg_' + loc.art];
+    html += '<button class="loc' + (can ? '' : ' locked') + '" data-loc="' + loc.id + '" data-art="' + loc.art + '"' + (can ? '' : ' disabled') + '>' +
+      '<span class="thumb">' + (thumbArt ? '<img src="' + thumbArt + '" alt="" loading="lazy" decoding="async">' : '') + '</span>' +
+      '<span class="lo-main"><b>' + loc.name + '</b><s>' + sub + '</s></span>' +
+      '<span class="lo-side">' + side + '</span>' +
+      '</button>';
+  });
+  if (S.ap <= 0) {
+    html += '<div class="clue-note">行动力用完了。可以写一封信，或者结束这一天。</div>';
+  }
+  html += '<div class="diary-actions"><button class="mini-btn" data-endday="1">结束这一天</button></div>';
+  el.panelBody.innerHTML = html;
+
+  el.panelBody.querySelectorAll('[data-loc]').forEach((b) => {
+    b.onclick = () => explore(b.dataset.loc);
+  });
+  const ed = el.panelBody.querySelector('[data-endday]');
+  if (ed) ed.onclick = endDay;
+}
+
+function explore(locId) {
+  const loc = LOCS.find((l) => l.id === locId);
+  if (!loc || !locUnlocked(loc)) return;
+  const evs = eventsAt(locId);
+  if (!evs.length) { toast('这里今天很安静'); return; }
+  if (S.ap <= 0) { toast('行动力不足，先休息吧'); return; }
+  S.ap -= 1;
+  const ev = evs[0];
+  S.seen[ev.id] = true;
+  S.log.push({ day: S.day, text: '去了' + loc.name + '：' + (ev.place || '') });
+  save();
+  renderHUD();
+  if (window.innerWidth <= 900) closePanelSheet();
+  showScene(ev, () => {
+    S.log.push({ day: S.day, text: '在' + loc.name + '，你陪他待了一会儿' });
+    save();
+    renderAll();
+  });
+}
+
+/* ---------------- 线索 ---------------- */
+function renderClues() {
+  const total = Object.keys(CLUES).length;
+  let html = '<div class="clue-head"><span>你在春天里捡到的碎片</span><b>' + S.clues.length + ' / ' + total + '</b></div>';
+  html += '<div class="clue-grid">';
+  Object.keys(CLUES).forEach((id) => {
+    const c = CLUES[id];
+    const got = S.clues.includes(id);
+    if (!got) {
+      html += '<div class="clue locked"><b>？</b></div>';
+    } else {
+      html += '<button class="clue" data-clue="' + id + '"><span class="ci">' + c.icon + '</span><b>' + c.name + '</b><s>' + c.short + '</s></button>';
+    }
+  });
+  html += '</div>';
+  html += '<div class="clue-note">线索会在探索地点时出现。第 10 天夜里，你要用它们拼出陆家争吵的真相。</div>';
+  el.panelBody.innerHTML = html;
+  el.panelBody.querySelectorAll('[data-clue]').forEach((b) => {
+    b.onclick = () => showClue(b.dataset.clue);
+  });
+}
+
+function showClue(id) {
+  const c = CLUES[id];
+  if (!c) return;
+  openModal(
+    '<h3>' + c.name + '</h3><div class="msub">线索 · ' + c.icon + '</div>' +
+    '<p>' + esc(c.detail) + '</p>' +
+    '<div class="mact"><button class="mini-btn" data-close="1">收好</button></div>'
+  );
+}
+
+/* ---------------- 信件 ---------------- */
+function ensureLetterState() {
+  if (!S) return;
+  if (!Array.isArray(S.letters)) S.letters = [];
+  if (!Array.isArray(S.usedThemes)) S.usedThemes = [];
+  if (!S.themeLastUsed || typeof S.themeLastUsed !== 'object') S.themeLastUsed = {};
+  if (!S.replySeen || typeof S.replySeen !== 'object') S.replySeen = {};
+  if (typeof S.letterStageSeen !== 'number') S.letterStageSeen = 0;
+}
+
+function letterStage() {
+  ensureLetterState();
+  const mine = S.letters.filter((l) => l.type === 'mine').length;
+  const score = mine * 2 + Math.floor(S.heart / 12) + Math.floor(S.heal / 15);
+  if (S.day >= 11 && mine >= 6 && score >= 18) return 4;
+  if (S.day >= 7 && mine >= 3 && score >= 10) return 3;
+  if (S.day >= 3 && mine >= 1 && score >= 4) return 2;
+  return 1;
+}
+
+function syncLetterStage() {
+  ensureLetterState();
+  const st = letterStage();
+  if (st > S.letterStageSeen) {
+    if (S.letterStageSeen > 0) toast('信里的关系，又近了一层 · ' + LETTER_STAGES[st - 1].name);
+    S.letterStageSeen = st;
+    save();
+  }
+}
+
+function shuffleLetter(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+  }
+  return arr;
+}
+
+function pickLetterOptions() {
+  ensureLetterState();
+  const stage = letterStage();
+  const picks = [];
+  const add = (list) => {
+    for (let i = 0; i < list.length && picks.length < 4; i++) {
+      if (!picks.some((p) => p.id === list[i].id)) picks.push(list[i]);
+    }
+  };
+  const current = LETTER_THEMES.filter((t) => t.stage === stage);
+  const lower = LETTER_THEMES.filter((t) => t.stage < stage);
+  add(shuffleLetter(current.filter((t) => !S.usedThemes.includes(t.id))));
+  if (picks.length < 4) {
+    const oldSort = (a, b) => (S.themeLastUsed[a.id] || 0) - (S.themeLastUsed[b.id] || 0);
+    add(current.filter((t) => S.usedThemes.includes(t.id)).sort(oldSort));
+  }
+  if (picks.length < 4) add(shuffleLetter(lower.filter((t) => !S.usedThemes.includes(t.id))));
+  if (picks.length < 4) {
+    const oldSort = (a, b) => (S.themeLastUsed[a.id] || 0) - (S.themeLastUsed[b.id] || 0);
+    add(lower.filter((t) => S.usedThemes.includes(t.id)).sort(oldSort));
+  }
+  return picks;
+}
+
+function pickLetterReply(theme) {
+  const seen = Array.isArray(S.replySeen[theme.id]) ? S.replySeen[theme.id] : [];
+  let pool = theme.replies.map((_, i) => i).filter((i) => !seen.includes(i));
+  if (!pool.length) {
+    S.replySeen[theme.id] = [];
+    pool = theme.replies.map((_, i) => i);
+  }
+  const idx = pool[Math.floor(Math.random() * pool.length)];
+  S.replySeen[theme.id] = (S.replySeen[theme.id] || []).concat(idx);
+  return theme.replies[idx];
+}
+
+function renderLetters() {
+  ensureLetterState();
+  syncLetterStage();
+  const st = letterStage();
+  const info = LETTER_STAGES[st - 1];
+  const next = LETTER_STAGES[st];
+  const mine = S.letters.filter((l) => l.type === 'mine').length;
+  let html = '<div class="letter-stage"><div><b>信里的春天</b><span>第 ' + st + ' 层 · ' + info.name + '</span></div>' +
+    '<s>' + info.sub + ' · 已写 ' + mine + ' 封 · ' + (next ? '下一层：' + next.name : '已经走到信的最深处') + '</s></div>';
+  if (S.letterDay !== S.day) {
+    html += '<div class="letter-compose"><h4>今晚，写一封信</h4><p>每天可以写一封。话题会随关系推进而变深，写过的会刷新，他的回信也不会重复。</p>' +
+      '<button class="btn-primary" style="padding:8px 22px;font-size:12px" data-write="1">提笔</button></div>';
+  } else {
+    html += '<div class="letter-compose" style="opacity:.7"><h4>今晚的信已经寄出</h4><p>等明天清晨，看看他这次会怎么回。</p></div>';
+  }
+  const list = S.letters.slice().reverse();
+  if (!list.length) {
+    html += '<div class="chat-empty"><b>还没有写过信</b>有些话，写下来会比说出来容易。</div>';
+  } else {
+    list.forEach((l) => {
+      html += '<div class="mail' + (l.type === 'reply' ? ' reply' : '') + '">' +
+        '<div class="mhead"><b>' + (l.type === 'reply' ? '他寄来的回信' : '你寄出的信') + '</b><span>第 ' + l.day + ' 天</span></div>' +
+        '<p>' + esc(l.body) + '</p>' +
+        '<div class="sign">' + (l.type === 'reply' ? '时雨' : esc(S.name)) + '</div>' +
+        '</div>';
+    });
+  }
+  el.panelBody.innerHTML = html;
+  const w = el.panelBody.querySelector('[data-write]');
+  if (w) w.onclick = openLetterCompose;
+}
+
+function openLetterCompose() {
+  if (S.letterDay === S.day) { toast('今天已经写过信了'); return; }
+  ensureLetterState();
+  const stage = letterStage();
+  const info = LETTER_STAGES[stage - 1];
+  const options = pickLetterOptions();
+  let html = '<h3>今晚，写一封信</h3><div class="msub">第 ' + stage + ' 层 · ' + info.name + ' · 写过的会刷新，回信也会不一样</div><div class="theme-list">';
+  options.forEach((t) => {
+    const used = S.usedThemes.includes(t.id);
+    html += '<button class="theme" data-theme="' + t.id + '"><b>' + t.title + '</b><s>' +
+      (used ? '旧话题 · 重新写一次 · ' : '') + fxText(t.sub) + '</s></button>';
+  });
+  html += '</div>';
+  openModal(html);
+  el.modalBody.querySelectorAll('[data-theme]').forEach((b) => {
+    const t = LETTER_THEMES.find((x) => x.id === b.dataset.theme);
+    if (t) b.onclick = () => writeLetter(t);
+  });
+}
+
+function writeLetter(theme) {
+  ensureLetterState();
+  const body = theme.body.replace(/\{name\}/g, S.name);
+  S.letters.push({ type: 'mine', day: S.day, title: theme.title, body: body });
+  S.letterDay = S.day;
+  S.pendingReply = pickLetterReply(theme);
+  if (!S.usedThemes.includes(theme.id)) S.usedThemes.push(theme.id);
+  S.themeLastUsed[theme.id] = S.day;
+  applyFx(theme.fx);
+  S.log.push({ day: S.day, text: '给陆时雨写了一封信：' + theme.title });
+  save();
+  closeModal();
+  renderPanel();
+  toast('信已经寄出');
+}
+
+/* ---------------- 人物 ---------------- */
+const PEOPLE = [
+  { id: 'shiyu', img: () => ART.shiyuJpg, name: '陆时雨', role: '男主 · 复读生', line: '「只是觉得，很像一个人。」' },
+  { id: 'nuzhu', img: () => ART.nuzhu, name: '{name}', role: '你 · 花店帮工', line: '「总得有人先撑伞。」' },
+  { id: 'qin', img: () => ART.npcQin, name: '秦姨', role: '春分花店 · 老板娘', line: '「花不会说话，可它记得谁浇过水。」' },
+  { id: 'chen', img: () => ART.npcChen, name: '陈姨', role: '301 · 老邻居', line: '「你陆叔那个人，嘴硬。」' },
+  { id: 'father', img: () => ART.npcFather, name: '陆建国', role: '时雨的父亲', line: '「我没用，可我不能倒下。」' },
+  { id: 'mother', img: () => ART.npcMother, name: '周蕙兰', role: '时雨的母亲', line: '「别告诉他，妈这病不打紧。」' },
+  { id: 'yu', img: () => ART.npcYu, name: '陆小雨', role: '时雨的妹妹', line: '「我哥哥以前很爱笑的。」' },
+  { id: 'zhou', img: () => ART.npcZhou, name: '周栀', role: '你的朋友', line: '「你再不回来，我就要报警了。」' },
+  { id: 'zhoulao', img: () => ART.npcLaozhou, name: '老周', role: '拾光书店 · 老板', line: '「他本来能考上的。」' }
+];
+function renderPeople() {
+  let html = '<div class="people-head"><b>榆树巷的人</b><span>' + PEOPLE.length + ' 位</span></div>';
+  html += '<div class="people">';
+  PEOPLE.forEach((p) => {
+    html += '<div class="person">' +
+      '<span class="pimg"><img src="' + p.img() + '" alt="" loading="lazy" decoding="async"></span>' +
+      '<span class="pinfo"><b>' + (p.id === 'nuzhu' ? esc(S.name) : p.name) + '</b><s>' + p.role + '</s><i>' + p.line + '</i></span>' +
+      '</div>';
+  });
+  html += '</div>';
+  el.panelBody.innerHTML = html;
+}
+
+/* ---------------- 日记 ---------------- */
+function renderDiary() {
+  let html = '<div class="diary-stat"><b>' + esc(S.name) + '</b> · 第 ' + S.day + ' 天<br>' +
+    '心动 <b>' + S.heart + '</b> &nbsp;·&nbsp; 治愈 <b>' + S.heal + '</b> &nbsp;·&nbsp; 线索 <b>' + S.clues.length + '/' + Object.keys(CLUES).length + '</b><br>' +
+    (S.deducedOk ? '你已经知道了陆家争吵的真相。' : '你还没有拼出那个真相。') + '</div>';
+
+  const byDay = {};
+  S.log.forEach((l) => {
+    if (!byDay[l.day]) byDay[l.day] = [];
+    byDay[l.day].push(l.text);
+  });
+  const days = Object.keys(byDay).map(Number).sort((a, b) => b - a);
+  if (!days.length) {
+    html += '<div class="chat-empty"><b>日记还是空的</b>去走走吧。</div>';
+  }
+  days.forEach((d) => {
+    html += '<div class="diary-day"><div class="dd"><b>第 ' + d + ' 天</b><span>' + (DAYS[d - 1] ? DAYS[d - 1].date : '') + '</span></div>';
+    byDay[d].forEach((t) => { html += '<div class="diary-item">' + esc(fmt(t)) + '</div>'; });
+    html += '</div>';
+  });
+
+  html += '<div class="diary-actions">' +
+    '<button class="mini-btn" data-endday2="1">结束这一天</button>' +
+    '<button class="mini-btn danger" data-reset="1">重新开始</button>' +
+    '</div>';
+  el.panelBody.innerHTML = html;
+
+  const ed = el.panelBody.querySelector('[data-endday2]');
+  if (ed) ed.onclick = endDay;
+  const rs = el.panelBody.querySelector('[data-reset]');
+  if (rs) rs.onclick = () => {
+    openModal('<h3>重新开始？</h3><p>这一局的进度会被清空，已经解锁的结局会保留。</p>' +
+      '<div class="mact"><button class="mini-btn" data-close="1">再想想</button><button class="mini-btn danger" data-confirm-reset="1">重新开始</button></div>');
+    const yes = el.modalBody.querySelector('[data-confirm-reset]');
+    if (yes) yes.onclick = () => { localStorage.removeItem(SAVE_KEY); location.reload(); };
+  };
+}
+
+/* ---------------- 结束一天 ---------------- */
+function endDay() {
+  if (modalOn) return;
+  closePanelSheet();
+  if (S.day === 5 && !S.flags.d5) { S.flags.d5 = true; save(); playFixed('d5', advanceDay); return; }
+  if (S.day === 10 && !S.flags.deduced) { openDeduction(); return; }
+  if (S.day === 14 && !S.flags.d14) { S.flags.d14 = true; save(); playFixed('d14', advanceDay); return; }
+  if (S.day === 15) { playFixed('d15', finishGame); return; }
+  advanceDay();
+}
+
+function advanceDay() {
+  S.day += 1;
+  if (S.day > 15) { finishGame(); return; }
+  startDay();
+}
+
+function playFixed(key, done) {
+  const sc = FIXED[key];
+  if (!sc) { done(); return; }
+  if (window.innerWidth <= 900) closePanelSheet();
+  showScene(sc, () => {
+    save();
+    done();
+  });
+}
+
+/* ---------------- 推理 ---------------- */
+function openDeduction() {
+  let html = '<h3>' + DEDUCTION.title + '</h3><div class="msub">' + DEDUCTION.sub + ' · 线索 ' + S.clues.length + ' / ' + Object.keys(CLUES).length + '</div>';
+  DEDUCTION.intro.forEach((t) => { html += '<p>' + esc(t) + '</p>'; });
+  html += '<div class="quote">' + esc(DEDUCTION.question) + '</div><div class="mchoices">';
+  DEDUCTION.options.forEach((o, i) => {
+    html += '<button data-opt="' + i + '">' + esc(o.t) + '</button>';
+  });
+  html += '</div>';
+  openModal(html);
+  el.modalBody.querySelectorAll('[data-opt]').forEach((b) => {
+    b.onclick = () => pickDeduction(parseInt(b.dataset.opt, 10));
+  });
+}
+
+function pickDeduction(i) {
+  const o = DEDUCTION.options[i];
+  if (!o) return;
+  S.flags.deduced = true;
+  S.deducedOk = !!o.ok;
+  S.log.push({ day: S.day, text: '你拼出了真相：' + o.t });
+  if (o.ok) applyFx({ heal: 6 }); else applyFx({ heal: -4 });
+  save();
+  el.modalBody.innerHTML =
+    '<h3>' + (o.ok ? '拼好了' : '还差一块') + '</h3><div class="msub">3月23日 · 夜</div>' +
+    '<div class="quote">' + esc((o.ok ? DEDUCTION.afterOk : DEDUCTION.afterBad)).replace(/\n/g, '<br>') + '</div>' +
+    '<div class="mact"><button class="btn-primary" data-cont="1">下楼</button></div>';
+  const btn = el.modalBody.querySelector('[data-cont]');
+  btn.onclick = () => {
+    closeModal();
+    save();
+    playFixed('d10', advanceDay);
+  };
+}
+
+/* ---------------- 结局 ---------------- */
+function calcEnding() {
+  const c = S.clues.length;
+  const ok = S.deducedOk;
+  if (c < 6) return 'longrain';
+  if (!ok || S.heal < 40) return 'unsent';
+  if (S.heal >= 60 && S.heart >= 55) return c >= 11 ? 'orange' : 'true';
+  if (S.heart >= 65) return 'umbrella';
+  if (S.heal >= 45) return 'afterrain';
+  return 'unsent';
+}
+
+function finishGame() {
+  const id = calcEnding();
+  S.ending = id;
+  unlockEnding(id);
+  save();
+  showEndingScreen(id);
+}
+
+function showEndingScreen(id) {
+  const e = ENDINGS.find((x) => x.id === id) || ENDINGS[0];
+  el.ending.hidden = false;
+  el.endKicker.textContent = 'ENDING ' + e.no + ' / ' + String(ENDINGS.length).padStart(2, '0');
+  el.endTitle.textContent = e.title;
+  el.endSub.textContent = e.sub;
+  el.endBody.innerHTML = e.body.map(para).join('') + '<p class="end-sign">——' + esc(S.name) + '</p>';
+  el.endStats.innerHTML =
+    '<span>心动 <b>' + S.heart + '</b></span>' +
+    '<span>治愈 <b>' + S.heal + '</b></span>' +
+    '<span>线索 <b>' + S.clues.length + ' / ' + Object.keys(CLUES).length + '</b></span>' +
+    '<span>真相 <b>' + (S.deducedOk ? '已知' : '未知') + '</b></span>';
+
+  const artKey = e.art;
+  el.endArt.innerHTML = '<span class="art-word">' + e.title + '</span>' +
+    '<div class="end-portrait"><img src="' + ART.nuzhu + '" alt="" onerror="this.parentNode.remove()"></div>';
+  const img = document.createElement('img');
+  img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s';
+  img.onload = () => { img.style.opacity = '1'; };
+  img.onerror = () => { img.remove(); };
+  img.src = ART[artKey];
+  el.endArt.prepend(img);
+}
+
+function restartGame() {
+  localStorage.removeItem(SAVE_KEY);
+  location.reload();
+}
+
+function showEndingGallery() {
+  const unlocked = getUnlockedEndings();
+  let html = '<h3>结局收藏</h3><div class="msub">' + unlocked.length + ' / ' + ENDINGS.length + ' · 这个春天，你走到了哪里</div><div class="endlist">';
+  ENDINGS.forEach((e) => {
+    const got = unlocked.includes(e.id);
+    html += '<div class="endrow ' + (got ? 'unlocked' : 'locked') + '">' +
+      '<span class="eno">' + e.no + '</span>' +
+      '<span class="et"><b>' + (got ? e.title : '？？？') + '</b><s>' + (got ? e.sub : e.hint) + '</s></span>' +
+      '<span class="est">' + (got ? '已解锁' : '未解锁') + '</span>' +
+      '</div>';
+  });
+  html += '</div><div class="mact"><button class="mini-btn" data-close="1">收好</button></div>';
+  openModal(html);
+}
+
+/* ---------------- 弹窗 / 菜单 ---------------- */
+function openModal(html) {
+  el.modalBody.innerHTML = html;
+  el.modal.hidden = false;
+  modalOn = true;
+  el.modalBody.querySelectorAll('[data-close]').forEach((b) => { b.onclick = closeModal; });
+}
+function closeModal() {
+  el.modal.hidden = true;
+  modalOn = false;
+}
+
+function showMenu() {
+  const saved = !!loadSave();
+  openModal(
+    '<h3>存档与设置</h3><div class="msub">春日来信 · 第 ' + S.day + ' 天</div>' +
+    '<p>游戏会自动保存。你也可以手动保存当前进度。</p>' +
+    '<div class="mact" style="justify-content:flex-start">' +
+    '<button class="mini-btn" data-manual-save="1">保存进度</button>' +
+    '<button class="mini-btn" data-menu-export="1">导出存档</button>' +
+    '<button class="mini-btn" data-menu-import="1">导入存档</button>' +
+    '<button class="mini-btn" data-menu-end="1">结束这一天</button>' +
+    '<button class="mini-btn danger" data-menu-reset="1">重新开始</button>' +
+    '</div>' +
+    '<p style="margin-top:16px;font-size:10.5px;color:var(--ink3)">' + (saved ? '已检测到本地存档。' : '还没有存档。') + '</p>'
+  );
+  const sv = el.modalBody.querySelector('[data-manual-save]');
+  if (sv) sv.onclick = () => { save(); toast('进度已保存'); closeModal(); };
+  const ex = el.modalBody.querySelector('[data-menu-export]');
+  if (ex) ex.onclick = openExportModal;
+  const im = el.modalBody.querySelector('[data-menu-import]');
+  if (im) im.onclick = openImportModal;
+  const ed = el.modalBody.querySelector('[data-menu-end]');
+  if (ed) ed.onclick = () => { closeModal(); endDay(); };
+  const rs = el.modalBody.querySelector('[data-menu-reset]');
+  if (rs) rs.onclick = () => {
+    el.modalBody.innerHTML = '<h3>重新开始？</h3><p>本局进度会被清空，已解锁的结局会保留。</p>' +
+      '<div class="mact"><button class="mini-btn" data-close="1">再想想</button><button class="mini-btn danger" data-yes="1">确定</button></div>';
+    el.modalBody.querySelectorAll('[data-close]').forEach((b) => { b.onclick = closeModal; });
+    el.modalBody.querySelector('[data-yes]').onclick = () => { localStorage.removeItem(SAVE_KEY); location.reload(); };
+  };
+}
+
+/* ---------------- 存档导入导出 ---------------- */
+function saveBundle() {
+  return {
+    type: 'chunri-save',
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    save: S,
+    endings: getUnlockedEndings()
+  };
+}
+
+function openExportModal() {
+  if (!S) return;
+  const text = JSON.stringify(saveBundle(), null, 2);
+  openModal(
+    '<h3>导出存档</h3><div class="msub">第 ' + S.day + ' 天 · ' + esc(S.name) + '</div>' +
+    '<textarea class="save-text" id="saveText" readonly>' + esc(text) + '</textarea>' +
+    '<div class="mact" style="justify-content:flex-start">' +
+    '<button class="mini-btn" data-copy-save="1">复制文本</button>' +
+    '<button class="mini-btn" data-download-save="1">下载文件</button>' +
+    '<button class="mini-btn" data-close="1">收好</button>' +
+    '</div>'
+  );
+  const ta = el.modalBody.querySelector('#saveText');
+  const cp = el.modalBody.querySelector('[data-copy-save]');
+  if (cp) cp.onclick = () => {
+    const fallback = () => {
+      try { ta.focus(); ta.select(); document.execCommand('copy'); toast('存档已复制'); }
+      catch (e) { toast('请手动选中复制'); }
+    };
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(ta.value).then(() => toast('存档已复制')).catch(fallback);
+      } else fallback();
+    } catch (e) { fallback(); }
+  };
+  const dl = el.modalBody.querySelector('[data-download-save]');
+  if (dl) dl.onclick = () => {
+    try {
+      const blob = new Blob([text], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = '春日来信_存档_第' + S.day + '天.json';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1500);
+      toast('存档文件已生成');
+    } catch (e) { toast('下载失败，请复制文本'); }
+  };
+}
+
+function openImportModal() {
+  openModal(
+    '<h3>导入存档</h3><div class="msub">粘贴存档文本，或选择 .json 文件</div>' +
+    '<textarea class="save-text" id="importText" placeholder="在这里粘贴存档 JSON…"></textarea>' +
+    '<div class="mact" style="justify-content:flex-start">' +
+    '<label class="mini-btn file-btn">选择文件<input type="file" id="importFile" accept=".json,application/json" hidden></label>' +
+    '<button class="mini-btn" data-do-import="1">导入</button>' +
+    '<button class="mini-btn" data-close="1">取消</button>' +
+    '</div>' +
+    '<p style="margin-top:12px;font-size:10px;color:var(--ink3);line-height:1.7">导入会覆盖当前进度；已解锁的结局会合并保留。</p>'
+  );
+  const file = el.modalBody.querySelector('#importFile');
+  if (file) file.onchange = () => {
+    const f = file.files && file.files[0];
+    if (!f) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const ta = el.modalBody.querySelector('#importText');
+      if (ta) ta.value = String(reader.result || '');
+      toast('文件已读取');
+    };
+    reader.readAsText(f);
+  };
+  const btn = el.modalBody.querySelector('[data-do-import]');
+  if (btn) btn.onclick = importSaveText;
+}
+
+function normalizeImportedSave(raw) {
+  const name = String(raw.name || '小满').slice(0, 8) || '小满';
+  const s = defaultState(name);
+  const num = (v, def) => {
+    const n = Number(v);
+    return Number.isFinite(n) ? n : def;
+  };
+  s.name = name;
+  s.day = Math.max(1, Math.min(15, Math.round(num(raw.day, 1))));
+  s.ap = Math.max(0, Math.min(MAX_AP, Math.round(num(raw.ap, MAX_AP))));
+  s.heart = Math.max(0, Math.min(100, Math.round(num(raw.heart, 6))));
+  s.heal = Math.max(0, Math.min(100, Math.round(num(raw.heal, 6))));
+  s.clues = Array.isArray(raw.clues) ? raw.clues.filter((id) => !!CLUES[id]) : [];
+  s.chatDone = !!raw.chatDone;
+  s.chatChoice = raw.chatChoice && typeof raw.chatChoice === 'object' ? raw.chatChoice : {};
+  s.sideRead = raw.sideRead && typeof raw.sideRead === 'object' ? raw.sideRead : {};
+  s.sideReplies = raw.sideReplies && typeof raw.sideReplies === 'object' ? raw.sideReplies : {};
+  s.seen = raw.seen && typeof raw.seen === 'object' ? raw.seen : {};
+  s.smallSeen = Array.isArray(raw.smallSeen) ? raw.smallSeen : [];
+  s.flags = raw.flags && typeof raw.flags === 'object' ? raw.flags : {};
+  s.letterDay = Math.max(0, Math.min(15, Math.round(num(raw.letterDay, 0))));
+  s.letters = Array.isArray(raw.letters) ? raw.letters.filter((l) => l && typeof l === 'object').map((l) => ({
+    type: l.type === 'reply' ? 'reply' : 'mine',
+    day: Math.max(1, Math.min(15, Math.round(num(l.day, 1)))),
+    title: String(l.title || '存档里的信'),
+    body: String(l.body || '')
+  })) : [];
+  s.pendingReply = typeof raw.pendingReply === 'string' ? raw.pendingReply : null;
+  s.usedThemes = Array.isArray(raw.usedThemes) ? raw.usedThemes : [];
+  s.themeLastUsed = raw.themeLastUsed && typeof raw.themeLastUsed === 'object' ? raw.themeLastUsed : {};
+  s.replySeen = raw.replySeen && typeof raw.replySeen === 'object' ? raw.replySeen : {};
+  s.letterStageSeen = Math.max(0, Math.min(4, Math.round(num(raw.letterStageSeen, 0))));
+  s.balanceV = raw.balanceV;
+  s.log = Array.isArray(raw.log) ? raw.log.filter((x) => x && typeof x.text === 'string').map((x) => ({
+    day: Math.max(1, Math.min(15, Math.round(num(x.day, 1)))),
+    text: String(x.text)
+  })) : [];
+  s.newClues = 0;
+  s.deducedOk = !!raw.deducedOk;
+  s.ending = typeof raw.ending === 'string' ? raw.ending : null;
+  return migrateBalance(s);
+}
+
+function importSaveText() {
+  const ta = el.modalBody.querySelector('#importText');
+  const raw = ta ? ta.value.trim() : '';
+  if (!raw) { toast('请先粘贴或选择存档'); return; }
+  let data;
+  try { data = JSON.parse(raw); } catch (e) { toast('存档文本格式不对'); return; }
+  const rawSave = data && data.save && typeof data.save === 'object' ? data.save : data;
+  if (!rawSave || typeof rawSave !== 'object' || Array.isArray(rawSave) || !Number.isFinite(Number(rawSave.day))) {
+    toast('这不是有效的春日来信存档');
+    return;
+  }
+  S = normalizeImportedSave(rawSave);
+  if (data && Array.isArray(data.endings)) {
+    data.endings.forEach((id) => {
+      if (ENDINGS.some((e) => e.id === id)) unlockEnding(id);
+    });
+  }
+  save();
+  closeModal();
+  el.boot.classList.add('off');
+  el.app.hidden = false;
+  el.ending.hidden = true;
+  el.chapter.hidden = true;
+  stageOnDone = null;
+  renderAll();
+  if (S.day > 15) { showEndingScreen(calcEnding()); return; }
+  toast('存档已导入');
+  if (S.flags && S.flags.balanceMigrated) {
+    delete S.flags.balanceMigrated;
+    save();
+    setTimeout(() => toast('旧存档数值已按成长曲线校正'), 700);
+  }
+}
+
+/* ---------------- 雨声 ---------------- */
+function toggleRain() {
+  try {
+    if (!audioCtx) {
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      if (!Ctx) { toast('这个浏览器不支持雨声'); return; }
+      audioCtx = new Ctx();
+      const dur = 2;
+      const buffer = audioCtx.createBuffer(1, audioCtx.sampleRate * dur, audioCtx.sampleRate);
+      const data = buffer.getChannelData(0);
+      let last = 0;
+      for (let i = 0; i < data.length; i++) {
+        const white = Math.random() * 2 - 1;
+        last = (last + 0.02 * white) / 1.02;
+        data[i] = last * 3.2;
+      }
+      const src = audioCtx.createBufferSource();
+      src.buffer = buffer;
+      src.loop = true;
+      const lp = audioCtx.createBiquadFilter();
+      lp.type = 'lowpass';
+      lp.frequency.value = 900;
+      rainGain = audioCtx.createGain();
+      rainGain.gain.value = 0;
+      src.connect(lp);
+      lp.connect(rainGain);
+      rainGain.connect(audioCtx.destination);
+      src.start();
+    }
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    rainOn = !rainOn;
+    rainGain.gain.linearRampToValueAtTime(rainOn ? 0.055 : 0.0001, audioCtx.currentTime + 0.6);
+    el.soundBtn.classList.toggle('on', rainOn);
+    el.soundBtn.textContent = rainOn ? '♫' : '♪';
+    toast(rainOn ? '雨声已打开' : '雨声已关闭');
+  } catch (e) { toast('雨声打开失败'); }
+}
+
+/* ---------------- 前景雨丝 ---------------- */
+function initRain() {
+  const rain = $('rain');
+  if (!rain) return;
+  const mobile = window.innerWidth <= 900;
+  const count = mobile ? 56 : 100;
+  const frag = document.createDocumentFragment();
+  for (let i = 0; i < count; i++) {
+    const drop = document.createElement('i');
+    const depth = Math.random();
+    const h = depth < 0.55 ? 8 + Math.random() * 7 : depth < 0.9 ? 14 + Math.random() * 10 : 22 + Math.random() * 14;
+    const w = depth < 0.55 ? 0.55 : depth < 0.9 ? 0.8 : 1.05;
+    const alpha = depth < 0.55 ? 0.18 + Math.random() * 0.12 : depth < 0.9 ? 0.26 + Math.random() * 0.12 : 0.34 + Math.random() * 0.14;
+    const dur = (depth < 0.55 ? 2.8 : depth < 0.9 ? 2.2 : 1.6) + Math.random() * (depth < 0.55 ? 1 : depth < 0.9 ? 0.8 : 0.7);
+    drop.style.cssText =
+      'left:' + (Math.random() * 112 - 6).toFixed(2) + '%;' +
+      'height:' + h.toFixed(1) + 'px;' +
+      'width:' + w.toFixed(2) + 'px;' +
+      'opacity:' + alpha.toFixed(2) + ';' +
+      'animation-duration:' + dur.toFixed(2) + 's;' +
+      'animation-delay:-' + (Math.random() * dur).toFixed(2) + 's;';
+    frag.appendChild(drop);
+  }
+  rain.appendChild(frag);
+}
+
+/* ---------------- 启动 ---------------- */
+initBoot();
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('sw.js').catch(function () {});
+  });
+}
+
+</script>
+</body>
+</html>
