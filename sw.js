@@ -1,4 +1,4 @@
-const CACHE = 'cr-v1';
+const CACHE = 'cr-v2';
 const CORE = ['index.html'];
 
 self.addEventListener('install', e => {
